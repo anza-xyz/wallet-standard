@@ -1,4 +1,4 @@
-// This file is copied with modification from @wallet-standard/solana-chains
+// This file is copied with modification from @solana/wallet-standard-chains
 
 import { Network } from '@glow-xyz/glow-client';
 import type { IdentifierString } from '@wallet-standard/standard';

@@ -1,0 +1,26 @@
+{
+    "extends": "../../../tsconfig.root.json",
+    "references": [
+        {
+            "path": "../../core/_/tsconfig.all.json"
+        },
+        {
+            "path": "../../wallet-adapter/_/tsconfig.all.json"
+        },
+        {
+            "path": "../../wallets/backpack/tsconfig.all.json"
+        },
+        {
+            "path": "../../wallets/glow/tsconfig.all.json"
+        },
+        {
+            "path": "../../wallets/phantom/tsconfig.all.json"
+        },
+        {
+            "path": "../../wallets/solflare/tsconfig.all.json"
+        },
+        {
+            "path": "./tsconfig.base.json"
+        }
+    ]
+}

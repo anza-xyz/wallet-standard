@@ -1,9 +1,12 @@
-// This file is copied with modification from @solana/wallet-standard-util
+import type { SolanaChain } from '@solana/wallet-standard-chains';
+import {
+    SOLANA_DEVNET_CHAIN,
+    SOLANA_LOCALNET_CHAIN,
+    SOLANA_MAINNET_CHAIN,
+    SOLANA_TESTNET_CHAIN,
+} from '@solana/wallet-standard-chains';
 
-import type { SolanaChain } from './solana.js';
-import { SOLANA_DEVNET_CHAIN, SOLANA_LOCALNET_CHAIN, SOLANA_MAINNET_CHAIN, SOLANA_TESTNET_CHAIN } from './solana.js';
-
-export const MAINNET_ENDPOINT = 'https://solana-rpc-nodes.projectserum.com';
+export const MAINNET_ENDPOINT = 'https://api.mainnet-beta.solana.com';
 export const DEVNET_ENDPOINT = 'https://api.devnet.solana.com';
 export const TESTNET_ENDPOINT = 'https://api.testnet.solana.com';
 export const LOCALNET_ENDPOINT = 'http://localhost:8899';

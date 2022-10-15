@@ -19,7 +19,7 @@ import type {
     SolanaSignTransactionFeature,
     SolanaSignTransactionMethod,
     SolanaSignTransactionOutput,
-} from '@wallet-standard/solana-features';
+} from '@solana/wallet-standard-features';
 import type { Wallet } from '@wallet-standard/standard';
 import bs58 from 'bs58';
 import { Buffer } from 'buffer';

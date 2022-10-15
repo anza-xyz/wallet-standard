@@ -1,6 +1,6 @@
 {
-    "private": true,
-    "name": "@solana/wallet-standard-phantom",
+    "name": "@solana/wallet-standard-wallet-adapter-base",
+    "version": "0.1.0-alpha.0",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
     "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
@@ -14,21 +14,34 @@
         "import": "./lib/esm/index.js",
         "types": "./lib/types/index.d.ts"
     },
+    "files": [
+        "lib",
+        "src",
+        "LICENSE"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "clean": "shx mkdir -p lib && shx rm -rf lib",
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "peerDependencies": {
-        "@solana/web3.js": "^1.58.0",
+        "@solana/web3.js": "^1.51.0",
         "bs58": "^4.0.1"
     },
     "dependencies": {
+        "@solana/wallet-adapter-base": "^0.9.17",
+        "@solana/wallet-standard-chains": "workspace:^",
         "@solana/wallet-standard-features": "workspace:^",
+        "@solana/wallet-standard-util": "workspace:^",
+        "@wallet-standard/app": "^0.1.0-alpha.6",
         "@wallet-standard/features": "^0.1.0-alpha.4",
-        "@wallet-standard/standard": "^0.1.0-alpha.5"
+        "@wallet-standard/standard": "^0.1.0-alpha.5",
+        "@wallet-standard/util": "^0.1.0-alpha.6"
     },
     "devDependencies": {
-        "@solana/web3.js": "^1.58.0",
+        "@solana/web3.js": "^1.51.0",
         "@types/bs58": "^4.0.1",
         "@types/node-fetch": "^2.6.2",
         "bs58": "^4.0.1",

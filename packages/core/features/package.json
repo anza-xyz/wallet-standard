@@ -1,8 +1,8 @@
 {
-    "name": "@wallet-standard/features",
-    "version": "0.1.0-alpha.4",
+    "name": "@solana/wallet-standard-features",
+    "version": "0.1.0-alpha.0",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
-    "repository": "https://github.com/wallet-standard/wallet-standard",
+    "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
     "type": "module",
     "sideEffects": false,
@@ -27,7 +27,8 @@
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
-        "@wallet-standard/standard": "workspace:^"
+        "@wallet-standard/features": "^0.1.0-alpha.4",
+        "@wallet-standard/standard": "^0.1.0-alpha.5"
     },
     "devDependencies": {
         "shx": "^0.3.4"

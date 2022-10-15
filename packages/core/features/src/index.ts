@@ -1,26 +1,12 @@
 import type { WalletWithFeatures } from '@wallet-standard/standard';
-import type { ConnectFeature } from './connect.js';
-import type { DisconnectFeature } from './disconnect.js';
-import type { EventsFeature } from './events.js';
-import type { SignAndSendTransactionFeature } from './signAndSendTransaction.js';
-import type { SignMessageFeature } from './signMessage.js';
-import type { SignTransactionFeature } from './signTransaction.js';
+import type { SolanaSignAndSendTransactionFeature } from './solanaSignAndSendTransaction.js';
+import type { SolanaSignTransactionFeature } from './solanaSignTransaction.js';
 
 /** TODO: docs */
-export type StandardFeatures =
-    | ConnectFeature
-    | DisconnectFeature
-    | EventsFeature
-    | SignAndSendTransactionFeature
-    | SignMessageFeature
-    | SignTransactionFeature;
+export type SolanaFeatures = SolanaSignTransactionFeature | SolanaSignAndSendTransactionFeature;
 
 /** TODO: docs */
-export type WalletWithStandardFeatures = WalletWithFeatures<StandardFeatures>;
+export type WalletWithSolanaFeatures = WalletWithFeatures<SolanaFeatures>;
 
-export * from './connect.js';
-export * from './disconnect.js';
-export * from './events.js';
-export * from './signAndSendTransaction.js';
-export * from './signMessage.js';
-export * from './signTransaction.js';
+export * from './solanaSignTransaction.js';
+export * from './solanaSignAndSendTransaction.js';

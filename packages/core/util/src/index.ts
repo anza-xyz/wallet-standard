@@ -1,2 +1,2 @@
-export * from './account.js';
-export * from './util.js';
+export * from './commitment.js';
+export * from './endpoint.js';

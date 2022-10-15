@@ -1,10 +1,10 @@
-# [WIP] Wallet Standard
+# `@solana/wallet-standard`
 
 Coming soon.
 
 See [packages/core/standard](packages/core/standard) for a description of the goals of this project and its core API.
 
-# typescript-monorepo
+# [typescript-monorepo](https://github.com/jordansexton/typescript-monorepo)
 
 This is a simple monorepo template with some specific design goals:
 
@@ -14,7 +14,10 @@ This is a simple monorepo template with some specific design goals:
 * Watch mode works
 * ESM and CJS work (with distinct build outputs)
 * Vanilla TS and React packages work
-* ~~Create React App~~ Parcel works (with hot module reloading of the entire workspace)
+* Create React App works* (with hot module reloading of the entire workspace)
+* Parcel works (with HMR)
+
+\* Create React App, which uses Webpack 5, can't resolve ES modules without .mjs file extensions by default, so [react-app-rewired](https://github.com/timarney/react-app-rewired) is minimally used to [configure Webpack](packages/app/create-react-app/config-overrides.js) to do this.
 
 ## Prerequisites
 

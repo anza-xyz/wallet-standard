@@ -1,4 +1,3 @@
-export * from '@wallet-standard/app';
-export * from '@wallet-standard/features';
-export * from '@wallet-standard/standard';
-export * from '@wallet-standard/util';
+export * from '@solana/wallet-standard-chains';
+export * from '@solana/wallet-standard-features';
+export * from '@solana/wallet-standard-util';
