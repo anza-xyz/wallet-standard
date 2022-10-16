@@ -71,21 +71,21 @@ importers:
 
   packages/core/chains:
     specifiers:
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/base': ^1.0.0-rc.0
       shx: ^0.3.4
     dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
     devDependencies:
       shx: 0.3.4
 
   packages/core/features:
     specifiers:
-      '@wallet-standard/features': ^0.1.0-alpha.4
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/base': ^1.0.0-rc.0
+      '@wallet-standard/features': ^1.0.0-rc.0
       shx: ^0.3.4
     dependencies:
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
+      '@wallet-standard/features': 1.0.0-rc.0
     devDependencies:
       shx: 0.3.4
 
@@ -118,7 +118,6 @@ importers:
       '@solana/wallet-adapter-react-ui': ^0.9.18
       '@solana/wallet-adapter-wallets': ^0.19.1
       '@solana/wallet-standard-backpack': workspace:^
-      '@solana/wallet-standard-core': workspace:^
       '@solana/wallet-standard-glow': workspace:^
       '@solana/wallet-standard-phantom': workspace:^
       '@solana/wallet-standard-solflare': workspace:^
@@ -155,7 +154,6 @@ importers:
       '@solana/wallet-adapter-react-ui': 0.9.18_443hqxnqucnio2x76gsz7orqgu
       '@solana/wallet-adapter-wallets': 0.19.1_sz3q7urtk7lzqh2q3fuoow7ofe
       '@solana/wallet-standard-backpack': link:../../wallets/backpack
-      '@solana/wallet-standard-core': link:../../core/_
       '@solana/wallet-standard-glow': link:../../wallets/glow
       '@solana/wallet-standard-phantom': link:../../wallets/phantom
       '@solana/wallet-standard-solflare': link:../../wallets/solflare
@@ -201,10 +199,10 @@ importers:
       '@solana/web3.js': ^1.51.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
-      '@wallet-standard/app': ^0.1.0-alpha.6
-      '@wallet-standard/features': ^0.1.0-alpha.4
-      '@wallet-standard/standard': ^0.1.0-alpha.5
-      '@wallet-standard/util': ^0.1.0-alpha.6
+      '@wallet-standard/app': ^1.0.0-rc.0
+      '@wallet-standard/base': ^1.0.0-rc.0
+      '@wallet-standard/features': ^1.0.0-rc.0
+      '@wallet-standard/util': ^1.0.0-rc.0
       bs58: ^4.0.1
       shx: ^0.3.4
     dependencies:
@@ -212,10 +210,10 @@ importers:
       '@solana/wallet-standard-chains': link:../../core/chains
       '@solana/wallet-standard-features': link:../../core/features
       '@solana/wallet-standard-util': link:../../core/util
-      '@wallet-standard/app': 0.1.0-alpha.6
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
-      '@wallet-standard/util': 0.1.0-alpha.6
+      '@wallet-standard/app': 1.0.0-rc.0
+      '@wallet-standard/base': 1.0.0-rc.0
+      '@wallet-standard/features': 1.0.0-rc.0
+      '@wallet-standard/util': 1.0.0-rc.0
     devDependencies:
       '@solana/web3.js': 1.65.0
       '@types/bs58': 4.0.1
@@ -230,14 +228,14 @@ importers:
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.0
-      '@wallet-standard/app': ^0.1.0-alpha.6
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/app': ^1.0.0-rc.0
+      '@wallet-standard/base': ^1.0.0-rc.0
       react: ^18.0.0
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-wallet-adapter-base': link:../base
-      '@wallet-standard/app': 0.1.0-alpha.6
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/app': 1.0.0-rc.0
+      '@wallet-standard/base': 1.0.0-rc.0
     devDependencies:
       '@solana/wallet-adapter-base': 0.9.18_@solana+web3.js@1.65.0
       '@types/bs58': 4.0.1
@@ -252,14 +250,14 @@ importers:
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
-      '@wallet-standard/features': ^0.1.0-alpha.4
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/base': ^1.0.0-rc.0
+      '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^4.0.1
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-features': link:../../core/features
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
+      '@wallet-standard/features': 1.0.0-rc.0
     devDependencies:
       '@solana/web3.js': 1.65.0
       '@types/bs58': 4.0.1
@@ -273,16 +271,16 @@ importers:
       '@solana/wallet-standard-features': workspace:^
       '@types/bn.js': 5.1.0
       '@types/luxon': 3.0.0
-      '@wallet-standard/features': ^0.1.0-alpha.4
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/base': ^1.0.0-rc.0
+      '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^5.0.0
       buffer: ^6.0.3
       shx: ^0.3.4
     dependencies:
       '@glow-xyz/glow-client': 1.4.0
       '@solana/wallet-standard-features': link:../../core/features
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
+      '@wallet-standard/features': 1.0.0-rc.0
       bs58: 5.0.0
       buffer: 6.0.3
     devDependencies:
@@ -296,14 +294,14 @@ importers:
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
-      '@wallet-standard/features': ^0.1.0-alpha.4
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/base': ^1.0.0-rc.0
+      '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^4.0.1
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-features': link:../../core/features
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
+      '@wallet-standard/features': 1.0.0-rc.0
     devDependencies:
       '@solana/web3.js': 1.65.0
       '@types/bs58': 4.0.1
@@ -318,16 +316,16 @@ importers:
       '@solflare-wallet/sdk': ^1.1.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
-      '@wallet-standard/features': ^0.1.0-alpha.4
-      '@wallet-standard/standard': ^0.1.0-alpha.5
+      '@wallet-standard/base': ^1.0.0-rc.0
+      '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^4.0.1
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-features': link:../../core/features
       '@solana/web3.js': 1.65.0
       '@solflare-wallet/sdk': 1.1.0_@solana+web3.js@1.65.0
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
+      '@wallet-standard/features': 1.0.0-rc.0
       bs58: 4.0.1
     devDependencies:
       '@types/bs58': 4.0.1
@@ -2834,26 +2832,26 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@wallet-standard/app/0.1.0-alpha.6:
-    resolution: {integrity: sha512-Z/aTiMpI2qjh/YDS8GtmHrIwpsHhHlzYffkEvuiG3RY7j0ZNsQWOx38hNN/V6lOlKrh7S+azPcFL7ESiilqvcA==}
+  /@wallet-standard/app/1.0.0-rc.0:
+    resolution: {integrity: sha512-dSn8qF9xj8oRz/8Q3+OmiVZx3Y/wtl8taaqn3dkiRY1Q6ueQaia0+cvnvl4cdE23vSgvNtc6IMbvFkRw4vJYbA==}
     dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
     dev: false
 
-  /@wallet-standard/features/0.1.0-alpha.4:
-    resolution: {integrity: sha512-HF7i//1oqadV8269Jp8rEFxSf+nCxLZ+CGKT5giuavSb/hdbiPPDbQLMhWfyLRatSnssIZN1LtsyzGe9kDFJrg==}
-    dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.5
+  /@wallet-standard/base/1.0.0-rc.0:
+    resolution: {integrity: sha512-yfQ5Ho61eKXRT6b81ezwGQ6DflKjI7hmkVRGVPAHno5gPK8TvFuiDmQJid1Y+c0v8huGGc/XFvw3451JJgb1fg==}
     dev: false
 
-  /@wallet-standard/standard/0.1.0-alpha.5:
-    resolution: {integrity: sha512-rqs9vD+Hww8kWtF8/8wi+hhLIWN1ank/ZfK7mGALen+9XhxAcgOJwl96l30MCSL2w1AHykOEELOZK6lUbg13gQ==}
+  /@wallet-standard/features/1.0.0-rc.0:
+    resolution: {integrity: sha512-4Jo/IPvsLFGnRqTF1P1Tukbae/xiiiV5Gqpf3hxjXhX7wK1hflU2aLMoU2le4P3FRY7Tphj4pkoVcrl/jBm7Xg==}
+    dependencies:
+      '@wallet-standard/base': 1.0.0-rc.0
     dev: false
 
-  /@wallet-standard/util/0.1.0-alpha.6:
-    resolution: {integrity: sha512-dyfgryEo5PU3XXZ20Zs9jRtyVuP/7qsKD9yNyPy9XlcZpB6HR3OtdqiXJQsm1KOxz8VsOsfRIdmzri4O/1MR7Q==}
+  /@wallet-standard/util/1.0.0-rc.0:
+    resolution: {integrity: sha512-P5OJ0sf/dSgoC0aClmCHObzNdlFgtQSdJZWXH5GUEfkhVrUACkqdYOgHom7hnBzh+R0TMZjKWXnHPt2exe5wpw==}
     dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0-rc.0
     dev: false
 
   /@walletconnect/browser-utils/1.8.0:
