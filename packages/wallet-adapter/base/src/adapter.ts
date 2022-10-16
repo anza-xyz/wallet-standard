@@ -34,7 +34,7 @@ import type {
     SolanaSignTransactionFeature,
 } from '@solana/wallet-standard-features';
 import { getChainForEndpoint, getCommitment } from '@solana/wallet-standard-util';
-import type { Wallet, WalletAccount, WalletWithFeatures } from '@wallet-standard/standard';
+import type { Wallet, WalletAccount, WalletWithFeatures } from '@wallet-standard/base';
 import { arraysEqual } from '@wallet-standard/util';
 import bs58 from 'bs58';
 import { isVersionedTransaction } from './transaction.js';

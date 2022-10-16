@@ -1,6 +1,6 @@
 // This file is copied with modification from @wallet-standard/util
 
-import type { WalletAccount } from '@wallet-standard/standard';
+import type { WalletAccount } from '@wallet-standard/base';
 import { SOLANA_CHAINS } from './solana.js';
 
 const chains = SOLANA_CHAINS;

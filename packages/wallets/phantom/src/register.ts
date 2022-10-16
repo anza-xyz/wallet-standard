@@ -1,4 +1,4 @@
-import type { WalletsWindow } from '@wallet-standard/standard';
+import type { WalletsWindow } from '@wallet-standard/base';
 import { PhantomWallet } from './wallet.js';
 
 declare const window: WalletsWindow;

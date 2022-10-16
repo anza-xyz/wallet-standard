@@ -20,7 +20,7 @@ import type {
     SolanaSignTransactionMethod,
     SolanaSignTransactionOutput,
 } from '@solana/wallet-standard-features';
-import type { Wallet, WalletAccount } from '@wallet-standard/standard';
+import type { Wallet, WalletAccount } from '@wallet-standard/base';
 import bs58 from 'bs58';
 import { BackpackWalletAccount } from './account.js';
 import { getChainForEndpoint, getEndpointForChain } from './endpoint.js';

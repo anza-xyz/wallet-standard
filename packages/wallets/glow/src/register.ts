@@ -1,4 +1,4 @@
-import type { WalletsWindow } from '@wallet-standard/standard';
+import type { WalletsWindow } from '@wallet-standard/base';
 import { GlowWallet } from './wallet.js';
 
 declare const window: WalletsWindow;

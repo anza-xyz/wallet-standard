@@ -1,4 +1,4 @@
-import type { WalletWithFeatures } from '@wallet-standard/standard';
+import type { WalletWithFeatures } from '@wallet-standard/base';
 import type { SolanaSignAndSendTransactionFeature } from './solanaSignAndSendTransaction.js';
 import type { SolanaSignTransactionFeature } from './solanaSignTransaction.js';
 

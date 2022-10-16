@@ -1,4 +1,4 @@
-import type { IdentifierString } from '@wallet-standard/standard';
+import type { IdentifierString } from '@wallet-standard/base';
 
 /** Solana Mainnet (beta) cluster, e.g. https://api.mainnet-beta.solana.com */
 export const SOLANA_MAINNET_CHAIN = 'solana:mainnet';

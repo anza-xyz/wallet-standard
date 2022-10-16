@@ -21,7 +21,7 @@ import type {
     SolanaSignTransactionMethod,
     SolanaSignTransactionOutput,
 } from '@solana/wallet-standard-features';
-import type { Wallet } from '@wallet-standard/standard';
+import type { Wallet } from '@wallet-standard/base';
 import bs58 from 'bs58';
 import { SolflareWalletAccount } from './account.js';
 import { getEndpointForChain } from './endpoint.js';

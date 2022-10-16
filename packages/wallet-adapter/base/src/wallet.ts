@@ -27,7 +27,7 @@ import type {
     SolanaTransactionVersion,
 } from '@solana/wallet-standard-features';
 import { getEndpointForChain } from '@solana/wallet-standard-util';
-import type { IconString, Wallet } from '@wallet-standard/standard';
+import type { IconString, Wallet } from '@wallet-standard/base';
 import { arraysEqual, bytesEqual, ReadonlyWalletAccount } from '@wallet-standard/util';
 import bs58 from 'bs58';
 import { isVersionedTransaction } from './transaction.js';
