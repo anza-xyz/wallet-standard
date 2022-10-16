@@ -32,8 +32,8 @@
     },
     "dependencies": {
         "@solana/wallet-standard-wallet-adapter-base": "workspace:^",
-        "@wallet-standard/app": "^0.1.0-alpha.6",
-        "@wallet-standard/standard": "^0.1.0-alpha.5"
+        "@wallet-standard/app": "^1.0.0-rc.0",
+        "@wallet-standard/base": "^1.0.0-rc.0"
     },
     "devDependencies": {
         "@solana/wallet-adapter-base": "^0.9.18",

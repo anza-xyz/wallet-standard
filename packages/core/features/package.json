@@ -27,8 +27,8 @@
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
-        "@wallet-standard/features": "^0.1.0-alpha.4",
-        "@wallet-standard/standard": "^0.1.0-alpha.5"
+        "@wallet-standard/base": "^1.0.0-rc.0",
+        "@wallet-standard/features": "^1.0.0-rc.0"
     },
     "devDependencies": {
         "shx": "^0.3.4"

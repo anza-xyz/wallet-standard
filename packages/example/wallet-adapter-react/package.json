@@ -28,7 +28,6 @@
         "@solana/wallet-adapter-react-ui": "^0.9.18",
         "@solana/wallet-adapter-wallets": "^0.19.1",
         "@solana/web3.js": "^1.61.0",
-        "@solana/wallet-standard-core": "workspace:^",
         "@solana/wallet-standard-glow": "workspace:^",
         "@solana/wallet-standard-backpack": "workspace:^",
         "@solana/wallet-standard-phantom": "workspace:^",
