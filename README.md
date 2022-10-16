@@ -1,8 +1,6 @@
-# `@solana/wallet-standard`
+# Solana Wallet Standard
 
-Coming soon.
-
-See [packages/core/standard](packages/core/standard) for a description of the goals of this project and its core API.
+This repo contains Solana-specific extensions to the [Wallet Standard](https://github.com/wallet-standard/wallet-standard).
 
 # [typescript-monorepo](https://github.com/jordansexton/typescript-monorepo)
 
