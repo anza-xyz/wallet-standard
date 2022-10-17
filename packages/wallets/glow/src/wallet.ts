@@ -1,4 +1,14 @@
-import type { GlowAdapter, Network, PhantomAdapter, SolanaWindow } from '@glow-xyz/glow-client';
+import type { GlowAdapter, SolanaWindow } from '@glow-xyz/glow-client';
+import { Network } from '@glow-xyz/glow-client';
+import type {
+    SolanaSignAndSendTransactionFeature,
+    SolanaSignAndSendTransactionMethod,
+    SolanaSignAndSendTransactionOutput,
+    SolanaSignTransactionFeature,
+    SolanaSignTransactionMethod,
+    SolanaSignTransactionOutput,
+} from '@solana/wallet-standard-features';
+import type { Wallet } from '@wallet-standard/base';
 import type {
     ConnectFeature,
     ConnectMethod,
@@ -12,29 +22,18 @@ import type {
     SignMessageMethod,
     SignMessageOutput,
 } from '@wallet-standard/features';
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
-} from '@solana/wallet-standard-features';
-import type { Wallet } from '@wallet-standard/base';
 import bs58 from 'bs58';
 import { Buffer } from 'buffer';
 import { GlowWalletAccount } from './account.js';
 import { icon } from './icon.js';
 import type { SolanaChain } from './solana.js';
 import { getNetworkForChain, isSolanaChain, SOLANA_CHAINS } from './solana.js';
-import { bytesEqual } from './util.js';
 
 declare const window: SolanaWindow;
 
 export type GlowFeature = {
     'glow:': {
         glow: GlowAdapter;
-        solana: PhantomAdapter;
     };
 };
 
@@ -83,12 +82,12 @@ export class GlowWallet implements Wallet {
             },
             'solana:signAndSendTransaction': {
                 version: '1.0.0',
-                supportedTransactionVersions: ['legacy'],
+                supportedTransactionVersions: ['legacy', 0],
                 signAndSendTransaction: this.#signAndSendTransaction,
             },
             'solana:signTransaction': {
                 version: '1.0.0',
-                supportedTransactionVersions: ['legacy'],
+                supportedTransactionVersions: ['legacy', 0],
                 signTransaction: this.#signTransaction,
             },
             'standard:signMessage': {
@@ -98,9 +97,6 @@ export class GlowWallet implements Wallet {
             'glow:': {
                 get glow() {
                     return window.glow;
-                },
-                get solana() {
-                    return window.solana;
                 },
             },
         };
@@ -115,9 +111,9 @@ export class GlowWallet implements Wallet {
             Object.freeze(this);
         }
 
-        window.glowSolana.on('connect', this.#connected, this);
-        window.glowSolana.on('disconnect', this.#disconnected, this);
-        window.glowSolana.on('accountChanged', this.#reconnected, this);
+        window.glow.on('connect', this.#connected, this);
+        window.glow.on('disconnect', this.#disconnected, this);
+        window.glow.on('accountChanged', this.#reconnected, this);
 
         this.#connected();
     }
@@ -137,14 +133,15 @@ export class GlowWallet implements Wallet {
     }
 
     #connected = () => {
-        const address = window.glowSolana.publicKey?.toBase58();
-        if (address) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const publicKey = window.glowSolana.publicKey!.toBytes();
-
+        const address = window.glow.address;
+        const publicKey = window.glow.publicKey;
+        if (address && publicKey) {
             const account = this.#account;
-            if (!account || account.address !== address || !bytesEqual(account.publicKey, publicKey)) {
-                this.#account = new GlowWalletAccount({ address, publicKey });
+            if (!account || account.address !== address) {
+                this.#account = new GlowWalletAccount({
+                    address,
+                    publicKey: publicKey.toBytes(),
+                });
                 this.#emit('change', { accounts: this.accounts });
             }
         }
@@ -158,7 +155,7 @@ export class GlowWallet implements Wallet {
     };
 
     #reconnected = () => {
-        if (window.glowSolana.publicKey) {
+        if (window.glow.address && window.glow.publicKey) {
             this.#connected();
         } else {
             this.#disconnected();
@@ -166,7 +163,9 @@ export class GlowWallet implements Wallet {
     };
 
     #connect: ConnectMethod = async ({ silent } = {}) => {
-        await window.glowSolana.connect(silent ? { onlyIfTrusted: true } : undefined);
+        if (!this.#account) {
+            await window.glow.connect(silent ? { onlyIfTrusted: true } : undefined);
+        }
 
         this.#connected();
 
@@ -174,11 +173,13 @@ export class GlowWallet implements Wallet {
     };
 
     #disconnect: DisconnectMethod = async () => {
-        await window.glowSolana.disconnect();
+        await window.glow.disconnect();
     };
 
     #signAndSendTransaction: SolanaSignAndSendTransactionMethod = async (...inputs) => {
-        if (!this.#account) throw new Error('not connected');
+        if (!this.#account) {
+            throw new Error('not connected');
+        }
 
         const outputs: SolanaSignAndSendTransactionOutput[] = [];
 
@@ -186,14 +187,17 @@ export class GlowWallet implements Wallet {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const { transaction, account, chain, options } = inputs[0]!;
             const { commitment } = options || {};
-            if (account !== this.#account) throw new Error('invalid account');
-            if (!isSolanaChain(chain)) throw new Error('invalid chain');
+            if (account !== this.#account) {
+                throw new Error('invalid account');
+            }
+            if (!isSolanaChain(chain)) {
+                throw new Error('invalid chain');
+            }
 
             const { signature } = await window.glow.signAndSendTransaction({
                 transactionBase64: Buffer.from(transaction).toString('base64'),
                 network: getNetworkForChain(chain),
-                // HACK: Glow only waits for `confirmed`, so if we want `finalized`, still wait, but don't rely on this.
-                waitForConfirmation: commitment === 'confirmed' || commitment === 'finalized',
+                waitForConfirmation: Boolean(commitment),
             });
 
             outputs.push({ signature: bs58.decode(signature) });
@@ -207,21 +211,25 @@ export class GlowWallet implements Wallet {
     };
 
     #signTransaction: SolanaSignTransactionMethod = async (...inputs) => {
-        if (!this.#account) throw new Error('not connected');
+        if (!this.#account) {
+            throw new Error('not connected');
+        }
 
         const outputs: SolanaSignTransactionOutput[] = [];
 
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const { transaction, account, chain } = inputs[0]!;
-            if (account !== this.#account) throw new Error('invalid account');
-            if (chain && !isSolanaChain(chain)) throw new Error('invalid chain');
+            if (account !== this.#account) {
+                throw new Error('invalid account');
+            }
+            if (chain && !isSolanaChain(chain)) {
+                throw new Error('invalid chain');
+            }
 
             const { signedTransactionBase64 } = await window.glow.signTransaction({
                 transactionBase64: Buffer.from(transaction).toString('base64'),
-                // FIXME: Glow's defaults to mainnet, so simulation fails and we can't sign
-                // HACK: Glow's type definition requires `network` but we might not know it, so pass undefined and pray.
-                network: chain ? getNetworkForChain(chain) : (undefined as any as Network),
+                network: chain ? getNetworkForChain(chain) : Network.Mainnet,
             });
 
             outputs.push({
@@ -230,11 +238,17 @@ export class GlowWallet implements Wallet {
         } else if (inputs.length > 1) {
             let chain: SolanaChain | undefined = undefined;
             for (const input of inputs) {
-                if (input.account !== this.#account) throw new Error('invalid account');
+                if (input.account !== this.#account) {
+                    throw new Error('invalid account');
+                }
                 if (input.chain) {
-                    if (!isSolanaChain(input.chain)) throw new Error('invalid chain');
+                    if (!isSolanaChain(input.chain)) {
+                        throw new Error('invalid chain');
+                    }
                     if (chain) {
-                        if (input.chain !== chain) throw new Error('conflicting chain');
+                        if (input.chain !== chain) {
+                            throw new Error('conflicting chain');
+                        }
                     } else {
                         chain = input.chain;
                     }
@@ -245,8 +259,7 @@ export class GlowWallet implements Wallet {
 
             const { signedTransactionsBase64 } = await window.glow.signAllTransactions({
                 transactionsBase64,
-                // HACK: Glow's type definition requires `network` but we might not know it, so pass undefined and pray.
-                network: chain ? getNetworkForChain(chain) : (undefined as any as Network),
+                network: chain ? getNetworkForChain(chain) : Network.Mainnet,
             });
 
             outputs.push(
@@ -260,14 +273,18 @@ export class GlowWallet implements Wallet {
     };
 
     #signMessage: SignMessageMethod = async (...inputs) => {
-        if (!this.#account) throw new Error('not connected');
+        if (!this.#account) {
+            throw new Error('not connected');
+        }
 
         const outputs: SignMessageOutput[] = [];
 
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const { message, account } = inputs[0]!;
-            if (account !== this.#account) throw new Error('invalid account');
+            if (account !== this.#account) {
+                throw new Error('invalid account');
+            }
 
             const { signedMessageBase64 } = await window.glow.signMessage({
                 messageBase64: Buffer.from(message).toString('base64'),

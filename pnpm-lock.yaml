@@ -257,7 +257,7 @@ importers:
 
   packages/wallets/glow:
     specifiers:
-      '@glow-xyz/glow-client': ^1.3.0
+      '@glow-xyz/glow-client': ^1.4.0
       '@solana/wallet-standard-features': workspace:^
       '@types/bn.js': 5.1.0
       '@types/luxon': 3.0.0
