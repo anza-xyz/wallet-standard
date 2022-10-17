@@ -13,14 +13,22 @@ export function useStandardWalletAdapters(wallets: Adapter[]): Adapter[] {
         // Get wallets that have been registered already that can be wrapped as adapters.
         const walletAdapterCompatibleWallets = get().filter(isWalletAdapterCompatibleWallet);
 
+        function filterDuplicateAdapters(adapter: Adapter): boolean {
+            const duplicate = walletAdapterCompatibleWallets.some((wallet) => wallet.name === adapter.name);
+            if (duplicate) {
+                console.warn(
+                    `${adapter.name} was registered as a Standard Wallet. The Wallet Adapter for ${adapter.name} can be removed from your app.`
+                );
+            }
+            return !duplicate;
+        }
+
         // Add an adapter for standard wallets that have been registered already.
         if (walletAdapterCompatibleWallets.length) {
             setAdapters((adapters) => [
                 ...walletAdapterCompatibleWallets.map((wallet) => new StandardWalletAdapter({ wallet })),
                 // Filter out adapters with the same name as registered standard wallets.
-                ...adapters.filter(
-                    (adapter) => !walletAdapterCompatibleWallets.some((wallet) => wallet.name === adapter.name)
-                ),
+                ...adapters.filter(filterDuplicateAdapters),
             ]);
         }
 
@@ -32,9 +40,7 @@ export function useStandardWalletAdapters(wallets: Adapter[]): Adapter[] {
                     setAdapters((adapters) => [
                         ...walletAdapterCompatibleWallets.map((wallet) => new StandardWalletAdapter({ wallet })),
                         // Filter out adapters with the same name as registered standard wallets.
-                        ...adapters.filter(
-                            (adapter) => !walletAdapterCompatibleWallets.some((wallet) => wallet.name === adapter.name)
-                        ),
+                        ...adapters.filter(filterDuplicateAdapters),
                     ]);
                 }
             }),
