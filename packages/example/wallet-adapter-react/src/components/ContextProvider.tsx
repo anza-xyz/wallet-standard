@@ -4,12 +4,13 @@ import { WalletModalProvider as AntDesignWalletModalProvider } from '@solana/wal
 import { BackpackWalletAdapter } from '@solana/wallet-adapter-backpack';
 import type { WalletError } from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { ExodusWalletAdapter } from '@solana/wallet-adapter-exodus';
 import { GlowWalletAdapter } from '@solana/wallet-adapter-glow';
 import { WalletDialogProvider as MaterialUIWalletDialogProvider } from '@solana/wallet-adapter-material-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
+import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { useStandardWalletAdapters } from '@solana/wallet-standard-wallet-adapter';
 import { clusterApiUrl } from '@solana/web3.js';
 import { SnackbarProvider, useSnackbar } from 'notistack';
@@ -65,6 +66,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
         () => [
             // Add any wallet adapters here
             new BackpackWalletAdapter(),
+            new ExodusWalletAdapter(),
             new GlowWalletAdapter(),
             new PhantomWalletAdapter(),
             new SolflareWalletAdapter(),
