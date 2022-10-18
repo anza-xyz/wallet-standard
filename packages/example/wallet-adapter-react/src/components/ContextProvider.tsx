@@ -1,18 +1,21 @@
 import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { deepPurple, pink } from '@mui/material/colors';
 import { WalletModalProvider as AntDesignWalletModalProvider } from '@solana/wallet-adapter-ant-design';
+import { BackpackWalletAdapter } from '@solana/wallet-adapter-backpack';
 import type { WalletError } from '@solana/wallet-adapter-base';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { GlowWalletAdapter } from '@solana/wallet-adapter-glow';
 import { WalletDialogProvider as MaterialUIWalletDialogProvider } from '@solana/wallet-adapter-material-ui';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui';
-// import { BackpackWalletAdapter, GlowWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
-import { useStandardWalletAdapters } from '@solana/wallet-standard-wallet-adapter';
+import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
 import { register as registerBackpack } from '@solana/wallet-standard-backpack';
 import { register as registerGlow } from '@solana/wallet-standard-glow';
 import { register as registerPhantom } from '@solana/wallet-standard-phantom';
 import { register as registerSolflare } from '@solana/wallet-standard-solflare';
+import { useStandardWalletAdapters } from '@solana/wallet-standard-wallet-adapter';
+import { clusterApiUrl } from '@solana/web3.js';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import type { FC, ReactNode } from 'react';
 import React, { useCallback, useEffect, useMemo } from 'react';
@@ -65,6 +68,10 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const wallets = useMemo(
         () => [
             // Add any wallet adapters here
+            new BackpackWalletAdapter(),
+            new GlowWalletAdapter(),
+            new PhantomWalletAdapter(),
+            new SolflareWalletAdapter(),
         ],
         []
     );
