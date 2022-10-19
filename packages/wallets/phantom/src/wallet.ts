@@ -161,7 +161,9 @@ export class PhantomWallet implements Wallet {
     };
 
     #connect: ConnectMethod = async ({ silent } = {}) => {
-        await this.#phantom.solana.connect(silent ? { onlyIfTrusted: true } : undefined);
+        if (!this.#account) {
+            await this.#phantom.solana.connect(silent ? { onlyIfTrusted: true } : undefined);
+        }
 
         this.#connected();
 
