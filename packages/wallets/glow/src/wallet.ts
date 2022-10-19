@@ -38,7 +38,9 @@ export type GlowFeature = {
 };
 
 export class GlowWallet implements Wallet {
-    readonly #listeners: { [E in EventsNames]?: EventsListeners[E][] } = {};
+    readonly #listeners: {
+        [E in EventsNames]?: EventsListeners[E][];
+    } = {};
     readonly #version = '1.0.0' as const;
     readonly #name = 'Glow' as const;
     readonly #icon = icon;
