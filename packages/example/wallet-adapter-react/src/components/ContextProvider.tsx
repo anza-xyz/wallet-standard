@@ -10,15 +10,11 @@ import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
-import { register as registerBackpack } from '@solana/wallet-standard-backpack';
-import { register as registerGlow } from '@solana/wallet-standard-glow';
-import { register as registerPhantom } from '@solana/wallet-standard-phantom';
-import { register as registerSolflare } from '@solana/wallet-standard-solflare';
 import { useStandardWalletAdapters } from '@solana/wallet-standard-wallet-adapter';
 import { clusterApiUrl } from '@solana/web3.js';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import type { FC, ReactNode } from 'react';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { AutoConnectProvider, useAutoConnect } from './AutoConnectProvider';
 
 const theme = createTheme({
@@ -76,13 +72,6 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
         []
     );
     const adapters = useStandardWalletAdapters(wallets);
-
-    useEffect(() => {
-        registerBackpack();
-        registerGlow();
-        registerPhantom();
-        registerSolflare();
-    }, []);
 
     const { enqueueSnackbar } = useSnackbar();
     const onError = useCallback(

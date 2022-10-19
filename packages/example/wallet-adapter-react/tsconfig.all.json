@@ -8,12 +8,6 @@
             "path": "../../wallet-adapter/_/tsconfig.all.json"
         },
         {
-            "path": "../../wallets/backpack/tsconfig.all.json"
-        },
-        {
-            "path": "../../wallets/glow/tsconfig.all.json"
-        },
-        {
             "path": "../../wallets/phantom/tsconfig.all.json"
         },
         {
