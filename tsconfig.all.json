@@ -29,10 +29,7 @@
             "path": "./packages/wallet-adapter/react/tsconfig.all.json"
         },
         {
-            "path": "./packages/wallets/backpack/tsconfig.all.json"
-        },
-        {
-            "path": "./packages/wallets/glow/tsconfig.all.json"
+            "path": "./packages/wallets/ghost/tsconfig.all.json"
         },
         {
             "path": "./packages/wallets/phantom/tsconfig.all.json"
