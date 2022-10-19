@@ -44,6 +44,7 @@
     },
     "devDependencies": {
         "@types/bs58": "^4.0.1",
+        "@types/node-fetch": "^2.6.2",
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "eslint": "^8.22.0",

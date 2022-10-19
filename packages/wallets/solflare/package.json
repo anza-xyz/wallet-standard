@@ -28,6 +28,7 @@
     },
     "devDependencies": {
         "@types/bs58": "^4.0.1",
+        "@types/node-fetch": "^2.6.2",
         "shx": "^0.3.4"
     }
 }
