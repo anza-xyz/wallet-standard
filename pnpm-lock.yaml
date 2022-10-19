@@ -121,7 +121,6 @@ importers:
       '@solana/wallet-standard-wallet-adapter': workspace:^
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
-      '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.0
       '@types/react-dom': ^18.0.0
       antd: ^4.22.6
@@ -166,7 +165,6 @@ importers:
       tweetnacl: 1.0.3
     devDependencies:
       '@types/bs58': 4.0.1
-      '@types/node-fetch': 2.6.2
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       eslint: 8.22.0
@@ -241,7 +239,6 @@ importers:
       '@solana/wallet-standard-features': ^1.0.0-rc.0
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
-      '@types/node-fetch': ^2.6.2
       '@wallet-standard/base': ^1.0.0-rc.0
       '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^4.0.1
@@ -253,16 +250,15 @@ importers:
     devDependencies:
       '@solana/web3.js': 1.66.1
       '@types/bs58': 4.0.1
-      '@types/node-fetch': 2.6.2
       bs58: 4.0.1
       shx: 0.3.4
+      typescript: 4.8.4
 
   packages/wallets/phantom:
     specifiers:
       '@solana/wallet-standard-features': workspace:^
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
-      '@types/node-fetch': ^2.6.2
       '@wallet-standard/base': ^1.0.0-rc.0
       '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^4.0.1
@@ -274,7 +270,6 @@ importers:
     devDependencies:
       '@solana/web3.js': 1.66.1
       '@types/bs58': 4.0.1
-      '@types/node-fetch': 2.6.2
       bs58: 4.0.1
       shx: 0.3.4
 
@@ -284,7 +279,6 @@ importers:
       '@solana/web3.js': ^1.58.0
       '@solflare-wallet/sdk': ^1.1.0
       '@types/bs58': ^4.0.1
-      '@types/node-fetch': ^2.6.2
       '@wallet-standard/base': ^1.0.0-rc.0
       '@wallet-standard/features': ^1.0.0-rc.0
       bs58: ^4.0.1
@@ -298,7 +292,6 @@ importers:
       bs58: 4.0.1
     devDependencies:
       '@types/bs58': 4.0.1
-      '@types/node-fetch': 2.6.2
       shx: 0.3.4
 
 packages:
@@ -1565,13 +1558,6 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node-fetch/2.6.2:
-    resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
-    dependencies:
-      '@types/node': 18.11.0
-      form-data: 3.0.1
-    dev: true
-
   /@types/node/12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
@@ -2107,10 +2093,6 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /asynckit/0.4.0:
-    resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: true
-
   /axe-core/4.4.3:
     resolution: {integrity: sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==}
     engines: {node: '>=4'}
@@ -2350,13 +2332,6 @@ packages:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
 
-  /combined-stream/1.0.8:
-    resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
-    engines: {node: '>= 0.8'}
-    dependencies:
-      delayed-stream: 1.0.0
-    dev: true
-
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
 
@@ -2526,11 +2501,6 @@ packages:
   /delay/5.0.0:
     resolution: {integrity: sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==}
     engines: {node: '>=10'}
-
-  /delayed-stream/1.0.0:
-    resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
-    engines: {node: '>=0.4.0'}
-    dev: true
 
   /detect-indent/6.1.0:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
@@ -3152,15 +3122,6 @@ packages:
 
   /flatted/3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
-    dev: true
-
-  /form-data/3.0.1:
-    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
     dev: true
 
   /fs-extra/7.0.1:
