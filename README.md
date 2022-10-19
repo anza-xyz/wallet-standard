@@ -2,6 +2,8 @@
 
 This repo contains Solana-specific extensions to the [Wallet Standard](https://github.com/wallet-standard/wallet-standard).
 
+If you have a wallet and want to implement this, please see the [Wallet Standard for Wallets](./WALLET.md) guide.
+
 # [typescript-monorepo](https://github.com/jordansexton/typescript-monorepo)
 
 This is a simple monorepo template with some specific design goals:
