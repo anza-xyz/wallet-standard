@@ -1,4 +1,13 @@
+import type {
+    SolanaSignAndSendTransactionFeature,
+    SolanaSignAndSendTransactionMethod,
+    SolanaSignAndSendTransactionOutput,
+    SolanaSignTransactionFeature,
+    SolanaSignTransactionMethod,
+    SolanaSignTransactionOutput,
+} from '@solana/wallet-standard-features';
 import { Transaction } from '@solana/web3.js';
+import type { Wallet } from '@wallet-standard/base';
 import type {
     ConnectFeature,
     ConnectMethod,
@@ -12,24 +21,13 @@ import type {
     SignMessageMethod,
     SignMessageOutput,
 } from '@wallet-standard/features';
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
-} from '@solana/wallet-standard-features';
-import type { Wallet } from '@wallet-standard/base';
 import bs58 from 'bs58';
 import { PhantomWalletAccount } from './account.js';
 import { icon } from './icon.js';
 import type { SolanaChain } from './solana.js';
 import { isSolanaChain, SOLANA_CHAINS } from './solana.js';
 import { bytesEqual } from './util.js';
-import type { PhantomWindow, WindowPhantom } from './window.js';
-
-declare const window: PhantomWindow;
+import type { WindowPhantom } from './window.js';
 
 export type PhantomFeature = {
     'phantom:': {
@@ -43,6 +41,7 @@ export class PhantomWallet implements Wallet {
     readonly #name = 'Phantom' as const;
     readonly #icon = icon;
     #account: PhantomWalletAccount | null = null;
+    readonly #phantom: WindowPhantom;
 
     get version() {
         return this.#version;
@@ -95,9 +94,7 @@ export class PhantomWallet implements Wallet {
                 signMessage: this.#signMessage,
             },
             'phantom:': {
-                get phantom() {
-                    return window.phantom;
-                },
+                phantom: this.#phantom,
             },
         };
     }
@@ -106,14 +103,16 @@ export class PhantomWallet implements Wallet {
         return this.#account ? [this.#account] : [];
     }
 
-    constructor() {
+    constructor(phantom: WindowPhantom) {
         if (new.target === PhantomWallet) {
             Object.freeze(this);
         }
 
-        window.phantom.solana.on('connect', this.#connected, this);
-        window.phantom.solana.on('disconnect', this.#disconnected, this);
-        window.phantom.solana.on('accountChanged', this.#reconnected, this);
+        this.#phantom = phantom;
+
+        phantom.solana.on('connect', this.#connected, this);
+        phantom.solana.on('disconnect', this.#disconnected, this);
+        phantom.solana.on('accountChanged', this.#reconnected, this);
 
         this.#connected();
     }
@@ -133,10 +132,10 @@ export class PhantomWallet implements Wallet {
     }
 
     #connected = () => {
-        const address = window.phantom.solana.publicKey?.toBase58();
+        const address = this.#phantom.solana.publicKey?.toBase58();
         if (address) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const publicKey = window.phantom.solana.publicKey!.toBytes();
+            const publicKey = this.#phantom.solana.publicKey!.toBytes();
 
             const account = this.#account;
             if (!account || account.address !== address || !bytesEqual(account.publicKey, publicKey)) {
@@ -154,7 +153,7 @@ export class PhantomWallet implements Wallet {
     };
 
     #reconnected = () => {
-        if (window.phantom.solana.publicKey) {
+        if (this.#phantom.solana.publicKey) {
             this.#connected();
         } else {
             this.#disconnected();
@@ -162,7 +161,7 @@ export class PhantomWallet implements Wallet {
     };
 
     #connect: ConnectMethod = async ({ silent } = {}) => {
-        await window.phantom.solana.connect(silent ? { onlyIfTrusted: true } : undefined);
+        await this.#phantom.solana.connect(silent ? { onlyIfTrusted: true } : undefined);
 
         this.#connected();
 
@@ -170,7 +169,7 @@ export class PhantomWallet implements Wallet {
     };
 
     #disconnect: DisconnectMethod = async () => {
-        await window.phantom.solana.disconnect();
+        await this.#phantom.solana.disconnect();
     };
 
     #signAndSendTransaction: SolanaSignAndSendTransactionMethod = async (...inputs) => {
@@ -185,7 +184,7 @@ export class PhantomWallet implements Wallet {
             if (account !== this.#account) throw new Error('invalid account');
             if (!isSolanaChain(chain)) throw new Error('invalid chain');
 
-            const { signature } = await window.phantom.solana.signAndSendTransaction(Transaction.from(transaction), {
+            const { signature } = await this.#phantom.solana.signAndSendTransaction(Transaction.from(transaction), {
                 preflightCommitment,
                 minContextSlot,
                 maxRetries,
@@ -214,7 +213,7 @@ export class PhantomWallet implements Wallet {
             if (account !== this.#account) throw new Error('invalid account');
             if (chain && !isSolanaChain(chain)) throw new Error('invalid chain');
 
-            const signedTransaction = await window.phantom.solana.signTransaction(Transaction.from(transaction));
+            const signedTransaction = await this.#phantom.solana.signTransaction(Transaction.from(transaction));
 
             outputs.push({
                 signedTransaction: new Uint8Array(
@@ -240,7 +239,7 @@ export class PhantomWallet implements Wallet {
 
             const transactions = inputs.map(({ transaction }) => Transaction.from(transaction));
 
-            const signedTransactions = await window.phantom.solana.signAllTransactions(transactions);
+            const signedTransactions = await this.#phantom.solana.signAllTransactions(transactions);
 
             outputs.push(
                 ...signedTransactions.map((signedTransaction) => ({
@@ -267,7 +266,7 @@ export class PhantomWallet implements Wallet {
             const { message, account } = inputs[0]!;
             if (account !== this.#account) throw new Error('invalid account');
 
-            const { signature } = await window.phantom.solana.signMessage(message);
+            const { signature } = await this.#phantom.solana.signMessage(message);
 
             outputs.push({ signedMessage: message, signature });
         } else if (inputs.length > 1) {

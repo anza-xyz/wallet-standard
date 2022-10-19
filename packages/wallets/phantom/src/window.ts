@@ -27,7 +27,3 @@ export interface PhantomSolana extends PhantomEventEmitter {
 export interface WindowPhantom {
     solana: PhantomSolana;
 }
-
-export interface PhantomWindow extends Window {
-    phantom: WindowPhantom;
-}
