@@ -1,59 +1,58 @@
-import type { Adapter } from '@solana/wallet-adapter-base';
+import type { Adapter, WalletName } from '@solana/wallet-adapter-base';
 import { isWalletAdapterCompatibleWallet, StandardWalletAdapter } from '@solana/wallet-standard-wallet-adapter-base';
 import { initialize } from '@wallet-standard/app';
 import type { Wallet } from '@wallet-standard/base';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-export function useStandardWalletAdapters(initialAdapters: Adapter[]): Adapter[] {
-    // Start with the adapters provided by the app.
-    const [adapters, setAdapters] = useState(initialAdapters);
+export function useStandardWalletAdapters(adapters: Adapter[]): Adapter[] {
+    const { get, on } = useConstant(() => initialize());
+    const [standardAdapters, setStandardAdapters] = useState(() => wrapWalletsWithAdapters(get()));
+    const warnings = useConstant(() => new Set<WalletName>());
 
     useEffect(() => {
-        function wrapWalletsWithAdapters(wallets: ReadonlyArray<Wallet>) {
-            const standardAdapters = wallets
-                .filter(isWalletAdapterCompatibleWallet)
-                .map((wallet) => new StandardWalletAdapter({ wallet }));
-            if (standardAdapters.length) {
-                setAdapters((adapters) => [
-                    ...standardAdapters,
-                    // Filter out adapters with the same name as registered standard wallets.
-                    ...adapters.filter((adapter) => {
-                        if (standardAdapters.some((standardAdapter) => standardAdapter.name === adapter.name)) {
-                            if (!(adapter instanceof StandardWalletAdapter)) {
-                                console.warn(
-                                    `${adapter.name} was registered as a Standard Wallet. The Wallet Adapter for ${adapter.name} can be removed from your app.`
-                                );
-                            }
-                            return false;
-                        }
-                        return true;
-                    }),
-                ]);
-            }
-        }
-
-        // Initialize the `window.navigator.wallets` interface.
-        const { get, on } = initialize();
-        // Get wallets that have been registered already and wrap them with adapters.
-        wrapWalletsWithAdapters(get());
-
-        const destructors = [
-            // Add an event listener to add adapters for wallets that are registered after this point.
-            on('register', (...wallets) => wrapWalletsWithAdapters(wallets)),
-            // Add an event listener to remove adapters for wallets that are unregistered after this point.
-            on('unregister', (...wallets) => {
-                wallets = wallets.filter(isWalletAdapterCompatibleWallet);
-                if (wallets.length) {
-                    setAdapters((adapters) =>
-                        // Filter out adapters with the same name as unregistered wallets.
-                        adapters.filter((adapter) => wallets.some((wallet) => wallet.name === adapter.name))
-                    );
-                }
-            }),
+        const listeners = [
+            on('register', (...wallets) =>
+                setStandardAdapters((standardAdapters) => [...standardAdapters, ...wrapWalletsWithAdapters(wallets)])
+            ),
+            on('unregister', (...wallets) =>
+                setStandardAdapters((standardAdapters) =>
+                    standardAdapters.filter((standardAdapter) =>
+                        wallets.some((wallet) => wallet === standardAdapter.wallet)
+                    )
+                )
+            ),
         ];
+        return () => listeners.forEach((destroy) => destroy());
+    }, [on]);
 
-        return () => destructors.forEach((destroy) => destroy());
-    }, []);
+    return useMemo(
+        () => [
+            ...standardAdapters,
+            ...adapters.filter(({ name }) => {
+                if (standardAdapters.some((standardAdapter) => standardAdapter.name === name)) {
+                    if (!warnings.has(name)) {
+                        warnings.add(name);
+                        console.warn(
+                            `${name} was registered as a Standard Wallet. The Wallet Adapter for ${name} can be removed from your app.`
+                        );
+                    }
+                    return false;
+                }
+                return true;
+            }),
+        ],
+        [standardAdapters, adapters, warnings]
+    );
+}
 
-    return adapters;
+function useConstant<T>(fn: () => T): T {
+    const ref = useRef<{ value: T }>();
+    if (!ref.current) {
+        ref.current = { value: fn() };
+    }
+    return ref.current.value;
+}
+
+function wrapWalletsWithAdapters(wallets: ReadonlyArray<Wallet>): ReadonlyArray<StandardWalletAdapter> {
+    return wallets.filter(isWalletAdapterCompatibleWallet).map((wallet) => new StandardWalletAdapter({ wallet }));
 }
