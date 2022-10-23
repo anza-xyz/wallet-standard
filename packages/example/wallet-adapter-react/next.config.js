@@ -18,7 +18,6 @@ module.exports = function (phase, ...args) {
         ],
         {
             reactStrictMode: true,
-            basePath: phase === PHASE_PRODUCTION_BUILD ? '/wallet-adapter/example' : '',
         }
     )(phase, ...args);
 };
