@@ -30,7 +30,7 @@
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
-        "@wallet-standard/base": "^1.0.0-rc.0"
+        "@wallet-standard/base": "^1.0.0-rc.1"
     },
     "devDependencies": {
         "shx": "^0.3.4"

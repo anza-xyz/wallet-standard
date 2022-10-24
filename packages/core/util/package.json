@@ -30,8 +30,8 @@
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
-        "@solana/wallet-standard-chains": "workspace:^",
-        "@solana/wallet-standard-features": "workspace:^"
+        "@solana/wallet-standard-chains": "workspace:*",
+        "@solana/wallet-standard-features": "workspace:*"
     },
     "devDependencies": {
         "shx": "^0.3.4"
