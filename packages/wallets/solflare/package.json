@@ -4,6 +4,9 @@
     "author": "Solana Maintainers <maintainers@solana.foundation>",
     "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
+    "engines": {
+        "node": ">=14"
+    },
     "type": "module",
     "sideEffects": false,
     "main": "./lib/cjs/index.js",
@@ -19,11 +22,11 @@
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
-        "@solana/wallet-standard-features": "workspace:^",
+        "@solana/wallet-standard-features": "^1.0.0-rc.4",
         "@solana/web3.js": "^1.58.0",
         "@solflare-wallet/sdk": "^1.1.0",
-        "@wallet-standard/base": "^1.0.0-rc.0",
-        "@wallet-standard/features": "^1.0.0-rc.0",
+        "@wallet-standard/base": "^1.0.0-rc.1",
+        "@wallet-standard/features": "^1.0.0-rc.1",
         "bs58": "^4.0.1"
     },
     "devDependencies": {

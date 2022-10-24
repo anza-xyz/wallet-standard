@@ -35,7 +35,7 @@ import type {
     EventsListeners,
     SignMessageFeature,
 } from '@wallet-standard/features';
-import { arraysEqual } from '@wallet-standard/util';
+import { arraysEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
 import { isVersionedTransaction } from './transaction.js';
 

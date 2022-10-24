@@ -74,7 +74,7 @@ git commit -m "Add package-lock.json"
 Open the `src/icon.ts` file. This contains a base64 encoded data URI of an SVG, PNG, WebP, or GIF image. This will be the icon dapps display for your wallet.
 
 ```ts
-export const icon: IconString =
+export const icon: WalletIcon =
     'data:image/svg+xml;base64,PHN2Zy......ZnPg==' as const;
 ```
 

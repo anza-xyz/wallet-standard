@@ -1,7 +1,20 @@
 import type { Adapter } from '@solana/wallet-adapter-base';
 import { WalletReadyState } from '@solana/wallet-adapter-base';
+import type { SolanaChain } from '@solana/wallet-standard-chains';
+import { isSolanaChain } from '@solana/wallet-standard-chains';
+import type {
+    SolanaSignAndSendTransactionFeature,
+    SolanaSignAndSendTransactionMethod,
+    SolanaSignAndSendTransactionOutput,
+    SolanaSignTransactionFeature,
+    SolanaSignTransactionMethod,
+    SolanaSignTransactionOutput,
+    SolanaTransactionVersion,
+} from '@solana/wallet-standard-features';
+import { getEndpointForChain } from '@solana/wallet-standard-util';
 import { Connection, Transaction, VersionedTransaction } from '@solana/web3.js';
-import { initialize } from '@wallet-standard/app';
+import { initializeWindowNavigatorWallets } from '@wallet-standard/app';
+import type { Wallet, WalletIcon } from '@wallet-standard/base';
 import type {
     ConnectFeature,
     ConnectMethod,
@@ -15,20 +28,7 @@ import type {
     SignMessageMethod,
     SignMessageOutput,
 } from '@wallet-standard/features';
-import type { SolanaChain } from '@solana/wallet-standard-chains';
-import { isSolanaChain } from '@solana/wallet-standard-chains';
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
-    SolanaTransactionVersion,
-} from '@solana/wallet-standard-features';
-import { getEndpointForChain } from '@solana/wallet-standard-util';
-import type { IconString, Wallet } from '@wallet-standard/base';
-import { arraysEqual, bytesEqual, ReadonlyWalletAccount } from '@wallet-standard/util';
+import { arraysEqual, bytesEqual, ReadonlyWalletAccount } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
 import { isVersionedTransaction } from './transaction.js';
 
@@ -86,7 +86,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
     }
 
     get icon() {
-        return this.#adapter.icon as IconString;
+        return this.#adapter.icon as WalletIcon;
     }
 
     get chains() {
@@ -371,7 +371,7 @@ export function registerWalletAdapter(
     endpoint?: string,
     match: (wallet: Wallet) => boolean = (wallet) => wallet.name === adapter.name
 ): () => void {
-    const { register, get, on } = initialize();
+    const { register, get, on } = initializeWindowNavigatorWallets();
     const destructors: (() => void)[] = [];
 
     function destroy(): void {
