@@ -1,3 +1,5 @@
+// This is copied from @solana/wallet-standard-chains
+
 import type { IdentifierString } from '@wallet-standard/base';
 
 /** Solana Mainnet (beta) cluster, e.g. https://api.mainnet-beta.solana.com */
