@@ -34,7 +34,7 @@
         "react": "*"
     },
     "dependencies": {
-        "@solana/wallet-standard-wallet-adapter-base": "workspace:*",
+        "@solana/wallet-standard-wallet-adapter-base": "workspace:^",
         "@wallet-standard/app": "^1.0.0-rc.1",
         "@wallet-standard/base": "^1.0.0-rc.1"
     },

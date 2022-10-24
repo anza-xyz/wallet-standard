@@ -45,8 +45,8 @@ importers:
 
   packages/_/_:
     specifiers:
-      '@solana/wallet-standard-core': workspace:*
-      '@solana/wallet-standard-wallet-adapter': workspace:*
+      '@solana/wallet-standard-core': workspace:^
+      '@solana/wallet-standard-wallet-adapter': workspace:^
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-core': link:../../core/_
@@ -56,9 +56,9 @@ importers:
 
   packages/core/_:
     specifiers:
-      '@solana/wallet-standard-chains': workspace:*
-      '@solana/wallet-standard-features': workspace:*
-      '@solana/wallet-standard-util': workspace:*
+      '@solana/wallet-standard-chains': workspace:^
+      '@solana/wallet-standard-features': workspace:^
+      '@solana/wallet-standard-util': workspace:^
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-chains': link:../chains
@@ -89,8 +89,8 @@ importers:
 
   packages/core/util:
     specifiers:
-      '@solana/wallet-standard-chains': workspace:*
-      '@solana/wallet-standard-features': workspace:*
+      '@solana/wallet-standard-chains': workspace:^
+      '@solana/wallet-standard-features': workspace:^
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-chains': link:../chains
@@ -114,9 +114,9 @@ importers:
       '@solana/wallet-adapter-react': ^0.15.20
       '@solana/wallet-adapter-react-ui': ^0.9.18
       '@solana/wallet-adapter-solflare': ^0.6.18
-      '@solana/wallet-standard-phantom': workspace:*
-      '@solana/wallet-standard-solflare': workspace:*
-      '@solana/wallet-standard-wallet-adapter': workspace:*
+      '@solana/wallet-standard-phantom': workspace:^
+      '@solana/wallet-standard-solflare': workspace:^
+      '@solana/wallet-standard-wallet-adapter': workspace:^
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
@@ -177,8 +177,8 @@ importers:
 
   packages/wallet-adapter/_:
     specifiers:
-      '@solana/wallet-standard-wallet-adapter-base': workspace:*
-      '@solana/wallet-standard-wallet-adapter-react': workspace:*
+      '@solana/wallet-standard-wallet-adapter-base': workspace:^
+      '@solana/wallet-standard-wallet-adapter-react': workspace:^
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-wallet-adapter-base': link:../base
@@ -189,9 +189,9 @@ importers:
   packages/wallet-adapter/base:
     specifiers:
       '@solana/wallet-adapter-base': ^0.9.17
-      '@solana/wallet-standard-chains': workspace:*
-      '@solana/wallet-standard-features': workspace:*
-      '@solana/wallet-standard-util': workspace:*
+      '@solana/wallet-standard-chains': workspace:^
+      '@solana/wallet-standard-features': workspace:^
+      '@solana/wallet-standard-util': workspace:^
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@wallet-standard/app': ^1.0.0-rc.1
@@ -218,7 +218,7 @@ importers:
   packages/wallet-adapter/react:
     specifiers:
       '@solana/wallet-adapter-base': ^0.9.18
-      '@solana/wallet-standard-wallet-adapter-base': workspace:*
+      '@solana/wallet-standard-wallet-adapter-base': workspace:^
       '@types/react': ^18.0.0
       '@wallet-standard/app': ^1.0.0-rc.1
       '@wallet-standard/base': ^1.0.0-rc.1
