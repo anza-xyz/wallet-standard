@@ -1,5 +1,14 @@
+import type {
+    SolanaSignAndSendTransactionFeature,
+    SolanaSignAndSendTransactionMethod,
+    SolanaSignAndSendTransactionOutput,
+    SolanaSignTransactionFeature,
+    SolanaSignTransactionMethod,
+    SolanaSignTransactionOutput,
+} from '@solana/wallet-standard-features';
 import { Connection, VersionedTransaction } from '@solana/web3.js';
 import Solflare from '@solflare-wallet/sdk';
+import type { Wallet } from '@wallet-standard/base';
 import type {
     ConnectFeature,
     ConnectMethod,
@@ -13,15 +22,6 @@ import type {
     SignMessageMethod,
     SignMessageOutput,
 } from '@wallet-standard/features';
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
-} from '@solana/wallet-standard-features';
-import type { Wallet } from '@wallet-standard/base';
 import bs58 from 'bs58';
 import { SolflareWalletAccount } from './account.js';
 import { getEndpointForChain } from './endpoint.js';

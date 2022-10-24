@@ -1,11 +1,11 @@
 import type { Adapter, WalletName } from '@solana/wallet-adapter-base';
 import { isWalletAdapterCompatibleWallet, StandardWalletAdapter } from '@solana/wallet-standard-wallet-adapter-base';
-import { initialize } from '@wallet-standard/app';
+import { initializeWindowNavigatorWallets } from '@wallet-standard/app';
 import type { Wallet } from '@wallet-standard/base';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export function useStandardWalletAdapters(adapters: Adapter[]): Adapter[] {
-    const { get, on } = useConstant(() => initialize());
+    const { get, on } = useConstant(() => initializeWindowNavigatorWallets());
     const [standardAdapters, setStandardAdapters] = useState(() => wrapWalletsWithAdapters(get()));
     const warnings = useConstant(() => new Set<WalletName>());
 
