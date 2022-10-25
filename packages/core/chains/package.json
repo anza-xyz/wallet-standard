@@ -1,6 +1,6 @@
 {
     "name": "@solana/wallet-standard-chains",
-    "version": "1.0.0-rc.4",
+    "version": "1.0.0-rc.7",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
     "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
@@ -30,7 +30,7 @@
         "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
-        "@wallet-standard/base": "^1.0.0-rc.1"
+        "@wallet-standard/base": "^1.0.0-rc.5"
     },
     "devDependencies": {
         "shx": "^0.3.4"
