@@ -38,10 +38,10 @@
         "@solana/wallet-standard-chains": "workspace:^",
         "@solana/wallet-standard-features": "workspace:^",
         "@solana/wallet-standard-util": "workspace:^",
-        "@wallet-standard/app": "^1.0.0-rc.1",
-        "@wallet-standard/base": "^1.0.0-rc.1",
-        "@wallet-standard/features": "^1.0.0-rc.1",
-        "@wallet-standard/wallet": "^1.0.0-rc.1"
+        "@wallet-standard/app": "^1.0.0-rc.3",
+        "@wallet-standard/base": "^1.0.0-rc.3",
+        "@wallet-standard/features": "^1.0.0-rc.3",
+        "@wallet-standard/wallet": "^1.0.0-rc.3"
     },
     "devDependencies": {
         "@solana/web3.js": "^1.58.0",
