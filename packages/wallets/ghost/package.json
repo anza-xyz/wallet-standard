@@ -27,9 +27,9 @@
         "bs58": "^4.0.1"
     },
     "dependencies": {
-        "@solana/wallet-standard-features": "^1.0.0-rc.6",
-        "@wallet-standard/base": "^1.0.0-rc.4",
-        "@wallet-standard/features": "^1.0.0-rc.4"
+        "@solana/wallet-standard-features": "workspace:^",
+        "@wallet-standard/base": "^1.0.0-rc.5",
+        "@wallet-standard/features": "^1.0.0-rc.5"
     },
     "devDependencies": {
         "@solana/web3.js": "^1.58.0",
