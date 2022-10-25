@@ -1,6 +1,6 @@
 {
     "name": "@solana/wallet-standard-wallet-adapter-base",
-    "version": "1.0.0-rc.5",
+    "version": "1.0.0-rc.6",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
     "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
@@ -34,14 +34,14 @@
         "bs58": "^4.0.1"
     },
     "dependencies": {
-        "@solana/wallet-adapter-base": "^0.9.17",
+        "@solana/wallet-adapter-base": "^0.9.18",
         "@solana/wallet-standard-chains": "workspace:^",
         "@solana/wallet-standard-features": "workspace:^",
         "@solana/wallet-standard-util": "workspace:^",
-        "@wallet-standard/app": "^1.0.0-rc.3",
-        "@wallet-standard/base": "^1.0.0-rc.3",
-        "@wallet-standard/features": "^1.0.0-rc.3",
-        "@wallet-standard/wallet": "^1.0.0-rc.3"
+        "@wallet-standard/app": "^1.0.0-rc.4",
+        "@wallet-standard/base": "^1.0.0-rc.4",
+        "@wallet-standard/features": "^1.0.0-rc.4",
+        "@wallet-standard/wallet": "^1.0.0-rc.4"
     },
     "devDependencies": {
         "@solana/web3.js": "^1.58.0",
