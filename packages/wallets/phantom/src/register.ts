@@ -1,25 +1,24 @@
 // This is copied from @wallet-standard/wallet
 
 import type {
+    DEPRECATED_WalletsWindow,
     Wallet,
     WalletEventsWindow,
     WindowRegisterWalletEvent as WindowRegisterWalletEventInterface,
     WindowRegisterWalletEventCallback,
 } from '@wallet-standard/base';
 
-declare const window: WalletEventsWindow;
-
 export function registerWallet(wallet: Wallet): void {
     const callback: WindowRegisterWalletEventCallback = ({ register }) => register(wallet);
-
     try {
-        window.dispatchEvent(new WindowRegisterWalletEvent(callback));
+        (window as WalletEventsWindow).dispatchEvent(new WindowRegisterWalletEvent(callback));
     } catch (error) {
         console.error('wallet-standard:register-wallet event could not be dispatched\n', error);
     }
-
     try {
-        window.addEventListener('wallet-standard:app-ready', ({ detail: api }) => callback(api));
+        (window as WalletEventsWindow).addEventListener('wallet-standard:app-ready', ({ detail: api }) =>
+            callback(api)
+        );
     } catch (error) {
         console.error('wallet-standard:app-ready event listener could not be added\n', error);
     }
@@ -45,12 +44,28 @@ class WindowRegisterWalletEvent extends Event implements WindowRegisterWalletEve
         this.#detail = callback;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    preventDefault() {}
+    /** @deprecated */
+    preventDefault(): never {
+        throw new Error('preventDefault cannot be called');
+    }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    stopImmediatePropagation() {}
+    /** @deprecated */
+    stopImmediatePropagation(): never {
+        throw new Error('stopImmediatePropagation cannot be called');
+    }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    stopPropagation() {}
+    /** @deprecated */
+    stopPropagation(): never {
+        throw new Error('stopPropagation cannot be called');
+    }
+}
+
+/** @deprecated */
+export function DEPRECATED_registerWallet(wallet: Wallet): void {
+    registerWallet(wallet);
+    try {
+        ((window as DEPRECATED_WalletsWindow).navigator.wallets ||= []).push(({ register }) => register(wallet));
+    } catch (error) {
+        console.error('window.navigator.wallets could not be pushed\n', error);
+    }
 }
