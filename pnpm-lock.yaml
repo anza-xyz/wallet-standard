@@ -236,7 +236,7 @@ importers:
 
   packages/wallets/ghost:
     specifiers:
-      '@solana/wallet-standard-features': ^1.0.0-rc.4
+      '@solana/wallet-standard-features': ^1.0.0-rc.5
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
@@ -259,7 +259,7 @@ importers:
 
   packages/wallets/phantom:
     specifiers:
-      '@solana/wallet-standard-features': ^1.0.0-rc.4
+      '@solana/wallet-standard-features': ^1.0.0-rc.5
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
@@ -280,7 +280,7 @@ importers:
 
   packages/wallets/solflare:
     specifiers:
-      '@solana/wallet-standard-features': ^1.0.0-rc.4
+      '@solana/wallet-standard-features': ^1.0.0-rc.5
       '@solana/web3.js': ^1.58.0
       '@solflare-wallet/sdk': ^1.1.0
       '@types/bs58': ^4.0.1
