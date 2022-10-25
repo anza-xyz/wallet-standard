@@ -13,7 +13,7 @@ import type {
 } from '@solana/wallet-standard-features';
 import { getEndpointForChain } from '@solana/wallet-standard-util';
 import { Connection, Transaction, VersionedTransaction } from '@solana/web3.js';
-import { initializeWindowNavigatorWallets } from '@wallet-standard/app';
+import { initializeApp } from '@wallet-standard/app';
 import type { Wallet, WalletIcon } from '@wallet-standard/base';
 import type {
     ConnectFeature,
@@ -371,7 +371,7 @@ export function registerWalletAdapter(
     endpoint?: string,
     match: (wallet: Wallet) => boolean = (wallet) => wallet.name === adapter.name
 ): () => void {
-    const { register, get, on } = initializeWindowNavigatorWallets();
+    const { register, get, on } = initializeApp();
     const destructors: (() => void)[] = [];
 
     function destroy(): void {
