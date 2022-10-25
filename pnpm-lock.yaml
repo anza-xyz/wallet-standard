@@ -114,10 +114,10 @@ importers:
       '@solana/wallet-adapter-react': ^0.15.20
       '@solana/wallet-adapter-react-ui': ^0.9.18
       '@solana/wallet-adapter-solflare': ^0.6.18
-      '@solana/wallet-standard-phantom': workspace:*
-      '@solana/wallet-standard-solflare': workspace:*
+      '@solana/wallet-standard-phantom': workspace:^
+      '@solana/wallet-standard-solflare': workspace:^
       '@solana/wallet-standard-wallet-adapter': workspace:^
-      '@solana/web3.js': ^1.66.2
+      '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
       '@types/react': ^18.0.23
@@ -192,7 +192,7 @@ importers:
       '@solana/wallet-standard-chains': workspace:^
       '@solana/wallet-standard-features': workspace:^
       '@solana/wallet-standard-util': workspace:^
-      '@solana/web3.js': ^1.66.2
+      '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@wallet-standard/app': ^1.0.0-rc.5
       '@wallet-standard/base': ^1.0.0-rc.5
@@ -237,7 +237,7 @@ importers:
   packages/wallets/ghost:
     specifiers:
       '@solana/wallet-standard-features': workspace:^
-      '@solana/web3.js': ^1.66.2
+      '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
       '@wallet-standard/base': ^1.0.0-rc.5
@@ -260,7 +260,7 @@ importers:
   packages/wallets/phantom:
     specifiers:
       '@solana/wallet-standard-features': workspace:^
-      '@solana/web3.js': ^1.66.2
+      '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
       '@wallet-standard/base': ^1.0.0-rc.5
@@ -281,7 +281,7 @@ importers:
   packages/wallets/solflare:
     specifiers:
       '@solana/wallet-standard-features': workspace:^
-      '@solana/web3.js': ^1.66.2
+      '@solana/web3.js': ^1.58.0
       '@solflare-wallet/sdk': ^1.1.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
@@ -1513,7 +1513,7 @@ packages:
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 18.11.5
 
   /@types/eslint-scope/3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
@@ -1577,7 +1577,6 @@ packages:
 
   /@types/node/18.11.5:
     resolution: {integrity: sha512-3JRwhbjI+cHLAkUorhf8RnqUbFXajvzX4q6fMn5JwkgtuwfYtRQYI3u4V92vI6NJuTsbBQWWh3RZjFsuevyMGQ==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -1629,7 +1628,7 @@ packages:
   /@types/ws/7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 18.11.5
 
   /@typescript-eslint/eslint-plugin/5.41.0_rydi7wwjgn4gtr73oslg4mokxa:
     resolution: {integrity: sha512-DXUS22Y57/LAFSg3x7Vi6RNAuLpTXwxB9S2nIA7msBb/Zt8p7XqMwdpdc1IU7CkOQUPgAqR5fWvxuKCbneKGmA==}
