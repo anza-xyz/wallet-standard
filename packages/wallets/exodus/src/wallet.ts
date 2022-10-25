@@ -27,9 +27,7 @@ import { icon } from './icon.js';
 import type { SolanaChain } from './solana.js';
 import { isSolanaChain, SOLANA_CHAINS } from './solana.js';
 import { bytesEqual } from './util.js';
-import type { ExodusWindow, WindowExodus } from './window.js';
-
-declare const window: ExodusWindow;
+import type { WindowExodus } from './window.js';
 
 export type ExodusFeature = {
     'exodus:': {
@@ -43,6 +41,7 @@ export class ExodusWallet implements Wallet {
     readonly #name = 'Exodus' as const;
     readonly #icon = icon;
     #account: ExodusWalletAccount | null = null;
+    readonly #exodus: WindowExodus;
 
     get version() {
         return this.#version;
@@ -95,9 +94,7 @@ export class ExodusWallet implements Wallet {
                 signMessage: this.#signMessage,
             },
             'exodus:': {
-                get exodus() {
-                    return window.exodus;
-                },
+                exodus: this.#exodus,
             },
         };
     }
@@ -106,14 +103,16 @@ export class ExodusWallet implements Wallet {
         return this.#account ? [this.#account] : [];
     }
 
-    constructor() {
+    constructor(exodus: WindowExodus) {
         if (new.target === ExodusWallet) {
             Object.freeze(this);
         }
 
-        window.exodus.solana.on('connect', this.#connected, this);
-        window.exodus.solana.on('disconnect', this.#disconnected, this);
-        window.exodus.solana.on('accountChanged', this.#reconnected, this);
+        this.#exodus = exodus;
+
+        exodus.solana.on('connect', this.#connected, this);
+        exodus.solana.on('disconnect', this.#disconnected, this);
+        exodus.solana.on('accountChanged', this.#reconnected, this);
 
         this.#connected();
     }
@@ -133,10 +132,10 @@ export class ExodusWallet implements Wallet {
     }
 
     #connected = () => {
-        const address = window.exodus.solana.publicKey?.toBase58();
+        const address = this.#exodus.solana.publicKey?.toBase58();
         if (address) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const publicKey = window.exodus.solana.publicKey!.toBytes();
+            const publicKey = this.#exodus.solana.publicKey!.toBytes();
 
             const account = this.#account;
             if (!account || account.address !== address || !bytesEqual(account.publicKey, publicKey)) {
@@ -154,7 +153,7 @@ export class ExodusWallet implements Wallet {
     };
 
     #reconnected = () => {
-        if (window.exodus.solana.publicKey) {
+        if (this.#exodus.solana.publicKey) {
             this.#connected();
         } else {
             this.#disconnected();
@@ -162,7 +161,7 @@ export class ExodusWallet implements Wallet {
     };
 
     #connect: ConnectMethod = async ({ silent } = {}) => {
-        await window.exodus.solana.connect(silent ? { onlyIfTrusted: true } : undefined);
+        await this.#exodus.solana.connect(silent ? { onlyIfTrusted: true } : undefined);
 
         this.#connected();
 
@@ -170,7 +169,7 @@ export class ExodusWallet implements Wallet {
     };
 
     #disconnect: DisconnectMethod = async () => {
-        await window.exodus.solana.disconnect();
+        await this.#exodus.solana.disconnect();
     };
 
     #signAndSendTransaction: SolanaSignAndSendTransactionMethod = async (...inputs) => {
@@ -185,7 +184,7 @@ export class ExodusWallet implements Wallet {
             if (account !== this.#account) throw new Error('invalid account');
             if (!isSolanaChain(chain)) throw new Error('invalid chain');
 
-            const { signature } = await window.exodus.solana.signAndSendTransaction(Transaction.from(transaction), {
+            const { signature } = await this.#exodus.solana.signAndSendTransaction(Transaction.from(transaction), {
                 maxRetries,
                 minContextSlot,
                 preflightCommitment,
@@ -213,7 +212,7 @@ export class ExodusWallet implements Wallet {
             if (account !== this.#account) throw new Error('invalid account');
             if (chain && !isSolanaChain(chain)) throw new Error('invalid chain');
 
-            const signedTransaction = await window.exodus.solana.signTransaction(Transaction.from(transaction));
+            const signedTransaction = await this.#exodus.solana.signTransaction(Transaction.from(transaction));
 
             outputs.push({
                 signedTransaction: new Uint8Array(
@@ -239,7 +238,7 @@ export class ExodusWallet implements Wallet {
 
             const transactions = inputs.map(({ transaction }) => Transaction.from(transaction));
 
-            const signedTransactions = await window.exodus.solana.signAllTransactions(transactions);
+            const signedTransactions = await this.#exodus.solana.signAllTransactions(transactions);
 
             outputs.push(
                 ...signedTransactions.map((signedTransaction) => ({
@@ -266,7 +265,7 @@ export class ExodusWallet implements Wallet {
             const { message, account } = inputs[0]!;
             if (account !== this.#account) throw new Error('invalid account');
 
-            const { signature } = await window.exodus.solana.signMessage(message);
+            const { signature } = await this.#exodus.solana.signMessage(message);
 
             outputs.push({ signedMessage: message, signature });
         } else if (inputs.length > 1) {
