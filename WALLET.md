@@ -92,7 +92,7 @@ git commit -m "Customize icon"
 ## 7. Build the package
 
 ```shell
-npm run tsc
+npm run build
 ```
 
 This outputs .js files to the `lib` directory.
