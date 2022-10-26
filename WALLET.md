@@ -74,6 +74,8 @@ git commit -m "Add package-lock.json"
 Open the `src/icon.ts` file. This contains a base64 encoded data URI of an SVG, PNG, WebP, or GIF image. This will be the icon dapps display for your wallet.
 
 ```ts
+import { WalletIcon } from '@wallet-standard/base';
+
 export const icon: WalletIcon =
     'data:image/svg+xml;base64,PHN2Zy......ZnPg==' as const;
 ```
@@ -124,14 +126,14 @@ Object.defineProperty(window, 'uniqueNewYork', { value: new UniqueNewYork() });
 
 Instead, do this.
 ```ts
-// Import the `register` function from your package.
-import { register } from 'unique-new-york-standard-wallet';
+// Import the `initialize` function from your package.
+import { initialize } from 'unique-new-york-standard-wallet';
 
 // Create a reference to your wallet's existing API.
 const uniqueNewYork = new UniqueNewYork();
 
 // Register your wallet using the Wallet Standard, passing the reference.
-register(uniqueNewYork);
+initialize(uniqueNewYork);
 
 // Attach the reference to the window, guarding against errors.
 try {
