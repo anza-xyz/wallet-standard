@@ -108,7 +108,7 @@ If your wallet doesn't support versioned transactions, you should add support fo
 Ideally, you should support all Solana clusters. If your wallet doesn't, open the `src/solana.ts` file. You can remove any you don't support, and remove them from the `SOLANA_CHAINS` constant.
 
 ```shell
-npm run tsc
+npm run build
 git add .
 git commit -m "Customize wallet"
 ```
