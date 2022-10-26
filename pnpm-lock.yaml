@@ -243,6 +243,7 @@ importers:
       '@wallet-standard/base': ^1.0.0-rc.5
       '@wallet-standard/features': ^1.0.0-rc.5
       bs58: ^4.0.1
+      prettier: ^2.7.1
       shx: ^0.3.4
       typescript: ^4.8.4
     dependencies:
@@ -254,6 +255,7 @@ importers:
     devDependencies:
       '@types/bs58': 4.0.1
       '@types/node-fetch': 2.6.2
+      prettier: 2.7.1
       shx: 0.3.4
       typescript: 4.8.4
 
@@ -266,6 +268,7 @@ importers:
       '@wallet-standard/base': ^1.0.0-rc.5
       '@wallet-standard/features': ^1.0.0-rc.5
       bs58: ^4.0.1
+      prettier: ^2.7.1
       shx: ^0.3.4
       typescript: ^4.8.4
     dependencies:
@@ -277,6 +280,7 @@ importers:
     devDependencies:
       '@types/bs58': 4.0.1
       '@types/node-fetch': 2.6.2
+      prettier: 2.7.1
       shx: 0.3.4
       typescript: 4.8.4
 
@@ -290,6 +294,7 @@ importers:
       '@wallet-standard/base': ^1.0.0-rc.5
       '@wallet-standard/features': ^1.0.0-rc.5
       bs58: ^4.0.1
+      prettier: ^2.7.1
       shx: ^0.3.4
       typescript: ^4.8.4
     dependencies:
@@ -302,6 +307,7 @@ importers:
     devDependencies:
       '@types/bs58': 4.0.1
       '@types/node-fetch': 2.6.2
+      prettier: 2.7.1
       shx: 0.3.4
       typescript: 4.8.4
 
