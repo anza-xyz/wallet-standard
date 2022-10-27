@@ -28,8 +28,8 @@
         "@solana/wallet-standard-features": "^0.0.0",
         "@solana/web3.js": "^1.58.0",
         "@solflare-wallet/sdk": "^1.1.0",
-        "@wallet-standard/base": "^1.0.0-rc.5",
-        "@wallet-standard/features": "^1.0.0-rc.5",
+        "@wallet-standard/base": "rc",
+        "@wallet-standard/features": "rc",
         "bs58": "^4.0.1"
     },
     "devDependencies": {
