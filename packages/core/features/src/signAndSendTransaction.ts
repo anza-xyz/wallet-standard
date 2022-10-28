@@ -1,9 +1,10 @@
-import type { SignAndSendTransactionInput, SignAndSendTransactionOutput } from '@wallet-standard/features';
+import type { IdentifierString } from '@wallet-standard/base';
 import type {
+    SolanaSignTransactionInput,
     SolanaSignTransactionOptions,
     SolanaTransactionCommitment,
     SolanaTransactionVersion,
-} from './solanaSignTransaction.js';
+} from './signTransaction.js';
 
 /** TODO: docs */
 export type SolanaSignAndSendTransactionFeature = {
@@ -34,16 +35,22 @@ export type SolanaSignAndSendTransactionMethod = (
     ...inputs: SolanaSignAndSendTransactionInput[]
 ) => Promise<SolanaSignAndSendTransactionOutput[]>;
 
-/** Input for signing and sending transactions. */
-export interface SolanaSignAndSendTransactionInput extends SignAndSendTransactionInput {
+/** Input for signing and sending a transaction. */
+export interface SolanaSignAndSendTransactionInput extends SolanaSignTransactionInput {
+    /** Chain to use. */
+    chain: IdentifierString;
+
     /** TODO: docs */
     options?: SolanaSignAndSendTransactionOptions;
 }
 
-/** Output of signing and sending transactions. */
-export interface SolanaSignAndSendTransactionOutput extends SignAndSendTransactionOutput {}
+/** Output of signing and sending a transaction. */
+export interface SolanaSignAndSendTransactionOutput {
+    /** Transaction signature, as raw bytes. */
+    signature: Uint8Array;
+}
 
-/** Options for signing and sending transactions. */
+/** Options for signing and sending a transaction. */
 export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions & {
     /** Desired commitment level. If provided, confirm the transaction after sending. */
     commitment?: SolanaTransactionCommitment;

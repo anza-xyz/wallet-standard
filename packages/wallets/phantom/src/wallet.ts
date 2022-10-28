@@ -2,6 +2,9 @@ import type {
     SolanaSignAndSendTransactionFeature,
     SolanaSignAndSendTransactionMethod,
     SolanaSignAndSendTransactionOutput,
+    SolanaSignMessageFeature,
+    SolanaSignMessageMethod,
+    SolanaSignMessageOutput,
     SolanaSignTransactionFeature,
     SolanaSignTransactionMethod,
     SolanaSignTransactionOutput,
@@ -17,9 +20,6 @@ import type {
     EventsListeners,
     EventsNames,
     EventsOnMethod,
-    SignMessageFeature,
-    SignMessageMethod,
-    SignMessageOutput,
 } from '@wallet-standard/features';
 import bs58 from 'bs58';
 import { PhantomWalletAccount } from './account.js';
@@ -64,7 +64,7 @@ export class PhantomWallet implements Wallet {
         EventsFeature &
         SolanaSignAndSendTransactionFeature &
         SolanaSignTransactionFeature &
-        SignMessageFeature &
+        SolanaSignMessageFeature &
         PhantomFeature {
         return {
             'standard:connect': {
@@ -89,7 +89,7 @@ export class PhantomWallet implements Wallet {
                 supportedTransactionVersions: ['legacy'],
                 signTransaction: this.#signTransaction,
             },
-            'standard:signMessage': {
+            'solana:signMessage': {
                 version: '1.0.0',
                 signMessage: this.#signMessage,
             },
@@ -258,10 +258,10 @@ export class PhantomWallet implements Wallet {
         return outputs;
     };
 
-    #signMessage: SignMessageMethod = async (...inputs) => {
+    #signMessage: SolanaSignMessageMethod = async (...inputs) => {
         if (!this.#account) throw new Error('not connected');
 
-        const outputs: SignMessageOutput[] = [];
+        const outputs: SolanaSignMessageOutput[] = [];
 
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
