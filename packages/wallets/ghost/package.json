@@ -21,7 +21,7 @@
         "fmt": "prettier --write '{*,**/*}.{ts,tsx,js,jsx,json}'",
         "clean": "shx mkdir -p lib && shx rm -rf lib",
         "tsc": "tsc --build --verbose tsconfig.all.json",
-        "package": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
+        "package": "shx mkdir -p lib/cjs && shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
         "build": "npm run clean && npm run tsc && npm run package"
     },
     "dependencies": {
