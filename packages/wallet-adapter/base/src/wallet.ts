@@ -6,6 +6,9 @@ import type {
     SolanaSignAndSendTransactionFeature,
     SolanaSignAndSendTransactionMethod,
     SolanaSignAndSendTransactionOutput,
+    SolanaSignMessageFeature,
+    SolanaSignMessageMethod,
+    SolanaSignMessageOutput,
     SolanaSignTransactionFeature,
     SolanaSignTransactionMethod,
     SolanaSignTransactionOutput,
@@ -24,9 +27,6 @@ import type {
     EventsListeners,
     EventsNames,
     EventsOnMethod,
-    SignMessageFeature,
-    SignMessageMethod,
-    SignMessageOutput,
 } from '@wallet-standard/features';
 import { arraysEqual, bytesEqual, ReadonlyWalletAccount } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
@@ -49,12 +49,12 @@ export class SolanaWalletAdapterWalletAccount extends ReadonlyWalletAccount {
     }) {
         const features: (keyof (SolanaSignAndSendTransactionFeature &
             SolanaSignTransactionFeature &
-            SignMessageFeature))[] = ['solana:signAndSendTransaction'];
+            SolanaSignMessageFeature))[] = ['solana:signAndSendTransaction'];
         if ('signTransaction' in adapter) {
             features.push('solana:signTransaction');
         }
         if ('signMessage' in adapter) {
-            features.push('standard:signMessage');
+            features.push('solana:signMessage');
         }
 
         super({ address, publicKey, chains, features });
@@ -96,7 +96,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
     get features(): ConnectFeature &
         DisconnectFeature &
         SolanaSignAndSendTransactionFeature &
-        Partial<SolanaSignTransactionFeature & SignMessageFeature> {
+        Partial<SolanaSignTransactionFeature & SolanaSignMessageFeature> {
         const features: ConnectFeature & DisconnectFeature & EventsFeature & SolanaSignAndSendTransactionFeature = {
             'standard:connect': {
                 version: '1.0.0',
@@ -128,10 +128,10 @@ export class SolanaWalletAdapterWallet implements Wallet {
             };
         }
 
-        let signMessageFeature: SignMessageFeature | undefined;
+        let signMessageFeature: SolanaSignMessageFeature | undefined;
         if ('signMessage' in this.#adapter) {
             signMessageFeature = {
-                'standard:signMessage': {
+                'solana:signMessage': {
                     version: '1.0.0',
                     signMessage: this.#signMessage,
                 },
@@ -341,9 +341,9 @@ export class SolanaWalletAdapterWallet implements Wallet {
         return outputs;
     };
 
-    #signMessage: SignMessageMethod = async (...inputs) => {
+    #signMessage: SolanaSignMessageMethod = async (...inputs) => {
         if (!('signMessage' in this.#adapter)) throw new Error('signMessage not implemented by adapter');
-        const outputs: SignMessageOutput[] = [];
+        const outputs: SolanaSignMessageOutput[] = [];
 
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

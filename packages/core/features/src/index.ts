@@ -1,12 +1,17 @@
 import type { WalletWithFeatures } from '@wallet-standard/base';
-import type { SolanaSignAndSendTransactionFeature } from './solanaSignAndSendTransaction.js';
-import type { SolanaSignTransactionFeature } from './solanaSignTransaction.js';
+import type { SolanaSignAndSendTransactionFeature } from './signAndSendTransaction.js';
+import type { SolanaSignMessageFeature } from './signMessage.js';
+import type { SolanaSignTransactionFeature } from './signTransaction.js';
 
 /** TODO: docs */
-export type SolanaFeatures = SolanaSignTransactionFeature | SolanaSignAndSendTransactionFeature;
+export type SolanaFeatures =
+    | SolanaSignAndSendTransactionFeature
+    | SolanaSignMessageFeature
+    | SolanaSignTransactionFeature;
 
 /** TODO: docs */
 export type WalletWithSolanaFeatures = WalletWithFeatures<SolanaFeatures>;
 
-export * from './solanaSignTransaction.js';
-export * from './solanaSignAndSendTransaction.js';
+export * from './signAndSendTransaction.js';
+export * from './signMessage.js';
+export * from './signTransaction.js';

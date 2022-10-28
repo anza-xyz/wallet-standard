@@ -22,19 +22,14 @@ import {
 } from '@solana/wallet-adapter-base';
 import type {
     SolanaSignAndSendTransactionFeature,
+    SolanaSignMessageFeature,
     SolanaSignTransactionFeature,
 } from '@solana/wallet-standard-features';
 import { getChainForEndpoint, getCommitment } from '@solana/wallet-standard-util';
 import type { Connection, TransactionSignature } from '@solana/web3.js';
 import { PublicKey, Transaction, VersionedTransaction } from '@solana/web3.js';
 import type { Wallet, WalletAccount, WalletWithFeatures } from '@wallet-standard/base';
-import type {
-    ConnectFeature,
-    DisconnectFeature,
-    EventsFeature,
-    EventsListeners,
-    SignMessageFeature,
-} from '@wallet-standard/features';
+import type { ConnectFeature, DisconnectFeature, EventsFeature, EventsListeners } from '@wallet-standard/features';
 import { arraysEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
 import { isVersionedTransaction } from './transaction.js';
@@ -44,7 +39,7 @@ export type WalletAdapterCompatibleWallet = WalletWithFeatures<
     ConnectFeature &
         EventsFeature &
         (SolanaSignAndSendTransactionFeature | SolanaSignTransactionFeature) &
-        (DisconnectFeature | SignMessageFeature | never)
+        (DisconnectFeature | SolanaSignMessageFeature | never)
 >;
 
 /** TODO: docs */
@@ -197,7 +192,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             delete this.signAllTransactions;
         }
 
-        if (account?.features.includes('standard:signMessage')) {
+        if (account?.features.includes('solana:signMessage')) {
             this.signMessage = this.#signMessage;
         } else {
             delete this.signMessage;
@@ -434,11 +429,11 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             const account = this.#account;
             if (!account) throw new WalletNotConnectedError();
 
-            if (!('standard:signMessage' in this.#wallet.features)) throw new WalletConfigError();
-            if (!account.features.includes('standard:signMessage')) throw new WalletSignMessageError();
+            if (!('solana:signMessage' in this.#wallet.features)) throw new WalletConfigError();
+            if (!account.features.includes('solana:signMessage')) throw new WalletSignMessageError();
 
             try {
-                const signedMessages = await this.#wallet.features['standard:signMessage'].signMessage({
+                const signedMessages = await this.#wallet.features['solana:signMessage'].signMessage({
                     account,
                     message,
                 });

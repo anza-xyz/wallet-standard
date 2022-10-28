@@ -1,4 +1,4 @@
-import type { SignTransactionInput, SignTransactionOutput } from '@wallet-standard/features';
+import type { IdentifierString, WalletAccount } from '@wallet-standard/base';
 
 /** TODO: docs */
 export type SolanaSignTransactionFeature = {
@@ -32,16 +32,32 @@ export type SolanaSignTransactionMethod = (
     ...inputs: SolanaSignTransactionInput[]
 ) => Promise<SolanaSignTransactionOutput[]>;
 
-/** Input for signing and sending transactions. */
-export interface SolanaSignTransactionInput extends SignTransactionInput {
+/** Input for signing a transaction. */
+export interface SolanaSignTransactionInput {
+    /** Account to use. */
+    account: WalletAccount;
+
+    /** Serialized transaction, as raw bytes. */
+    transaction: Uint8Array;
+
+    /** Chain to use. */
+    chain?: IdentifierString;
+
     /** TODO: docs */
     options?: SolanaSignTransactionOptions;
 }
 
-/** Output of signing and sending transactions. */
-export interface SolanaSignTransactionOutput extends SignTransactionOutput {}
+/** Output of signing a transaction. */
+export interface SolanaSignTransactionOutput {
+    /**
+     * Signed, serialized transaction, as raw bytes.
+     * Returning a transaction rather than signatures allows multisig wallets, program wallets, and other wallets that
+     * use meta-transactions to return a modified, signed transaction.
+     */
+    signedTransaction: Uint8Array;
+}
 
-/** Options for signing transactions. */
+/** Options for signing a transaction. */
 export type SolanaSignTransactionOptions = {
     /** Preflight commitment level. */
     preflightCommitment?: SolanaTransactionCommitment;
