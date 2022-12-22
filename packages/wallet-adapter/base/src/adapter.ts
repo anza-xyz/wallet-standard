@@ -128,7 +128,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         this.#connecting = false;
     }
 
-    async connect(): Promise<void> {
+    #connect = async ({ silent }: { silent: boolean }) => {
         try {
             if (this.connected || this.connecting) return;
             if (this.#readyState !== WalletReadyState.Installed) throw new WalletNotReadyError();
@@ -137,7 +137,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
 
             if (!this.#wallet.accounts.length) {
                 try {
-                    await this.#wallet.features['standard:connect'].connect();
+                    await this.#wallet.features['standard:connect'].connect({ silent });
                 } catch (error: any) {
                     throw new WalletConnectionError(error?.message, error);
                 }
@@ -163,6 +163,14 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         } finally {
             this.#connecting = false;
         }
+    };
+
+    async connect(): Promise<void> {
+        await this.#connect({ silent: false });
+    }
+
+    async autoConnect(): Promise<void> {
+        await this.#connect({ silent: true });
     }
 
     async disconnect(): Promise<void> {
