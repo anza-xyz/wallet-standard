@@ -161,3 +161,4 @@ If your wallet implements the Wallet Standard, it will be detected by this examp
 - [Solflare](https://github.com/solana-labs/wallet-standard/tree/master/packages/wallets/solflare)
 - [Glow](https://github.com/glow-xyz/glow-js/tree/master/packages/wallet-standard) (owned by `glow-xyz` org)
 - [Backpack](https://github.com/coral-xyz/backpack/tree/master/packages/wallet-standard) (owned by `coral-xyz` org)
+- [XDEFI](https://github.com/XDeFi-tech/wallet-standard/tree/master/packages/wallets) (owned by `xdefi-tech` org)
