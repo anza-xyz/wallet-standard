@@ -15,11 +15,18 @@ import {
     WalletSendTransactionError,
     WalletSignMessageError,
     WalletSignTransactionError,
+    type SendTransactionOptions,
+    type StandardWalletAdapter as StandardAdapter,
+    type SupportedTransactionVersions,
+    type WalletAdapterCompatibleStandardWallet as WalletAdapterCompatibleWallet,
+    type WalletName,
 } from '@solana/wallet-adapter-base';
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignMessageFeature,
-    SolanaSignTransactionFeature,
+import {
+    SolanaSignAndSendTransaction,
+    SolanaSignTransaction,
+    SolanaSignMessage,
+    type SolanaSignAndSendTransactionFeature,
+    type SolanaSignTransactionFeature,
 } from '@solana/wallet-standard-features';
 import { getChainForEndpoint, getCommitment } from '@solana/wallet-standard-util';
 import type { Connection, TransactionSignature } from '@solana/web3.js';
@@ -90,9 +97,9 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         this.#wallet = wallet;
 
         const supportedTransactionVersions =
-            'solana:signAndSendTransaction' in wallet.features
-                ? wallet.features['solana:signAndSendTransaction'].supportedTransactionVersions
-                : wallet.features['solana:signTransaction'].supportedTransactionVersions;
+            SolanaSignAndSendTransaction in wallet.features
+                ? wallet.features[SolanaSignAndSendTransaction].supportedTransactionVersions
+                : wallet.features[SolanaSignTransaction].supportedTransactionVersions;
         this.#supportedTransactionVersions = arraysEqual(supportedTransactionVersions, ['legacy'])
             ? null
             : new Set(supportedTransactionVersions);
@@ -158,7 +165,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         this.#account = account;
         this.#publicKey = publicKey;
 
-        if (account?.features.includes('solana:signTransaction')) {
+        if (account?.features.includes(SolanaSignTransaction)) {
             this.signTransaction = this.#signTransaction;
             this.signAllTransactions = this.#signAllTransactions;
         } else {
@@ -166,7 +173,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             delete this.signAllTransactions;
         }
 
-        if (account?.features.includes('solana:signMessage')) {
+        if (account?.features.includes(SolanaSignMessage)) {
             this.signMessage = this.#signMessage;
         } else {
             delete this.signMessage;
@@ -224,21 +231,21 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             const account = this.#account;
             if (!account) throw new WalletNotConnectedError();
 
-            let feature: 'solana:signAndSendTransaction' | 'solana:signTransaction';
-            if ('solana:signAndSendTransaction' in this.#wallet.features) {
-                if (account.features.includes('solana:signAndSendTransaction')) {
-                    feature = 'solana:signAndSendTransaction';
+            let feature: typeof SolanaSignAndSendTransaction | typeof SolanaSignTransaction;
+            if (SolanaSignAndSendTransaction in this.#wallet.features) {
+                if (account.features.includes(SolanaSignAndSendTransaction)) {
+                    feature = SolanaSignAndSendTransaction;
                 } else if (
-                    'solana:signTransaction' in this.#wallet.features &&
-                    account.features.includes('solana:signTransaction')
+                    SolanaSignTransaction in this.#wallet.features &&
+                    account.features.includes(SolanaSignTransaction)
                 ) {
-                    feature = 'solana:signTransaction';
+                    feature = SolanaSignTransaction;
                 } else {
                     throw new WalletAccountError();
                 }
-            } else if ('solana:signTransaction' in this.#wallet.features) {
-                if (!account.features.includes('solana:signTransaction')) throw new WalletAccountError();
-                feature = 'solana:signTransaction';
+            } else if (SolanaSignTransaction in this.#wallet.features) {
+                if (!account.features.includes(SolanaSignTransaction)) throw new WalletAccountError();
+                feature = SolanaSignTransaction;
             } else {
                 throw new WalletConfigError();
             }
@@ -264,9 +271,9 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                     );
                 }
 
-                if (feature === 'solana:signAndSendTransaction') {
+                if (feature === SolanaSignAndSendTransaction) {
                     const [output] = await (this.#wallet.features as SolanaSignAndSendTransactionFeature)[
-                        'solana:signAndSendTransaction'
+                        SolanaSignAndSendTransaction
                     ].signAndSendTransaction({
                         account,
                         chain,
@@ -285,7 +292,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                     return bs58.encode(output!.signature);
                 } else {
                     const [output] = await (this.#wallet.features as SolanaSignTransactionFeature)[
-                        'solana:signTransaction'
+                        SolanaSignTransaction
                     ].signTransaction({
                         account,
                         chain,
@@ -320,11 +327,11 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             const account = this.#account;
             if (!account) throw new WalletNotConnectedError();
 
-            if (!('solana:signTransaction' in this.#wallet.features)) throw new WalletConfigError();
-            if (!account.features.includes('solana:signTransaction')) throw new WalletAccountError();
+            if (!(SolanaSignTransaction in this.#wallet.features)) throw new WalletConfigError();
+            if (!account.features.includes(SolanaSignTransaction)) throw new WalletAccountError();
 
             try {
-                const signedTransactions = await this.#wallet.features['solana:signTransaction'].signTransaction({
+                const signedTransactions = await this.#wallet.features[SolanaSignTransaction].signTransaction({
                     account,
                     transaction: isVersionedTransaction(transaction)
                         ? transaction.serialize()
@@ -360,11 +367,11 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             const account = this.#account;
             if (!account) throw new WalletNotConnectedError();
 
-            if (!('solana:signTransaction' in this.#wallet.features)) throw new WalletConfigError();
-            if (!account.features.includes('solana:signTransaction')) throw new WalletSignTransactionError();
+            if (!(SolanaSignTransaction in this.#wallet.features)) throw new WalletConfigError();
+            if (!account.features.includes(SolanaSignTransaction)) throw new WalletSignTransactionError();
 
             try {
-                const signedTransactions = await this.#wallet.features['solana:signTransaction'].signTransaction(
+                const signedTransactions = await this.#wallet.features[SolanaSignTransaction].signTransaction(
                     ...transactions.map((transaction) => ({
                         account,
                         transaction: isVersionedTransaction(transaction)
@@ -403,11 +410,11 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             const account = this.#account;
             if (!account) throw new WalletNotConnectedError();
 
-            if (!('solana:signMessage' in this.#wallet.features)) throw new WalletConfigError();
-            if (!account.features.includes('solana:signMessage')) throw new WalletSignMessageError();
+            if (!(SolanaSignMessage in this.#wallet.features)) throw new WalletConfigError();
+            if (!account.features.includes(SolanaSignMessage)) throw new WalletSignMessageError();
 
             try {
-                const signedMessages = await this.#wallet.features['solana:signMessage'].signMessage({
+                const signedMessages = await this.#wallet.features[SolanaSignMessage].signMessage({
                     account,
                     message,
                 });

@@ -1,18 +1,19 @@
-import type { Adapter } from '@solana/wallet-adapter-base';
-import { WalletReadyState } from '@solana/wallet-adapter-base';
-import type { SolanaChain } from '@solana/wallet-standard-chains';
-import { isSolanaChain } from '@solana/wallet-standard-chains';
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignMessageFeature,
-    SolanaSignMessageMethod,
-    SolanaSignMessageOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
-    SolanaTransactionVersion,
+import { isVersionedTransaction, WalletReadyState, type Adapter } from '@solana/wallet-adapter-base';
+import { isSolanaChain, type SolanaChain } from '@solana/wallet-standard-chains';
+import {
+    SolanaSignAndSendTransaction,
+    SolanaSignMessage,
+    SolanaSignTransaction,
+    type SolanaSignAndSendTransactionFeature,
+    type SolanaSignAndSendTransactionMethod,
+    type SolanaSignAndSendTransactionOutput,
+    type SolanaSignMessageFeature,
+    type SolanaSignMessageMethod,
+    type SolanaSignMessageOutput,
+    type SolanaSignTransactionFeature,
+    type SolanaSignTransactionMethod,
+    type SolanaSignTransactionOutput,
+    type SolanaTransactionVersion,
 } from '@solana/wallet-standard-features';
 import { getEndpointForChain } from '@solana/wallet-standard-util';
 import { Connection, Transaction, VersionedTransaction } from '@solana/web3.js';
@@ -30,7 +31,6 @@ import type {
 } from '@wallet-standard/features';
 import { arraysEqual, bytesEqual, ReadonlyWalletAccount } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
-import { isVersionedTransaction } from './transaction.js';
 
 /** TODO: docs */
 export class SolanaWalletAdapterWalletAccount extends ReadonlyWalletAccount {
@@ -49,12 +49,12 @@ export class SolanaWalletAdapterWalletAccount extends ReadonlyWalletAccount {
     }) {
         const features: (keyof (SolanaSignAndSendTransactionFeature &
             SolanaSignTransactionFeature &
-            SolanaSignMessageFeature))[] = ['solana:signAndSendTransaction'];
+            SolanaSignMessageFeature))[] = [SolanaSignAndSendTransaction];
         if ('signTransaction' in adapter) {
-            features.push('solana:signTransaction');
+            features.push(SolanaSignTransaction);
         }
         if ('signMessage' in adapter) {
-            features.push('solana:signMessage');
+            features.push(SolanaSignMessage);
         }
 
         super({ address, publicKey, chains, features });
@@ -110,7 +110,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
                 version: '1.0.0',
                 on: this.#on,
             },
-            'solana:signAndSendTransaction': {
+            [SolanaSignAndSendTransaction]: {
                 version: '1.0.0',
                 supportedTransactionVersions: this.#supportedTransactionVersions,
                 signAndSendTransaction: this.#signAndSendTransaction,
@@ -120,7 +120,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
         let signTransactionFeature: SolanaSignTransactionFeature | undefined;
         if ('signTransaction' in this.#adapter) {
             signTransactionFeature = {
-                'solana:signTransaction': {
+                [SolanaSignTransaction]: {
                     version: '1.0.0',
                     supportedTransactionVersions: this.#supportedTransactionVersions,
                     signTransaction: this.#signTransaction,
@@ -131,7 +131,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
         let signMessageFeature: SolanaSignMessageFeature | undefined;
         if ('signMessage' in this.#adapter) {
             signMessageFeature = {
-                'solana:signMessage': {
+                [SolanaSignMessage]: {
                     version: '1.0.0',
                     signMessage: this.#signMessage,
                 },

@@ -1,25 +1,31 @@
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignMessageFeature,
-    SolanaSignMessageMethod,
-    SolanaSignMessageOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
+import {
+    SolanaSignAndSendTransaction,
+    SolanaSignMessage,
+    SolanaSignTransaction,
+    type SolanaSignAndSendTransactionFeature,
+    type SolanaSignAndSendTransactionMethod,
+    type SolanaSignAndSendTransactionOutput,
+    type SolanaSignMessageFeature,
+    type SolanaSignMessageMethod,
+    type SolanaSignMessageOutput,
+    type SolanaSignTransactionFeature,
+    type SolanaSignTransactionMethod,
+    type SolanaSignTransactionOutput,
 } from '@solana/wallet-standard-features';
 import { Transaction } from '@solana/web3.js';
 import type { Wallet } from '@wallet-standard/base';
-import type {
-    ConnectFeature,
-    ConnectMethod,
-    DisconnectFeature,
-    DisconnectMethod,
-    EventsFeature,
-    EventsListeners,
-    EventsNames,
-    EventsOnMethod,
+import {
+    Connect,
+    Disconnect,
+    Events,
+    type ConnectFeature,
+    type ConnectMethod,
+    type DisconnectFeature,
+    type DisconnectMethod,
+    type EventsFeature,
+    type EventsListeners,
+    type EventsNames,
+    type EventsOnMethod,
 } from '@wallet-standard/features';
 import bs58 from 'bs58';
 import { PhantomWalletAccount } from './account.js';
@@ -29,8 +35,10 @@ import { isSolanaChain, SOLANA_CHAINS } from './solana.js';
 import { bytesEqual } from './util.js';
 import type { WindowPhantom } from './window.js';
 
+export const Phantom = 'phantom:';
+
 export type PhantomFeature = {
-    'phantom:': {
+    [Phantom]: {
         phantom: WindowPhantom;
     };
 };
@@ -67,33 +75,33 @@ export class PhantomWallet implements Wallet {
         SolanaSignMessageFeature &
         PhantomFeature {
         return {
-            'standard:connect': {
+            [Connect]: {
                 version: '1.0.0',
                 connect: this.#connect,
             },
-            'standard:disconnect': {
+            [Disconnect]: {
                 version: '1.0.0',
                 disconnect: this.#disconnect,
             },
-            'standard:events': {
+            [Events]: {
                 version: '1.0.0',
                 on: this.#on,
             },
-            'solana:signAndSendTransaction': {
+            [SolanaSignAndSendTransaction]: {
                 version: '1.0.0',
                 supportedTransactionVersions: ['legacy'],
                 signAndSendTransaction: this.#signAndSendTransaction,
             },
-            'solana:signTransaction': {
+            [SolanaSignTransaction]: {
                 version: '1.0.0',
                 supportedTransactionVersions: ['legacy'],
                 signTransaction: this.#signTransaction,
             },
-            'solana:signMessage': {
+            [SolanaSignMessage]: {
                 version: '1.0.0',
                 signMessage: this.#signMessage,
             },
-            'phantom:': {
+            [Phantom]: {
                 phantom: this.#phantom,
             },
         };
