@@ -6,6 +6,9 @@ import type {
     SolanaTransactionVersion,
 } from './signTransaction.js';
 
+/** Name of the feature. */
+export const SolanaSignAndSendTransaction = 'solana:signAndSendTransaction';
+
 /** TODO: docs */
 export type SolanaSignAndSendTransactionFeature = {
     /** Namespace for the feature. */

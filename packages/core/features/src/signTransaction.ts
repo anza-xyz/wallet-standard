@@ -1,5 +1,8 @@
 import type { IdentifierString, WalletAccount } from '@wallet-standard/base';
 
+/** Name of the feature. */
+export const SolanaSignTransaction = 'solana:signTransaction';
+
 /** TODO: docs */
 export type SolanaSignTransactionFeature = {
     /** Namespace for the feature. */
