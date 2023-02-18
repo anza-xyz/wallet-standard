@@ -54,8 +54,10 @@ export interface SolanaSignAndSendTransactionOutput {
 export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions & {
     /** Desired commitment level. If provided, confirm the transaction after sending. */
     commitment?: SolanaTransactionCommitment;
+
     /** Disable transaction verification at the RPC. */
     skipPreflight?: boolean;
+
     /** Maximum number of times for the RPC node to retry sending the transaction to the leader. */
     maxRetries?: number;
 };

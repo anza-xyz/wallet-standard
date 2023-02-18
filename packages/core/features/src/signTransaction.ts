@@ -61,6 +61,7 @@ export interface SolanaSignTransactionOutput {
 export type SolanaSignTransactionOptions = {
     /** Preflight commitment level. */
     preflightCommitment?: SolanaTransactionCommitment;
+
     /** The minimum slot that the request can be evaluated at. */
     minContextSlot?: number;
 };
