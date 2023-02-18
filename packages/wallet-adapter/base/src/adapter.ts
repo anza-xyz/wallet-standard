@@ -1,11 +1,7 @@
-import type {
-    SendTransactionOptions,
-    SupportedTransactionVersions,
-    WalletAdapter,
-    WalletName,
-} from '@solana/wallet-adapter-base';
 import {
     BaseWalletAdapter,
+    isWalletAdapterCompatibleStandardWallet as isWalletAdapterCompatibleWallet,
+    isVersionedTransaction,
     WalletAccountError,
     WalletConfigError,
     WalletConnectionError,
@@ -28,39 +24,17 @@ import type {
 import { getChainForEndpoint, getCommitment } from '@solana/wallet-standard-util';
 import type { Connection, TransactionSignature } from '@solana/web3.js';
 import { PublicKey, Transaction, VersionedTransaction } from '@solana/web3.js';
-import type { Wallet, WalletAccount, WalletWithFeatures } from '@wallet-standard/base';
-import type { ConnectFeature, DisconnectFeature, EventsFeature, EventsListeners } from '@wallet-standard/features';
+import type { WalletAccount } from '@wallet-standard/base';
+import type { EventsListeners } from '@wallet-standard/features';
 import { arraysEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
-import { isVersionedTransaction } from './transaction.js';
 
-/** TODO: docs */
-export type WalletAdapterCompatibleWallet = WalletWithFeatures<
-    ConnectFeature &
-        EventsFeature &
-        (SolanaSignAndSendTransactionFeature | SolanaSignTransactionFeature) &
-        (DisconnectFeature | SolanaSignMessageFeature | never)
->;
-
-/** TODO: docs */
-export function isWalletAdapterCompatibleWallet(wallet: Wallet): wallet is WalletAdapterCompatibleWallet {
-    return (
-        'standard:connect' in wallet.features &&
-        'standard:events' in wallet.features &&
-        ('solana:signAndSendTransaction' in wallet.features || 'solana:signTransaction' in wallet.features)
-    );
-}
+export { StandardAdapter, WalletAdapterCompatibleWallet, isWalletAdapterCompatibleWallet };
 
 /** TODO: docs */
 export interface StandardWalletAdapterConfig {
     wallet: WalletAdapterCompatibleWallet;
 }
-
-/** TODO: docs */
-export type StandardAdapter = WalletAdapter & {
-    wallet: WalletAdapterCompatibleWallet;
-    standard: true;
-};
 
 /** TODO: docs */
 export class StandardWalletAdapter extends BaseWalletAdapter implements StandardAdapter {
