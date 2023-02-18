@@ -39,7 +39,7 @@
         "@wallet-standard/base": "^1.0.0"
     },
     "devDependencies": {
-        "@solana/wallet-adapter-base": "^0.9.18",
+        "@solana/wallet-adapter-base": "^0.9.21",
         "@types/react": "^18.0.23",
         "react": "^18.2.0",
         "shx": "^0.3.4"
