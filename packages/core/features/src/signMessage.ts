@@ -5,13 +5,13 @@ export const SolanaSignMessage = 'solana:signMessage';
 
 /** TODO: docs */
 export type SolanaSignMessageFeature = {
-    /** Namespace for the feature. */
-    'solana:signMessage': {
+    /** Name of the feature. */
+    readonly [SolanaSignMessage]: {
         /** Version of the feature API. */
-        version: SolanaSignMessageVersion;
+        readonly version: SolanaSignMessageVersion;
 
         /** Sign messages (arbitrary bytes) using the account's secret key. */
-        signMessage: SolanaSignMessageMethod;
+        readonly signMessage: SolanaSignMessageMethod;
     };
 };
 
@@ -19,22 +19,24 @@ export type SolanaSignMessageFeature = {
 export type SolanaSignMessageVersion = '1.0.0';
 
 /** TODO: docs */
-export type SolanaSignMessageMethod = (...inputs: SolanaSignMessageInput[]) => Promise<SolanaSignMessageOutput[]>;
+export type SolanaSignMessageMethod = (
+    ...inputs: readonly SolanaSignMessageInput[]
+) => Promise<readonly SolanaSignMessageOutput[]>;
 
 /** Input for signing a message. */
 export interface SolanaSignMessageInput {
     /** Account to use. */
-    account: WalletAccount;
+    readonly account: WalletAccount;
 
     /** Message to sign, as raw bytes. */
-    message: Uint8Array;
+    readonly message: Uint8Array;
 }
 
 /** Output of signing a message. */
 export interface SolanaSignMessageOutput {
     /** TODO: docs */
-    signedMessage: Uint8Array;
+    readonly signedMessage: Uint8Array;
 
     /** TODO: docs */
-    signature: Uint8Array;
+    readonly signature: Uint8Array;
 }
