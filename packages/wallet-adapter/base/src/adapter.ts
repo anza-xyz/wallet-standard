@@ -1,13 +1,18 @@
 import {
     BaseWalletAdapter,
-    isWalletAdapterCompatibleStandardWallet as isWalletAdapterCompatibleWallet,
     isVersionedTransaction,
+    isWalletAdapterCompatibleStandardWallet as isWalletAdapterCompatibleWallet,
+    type SendTransactionOptions,
+    type StandardWalletAdapter as StandardAdapter,
+    type SupportedTransactionVersions,
     WalletAccountError,
+    type WalletAdapterCompatibleStandardWallet as WalletAdapterCompatibleWallet,
     WalletConfigError,
     WalletConnectionError,
     WalletDisconnectedError,
     WalletDisconnectionError,
     WalletError,
+    type WalletName,
     WalletNotConnectedError,
     WalletNotReadyError,
     WalletPublicKeyError,
@@ -15,24 +20,24 @@ import {
     WalletSendTransactionError,
     WalletSignMessageError,
     WalletSignTransactionError,
-    type SendTransactionOptions,
-    type StandardWalletAdapter as StandardAdapter,
-    type SupportedTransactionVersions,
-    type WalletAdapterCompatibleStandardWallet as WalletAdapterCompatibleWallet,
-    type WalletName,
 } from '@solana/wallet-adapter-base';
 import {
     SolanaSignAndSendTransaction,
-    SolanaSignTransaction,
-    SolanaSignMessage,
     type SolanaSignAndSendTransactionFeature,
+    SolanaSignMessage,
+    SolanaSignTransaction,
     type SolanaSignTransactionFeature,
 } from '@solana/wallet-standard-features';
 import { getChainForEndpoint, getCommitment } from '@solana/wallet-standard-util';
 import type { Connection, TransactionSignature } from '@solana/web3.js';
 import { PublicKey, Transaction, VersionedTransaction } from '@solana/web3.js';
 import type { WalletAccount } from '@wallet-standard/base';
-import type { EventsListeners } from '@wallet-standard/features';
+import {
+    StandardConnect,
+    StandardDisconnect,
+    StandardEvents,
+    type StandardEventsListeners,
+} from '@wallet-standard/features';
 import { arraysEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
 
@@ -118,7 +123,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
 
             if (!this.#wallet.accounts.length) {
                 try {
-                    await this.#wallet.features['standard:connect'].connect();
+                    await this.#wallet.features[StandardConnect].connect();
                 } catch (error: any) {
                     throw new WalletConnectionError(error?.message, error);
                 }
@@ -135,7 +140,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                 throw new WalletPublicKeyError(error?.message, error);
             }
 
-            this.#off = this.#wallet.features['standard:events'].on('change', this.#changed);
+            this.#off = this.#wallet.features[StandardEvents].on('change', this.#changed);
             this.#connected(account, publicKey);
             this.emit('connect', publicKey);
         } catch (error: any) {
@@ -147,9 +152,9 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
     }
 
     async disconnect(): Promise<void> {
-        if ('standard:disconnect' in this.#wallet.features) {
+        if (StandardDisconnect in this.#wallet.features) {
             try {
-                await this.#wallet.features['standard:disconnect'].disconnect();
+                await this.#wallet.features[StandardDisconnect].disconnect();
             } catch (error: any) {
                 this.emit('error', new WalletDisconnectionError(error?.message, error));
             }
@@ -190,7 +195,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         this.#connected(null, null);
     }
 
-    #changed: EventsListeners['change'] = (properties) => {
+    #changed: StandardEventsListeners['change'] = (properties) => {
         // If the adapter isn't connected or the change doesn't include accounts, do nothing.
         if (!this.#account || !this.#publicKey || !('accounts' in properties)) return;
 

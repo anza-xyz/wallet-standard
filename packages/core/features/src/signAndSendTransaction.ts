@@ -17,7 +17,7 @@ export type SolanaSignAndSendTransactionFeature = {
         readonly version: SolanaSignAndSendTransactionVersion;
 
         /** TODO: docs */
-        readonly supportedTransactionVersions: ReadonlyArray<SolanaTransactionVersion>;
+        readonly supportedTransactionVersions: readonly SolanaTransactionVersion[];
 
         /**
          * Sign transactions using the account's secret key and send them to the chain.
@@ -57,8 +57,10 @@ export interface SolanaSignAndSendTransactionOutput {
 export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions & {
     /** Desired commitment level. If provided, confirm the transaction after sending. */
     readonly commitment?: SolanaTransactionCommitment;
+
     /** Disable transaction verification at the RPC. */
     readonly skipPreflight?: boolean;
+
     /** Maximum number of times for the RPC node to retry sending the transaction to the leader. */
     readonly maxRetries?: number;
 };

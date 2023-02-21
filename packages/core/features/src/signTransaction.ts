@@ -11,7 +11,7 @@ export type SolanaSignTransactionFeature = {
         readonly version: SolanaSignTransactionVersion;
 
         /** TODO: docs */
-        readonly supportedTransactionVersions: ReadonlyArray<SolanaTransactionVersion>;
+        readonly supportedTransactionVersions: readonly SolanaTransactionVersion[];
 
         /**
          * Sign transactions using the account's secret key.
@@ -64,6 +64,7 @@ export interface SolanaSignTransactionOutput {
 export type SolanaSignTransactionOptions = {
     /** Preflight commitment level. */
     readonly preflightCommitment?: SolanaTransactionCommitment;
+
     /** The minimum slot that the request can be evaluated at. */
     readonly minContextSlot?: number;
 };
