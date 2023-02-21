@@ -1,12 +1,12 @@
 import {
     BaseWalletAdapter,
     isVersionedTransaction,
-    isWalletAdapterCompatibleStandardWallet as isWalletAdapterCompatibleWallet,
+    isWalletAdapterCompatibleStandardWallet,
     type SendTransactionOptions,
-    type StandardWalletAdapter as StandardAdapter,
+    type StandardWalletAdapter as StandardWalletAdapterType,
     type SupportedTransactionVersions,
     WalletAccountError,
-    type WalletAdapterCompatibleStandardWallet as WalletAdapterCompatibleWallet,
+    type WalletAdapterCompatibleStandardWallet,
     WalletConfigError,
     WalletConnectionError,
     WalletDisconnectedError,
@@ -41,20 +41,39 @@ import {
 import { arraysEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
 
-export { StandardAdapter, WalletAdapterCompatibleWallet, isWalletAdapterCompatibleWallet };
+/**
+ * @deprecated Use `StandardWalletAdapter` from `@solana/wallet-adapter-base` instead.
+ *
+ * @group Deprecated
+ */
+export type StandardAdapter = StandardWalletAdapterType;
+
+/**
+ * @deprecated Use `WalletAdapterCompatibleStandardWallet` from `@solana/wallet-adapter-base` instead.
+ *
+ * @group Deprecated
+ */
+export type WalletAdapterCompatibleWallet = WalletAdapterCompatibleStandardWallet;
+
+/**
+ * @deprecated Use `isWalletAdapterCompatibleStandardWallet` from `@solana/wallet-adapter-base` instead.
+ *
+ * @group Deprecated
+ */
+export const isWalletAdapterCompatibleWallet = isWalletAdapterCompatibleStandardWallet;
 
 /** TODO: docs */
 export interface StandardWalletAdapterConfig {
-    wallet: WalletAdapterCompatibleWallet;
+    wallet: WalletAdapterCompatibleStandardWallet;
 }
 
 /** TODO: docs */
-export class StandardWalletAdapter extends BaseWalletAdapter implements StandardAdapter {
+export class StandardWalletAdapter extends BaseWalletAdapter implements StandardWalletAdapterType {
     #account: WalletAccount | null;
     #publicKey: PublicKey | null;
     #connecting: boolean;
     #off: (() => void) | undefined;
-    readonly #wallet: WalletAdapterCompatibleWallet;
+    readonly #wallet: WalletAdapterCompatibleStandardWallet;
     readonly #supportedTransactionVersions: SupportedTransactionVersions;
     readonly #readyState: WalletReadyState =
         typeof window === 'undefined' || typeof document === 'undefined'
@@ -89,7 +108,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         return this.#readyState;
     }
 
-    get wallet(): WalletAdapterCompatibleWallet {
+    get wallet(): WalletAdapterCompatibleStandardWallet {
         return this.#wallet;
     }
 
