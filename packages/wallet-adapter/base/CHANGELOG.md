@@ -1,5 +1,13 @@
 # @solana/wallet-standard-wallet-adapter-base
 
+## 1.0.1
+
+### Patch Changes
+
+-   9be9ef3: Use latest @solana/wallet-adapter-base, export reusable feature names
+-   Updated dependencies [9be9ef3]
+    -   @solana/wallet-standard-features@1.0.2
+
 ## 1.0.0
 
 ### Major Changes
