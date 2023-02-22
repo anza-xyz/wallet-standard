@@ -53,16 +53,16 @@ export interface SolanaSignInInput {
     /** EIP-4361 Issued At. */
     readonly issuedAt: string;
 
-    /** EIP-4361 Expiration Time. */
+    /** Optional EIP-4361 Expiration Time. */
     readonly expirationTime?: string;
 
-    /** EIP-4361 Not Before. */
+    /** Optional EIP-4361 Not Before. */
     readonly notBefore?: string;
 
-    /** EIP-4361 Request ID. */
+    /** Optional EIP-4361 Request ID. */
     readonly requestId?: string;
 
-    /** EIP-4361 Resources. */
+    /** Optional EIP-4361 Resources. */
     readonly resources?: readonly string[];
 }
 
