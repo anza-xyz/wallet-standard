@@ -71,7 +71,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
     }
 
     get url() {
-        return 'https://github.com/wallet-standard';
+        return 'https://github.com/solana-labs/wallet-standard';
     }
 
     get publicKey() {
