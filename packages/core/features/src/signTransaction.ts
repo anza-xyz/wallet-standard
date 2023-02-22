@@ -1,14 +1,17 @@
 import type { IdentifierString, WalletAccount } from '@wallet-standard/base';
 
+/** Name of the feature. */
+export const SolanaSignTransaction = 'solana:signTransaction';
+
 /** TODO: docs */
 export type SolanaSignTransactionFeature = {
-    /** Namespace for the feature. */
-    'solana:signTransaction': {
+    /** Name of the feature. */
+    readonly [SolanaSignTransaction]: {
         /** Version of the feature API. */
-        version: SolanaSignTransactionVersion;
+        readonly version: SolanaSignTransactionVersion;
 
         /** TODO: docs */
-        supportedTransactionVersions: ReadonlyArray<SolanaTransactionVersion>;
+        readonly supportedTransactionVersions: readonly SolanaTransactionVersion[];
 
         /**
          * Sign transactions using the account's secret key.
@@ -17,7 +20,7 @@ export type SolanaSignTransactionFeature = {
          *
          * @return Outputs of signing transactions.
          */
-        signTransaction: SolanaSignTransactionMethod;
+        readonly signTransaction: SolanaSignTransactionMethod;
     };
 };
 
@@ -29,22 +32,22 @@ export type SolanaTransactionVersion = 'legacy' | 0;
 
 /** TODO: docs */
 export type SolanaSignTransactionMethod = (
-    ...inputs: SolanaSignTransactionInput[]
-) => Promise<SolanaSignTransactionOutput[]>;
+    ...inputs: readonly SolanaSignTransactionInput[]
+) => Promise<readonly SolanaSignTransactionOutput[]>;
 
 /** Input for signing a transaction. */
 export interface SolanaSignTransactionInput {
     /** Account to use. */
-    account: WalletAccount;
+    readonly account: WalletAccount;
 
     /** Serialized transaction, as raw bytes. */
-    transaction: Uint8Array;
+    readonly transaction: Uint8Array;
 
     /** Chain to use. */
-    chain?: IdentifierString;
+    readonly chain?: IdentifierString;
 
     /** TODO: docs */
-    options?: SolanaSignTransactionOptions;
+    readonly options?: SolanaSignTransactionOptions;
 }
 
 /** Output of signing a transaction. */
@@ -54,15 +57,16 @@ export interface SolanaSignTransactionOutput {
      * Returning a transaction rather than signatures allows multisig wallets, program wallets, and other wallets that
      * use meta-transactions to return a modified, signed transaction.
      */
-    signedTransaction: Uint8Array;
+    readonly signedTransaction: Uint8Array;
 }
 
 /** Options for signing a transaction. */
 export type SolanaSignTransactionOptions = {
     /** Preflight commitment level. */
-    preflightCommitment?: SolanaTransactionCommitment;
+    readonly preflightCommitment?: SolanaTransactionCommitment;
+
     /** The minimum slot that the request can be evaluated at. */
-    minContextSlot?: number;
+    readonly minContextSlot?: number;
 };
 
 /** Commitment level for transactions. */

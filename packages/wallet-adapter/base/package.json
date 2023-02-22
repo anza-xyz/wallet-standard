@@ -34,14 +34,14 @@
         "bs58": "^4.0.1"
     },
     "dependencies": {
-        "@solana/wallet-adapter-base": "^0.9.18",
+        "@solana/wallet-adapter-base": "^0.9.21",
         "@solana/wallet-standard-chains": "workspace:^",
-        "@solana/wallet-standard-features": "workspace:^",
+        "@solana/wallet-standard-features": "^1.0.1",
         "@solana/wallet-standard-util": "workspace:^",
-        "@wallet-standard/app": "^1.0.0",
-        "@wallet-standard/base": "^1.0.0",
-        "@wallet-standard/features": "^1.0.0",
-        "@wallet-standard/wallet": "^1.0.0"
+        "@wallet-standard/app": "^1.0.1",
+        "@wallet-standard/base": "^1.0.1",
+        "@wallet-standard/features": "^1.0.3",
+        "@wallet-standard/wallet": "^1.0.1"
     },
     "devDependencies": {
         "@solana/web3.js": "^1.58.0",

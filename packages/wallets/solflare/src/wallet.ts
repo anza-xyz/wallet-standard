@@ -1,26 +1,32 @@
-import type {
-    SolanaSignAndSendTransactionFeature,
-    SolanaSignAndSendTransactionMethod,
-    SolanaSignAndSendTransactionOutput,
-    SolanaSignMessageFeature,
-    SolanaSignMessageMethod,
-    SolanaSignMessageOutput,
-    SolanaSignTransactionFeature,
-    SolanaSignTransactionMethod,
-    SolanaSignTransactionOutput,
+import {
+    SolanaSignAndSendTransaction,
+    type SolanaSignAndSendTransactionFeature,
+    type SolanaSignAndSendTransactionMethod,
+    type SolanaSignAndSendTransactionOutput,
+    SolanaSignMessage,
+    type SolanaSignMessageFeature,
+    type SolanaSignMessageMethod,
+    type SolanaSignMessageOutput,
+    SolanaSignTransaction,
+    type SolanaSignTransactionFeature,
+    type SolanaSignTransactionMethod,
+    type SolanaSignTransactionOutput,
 } from '@solana/wallet-standard-features';
 import { Connection, VersionedTransaction } from '@solana/web3.js';
 import Solflare from '@solflare-wallet/sdk';
 import type { Wallet } from '@wallet-standard/base';
-import type {
-    ConnectFeature,
-    ConnectMethod,
-    DisconnectFeature,
-    DisconnectMethod,
-    EventsFeature,
-    EventsListeners,
-    EventsNames,
-    EventsOnMethod,
+import {
+    StandardConnect,
+    type StandardConnectFeature,
+    type StandardConnectMethod,
+    StandardDisconnect,
+    type StandardDisconnectFeature,
+    type StandardDisconnectMethod,
+    StandardEvents,
+    type StandardEventsFeature,
+    type StandardEventsListeners,
+    type StandardEventsNames,
+    type StandardEventsOnMethod,
 } from '@wallet-standard/features';
 import bs58 from 'bs58';
 import { SolflareWalletAccount } from './account.js';
@@ -30,15 +36,17 @@ import type { SolanaChain } from './solana.js';
 import { isSolanaChain, SOLANA_CHAINS } from './solana.js';
 import { bytesEqual } from './util.js';
 
+export const SolflareNamespace = 'solflare:';
+
 export type SolflareFeature = {
-    'solflare:': {
+    [SolflareNamespace]: {
         solflare: Solflare;
     };
 };
 
 export class SolflareWallet implements Wallet {
     readonly #solflare = new Solflare();
-    readonly #listeners: { [E in EventsNames]?: EventsListeners[E][] } = {};
+    readonly #listeners: { [E in StandardEventsNames]?: StandardEventsListeners[E][] } = {};
     readonly #version = '1.0.0' as const;
     readonly #name = 'Solflare' as const;
     readonly #icon = icon;
@@ -60,41 +68,41 @@ export class SolflareWallet implements Wallet {
         return SOLANA_CHAINS.slice();
     }
 
-    get features(): ConnectFeature &
-        DisconnectFeature &
-        EventsFeature &
+    get features(): StandardConnectFeature &
+        StandardDisconnectFeature &
+        StandardEventsFeature &
         SolanaSignAndSendTransactionFeature &
         SolanaSignTransactionFeature &
         SolanaSignMessageFeature &
         SolflareFeature {
         return {
-            'standard:connect': {
+            [StandardConnect]: {
                 version: '1.0.0',
                 connect: this.#connect,
             },
-            'standard:disconnect': {
+            [StandardDisconnect]: {
                 version: '1.0.0',
                 disconnect: this.#disconnect,
             },
-            'standard:events': {
+            [StandardEvents]: {
                 version: '1.0.0',
                 on: this.#on,
             },
-            'solana:signAndSendTransaction': {
+            [SolanaSignAndSendTransaction]: {
                 version: '1.0.0',
                 supportedTransactionVersions: ['legacy', 0],
                 signAndSendTransaction: this.#signAndSendTransaction,
             },
-            'solana:signTransaction': {
+            [SolanaSignTransaction]: {
                 version: '1.0.0',
                 supportedTransactionVersions: ['legacy', 0],
                 signTransaction: this.#signTransaction,
             },
-            'solana:signMessage': {
+            [SolanaSignMessage]: {
                 version: '1.0.0',
                 signMessage: this.#signMessage,
             },
-            'solflare:': { solflare: this.#solflare },
+            [SolflareNamespace]: { solflare: this.#solflare },
         };
     }
 
@@ -114,17 +122,17 @@ export class SolflareWallet implements Wallet {
         this.#connected();
     }
 
-    #on: EventsOnMethod = (event, listener) => {
+    #on: StandardEventsOnMethod = (event, listener) => {
         this.#listeners[event]?.push(listener) || (this.#listeners[event] = [listener]);
         return (): void => this.#off(event, listener);
     };
 
-    #emit<E extends EventsNames>(event: E, ...args: Parameters<EventsListeners[E]>): void {
+    #emit<E extends StandardEventsNames>(event: E, ...args: Parameters<StandardEventsListeners[E]>): void {
         // eslint-disable-next-line prefer-spread
         this.#listeners[event]?.forEach((listener) => listener.apply(null, args));
     }
 
-    #off<E extends EventsNames>(event: E, listener: EventsListeners[E]): void {
+    #off<E extends StandardEventsNames>(event: E, listener: StandardEventsListeners[E]): void {
         this.#listeners[event] = this.#listeners[event]?.filter((existingListener) => listener !== existingListener);
     }
 
@@ -157,7 +165,7 @@ export class SolflareWallet implements Wallet {
         }
     };
 
-    #connect: ConnectMethod = async ({ silent } = {}) => {
+    #connect: StandardConnectMethod = async ({ silent } = {}) => {
         if (!silent && !this.#solflare.publicKey) {
             await this.#solflare.connect();
         }
@@ -167,7 +175,7 @@ export class SolflareWallet implements Wallet {
         return { accounts: this.accounts };
     };
 
-    #disconnect: DisconnectMethod = async () => {
+    #disconnect: StandardDisconnectMethod = async () => {
         await this.#solflare.disconnect();
     };
 

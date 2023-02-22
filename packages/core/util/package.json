@@ -31,7 +31,7 @@
     },
     "dependencies": {
         "@solana/wallet-standard-chains": "workspace:^",
-        "@solana/wallet-standard-features": "workspace:^"
+        "@solana/wallet-standard-features": "^1.0.1"
     },
     "devDependencies": {
         "shx": "^0.3.4"
