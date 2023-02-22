@@ -1,6 +1,6 @@
 {
     "name": "@solana/wallet-standard-wallet-adapter-react",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
     "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
