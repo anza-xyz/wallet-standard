@@ -6,15 +6,18 @@ import type {
     SolanaTransactionVersion,
 } from './signTransaction.js';
 
+/** Name of the feature. */
+export const SolanaSignAndSendTransaction = 'solana:signAndSendTransaction';
+
 /** TODO: docs */
 export type SolanaSignAndSendTransactionFeature = {
-    /** Namespace for the feature. */
-    'solana:signAndSendTransaction': {
+    /** Name of the feature. */
+    readonly [SolanaSignAndSendTransaction]: {
         /** Version of the feature API. */
-        version: SolanaSignAndSendTransactionVersion;
+        readonly version: SolanaSignAndSendTransactionVersion;
 
         /** TODO: docs */
-        supportedTransactionVersions: ReadonlyArray<SolanaTransactionVersion>;
+        readonly supportedTransactionVersions: readonly SolanaTransactionVersion[];
 
         /**
          * Sign transactions using the account's secret key and send them to the chain.
@@ -23,7 +26,7 @@ export type SolanaSignAndSendTransactionFeature = {
          *
          * @return Outputs of signing and sending transactions.
          */
-        signAndSendTransaction: SolanaSignAndSendTransactionMethod;
+        readonly signAndSendTransaction: SolanaSignAndSendTransactionMethod;
     };
 };
 
@@ -32,32 +35,32 @@ export type SolanaSignAndSendTransactionVersion = '1.0.0';
 
 /** TODO: docs */
 export type SolanaSignAndSendTransactionMethod = (
-    ...inputs: SolanaSignAndSendTransactionInput[]
-) => Promise<SolanaSignAndSendTransactionOutput[]>;
+    ...inputs: readonly SolanaSignAndSendTransactionInput[]
+) => Promise<readonly SolanaSignAndSendTransactionOutput[]>;
 
 /** Input for signing and sending a transaction. */
 export interface SolanaSignAndSendTransactionInput extends SolanaSignTransactionInput {
     /** Chain to use. */
-    chain: IdentifierString;
+    readonly chain: IdentifierString;
 
     /** TODO: docs */
-    options?: SolanaSignAndSendTransactionOptions;
+    readonly options?: SolanaSignAndSendTransactionOptions;
 }
 
 /** Output of signing and sending a transaction. */
 export interface SolanaSignAndSendTransactionOutput {
     /** Transaction signature, as raw bytes. */
-    signature: Uint8Array;
+    readonly signature: Uint8Array;
 }
 
 /** Options for signing and sending a transaction. */
 export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions & {
     /** Desired commitment level. If provided, confirm the transaction after sending. */
-    commitment?: SolanaTransactionCommitment;
+    readonly commitment?: SolanaTransactionCommitment;
 
     /** Disable transaction verification at the RPC. */
-    skipPreflight?: boolean;
+    readonly skipPreflight?: boolean;
 
     /** Maximum number of times for the RPC node to retry sending the transaction to the leader. */
-    maxRetries?: number;
+    readonly maxRetries?: number;
 };

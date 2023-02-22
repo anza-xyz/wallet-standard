@@ -53,6 +53,6 @@ function useConstant<T>(fn: () => T): T {
     return ref.current.value;
 }
 
-function wrapWalletsWithAdapters(wallets: ReadonlyArray<Wallet>): ReadonlyArray<StandardWalletAdapter> {
+function wrapWalletsWithAdapters(wallets: readonly Wallet[]): readonly StandardWalletAdapter[] {
     return wallets.filter(isWalletAdapterCompatibleWallet).map((wallet) => new StandardWalletAdapter({ wallet }));
 }
