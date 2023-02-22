@@ -1,7 +1,6 @@
 import {
     BaseWalletAdapter,
     isVersionedTransaction,
-    isWalletAdapterCompatibleStandardWallet,
     type SendTransactionOptions,
     type StandardWalletAdapter as StandardWalletAdapterType,
     type SupportedTransactionVersions,
@@ -40,27 +39,6 @@ import {
 } from '@wallet-standard/features';
 import { arraysEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
-
-/**
- * @deprecated Use `StandardWalletAdapter` from `@solana/wallet-adapter-base` instead.
- *
- * @group Deprecated
- */
-export type StandardAdapter = StandardWalletAdapterType;
-
-/**
- * @deprecated Use `WalletAdapterCompatibleStandardWallet` from `@solana/wallet-adapter-base` instead.
- *
- * @group Deprecated
- */
-export type WalletAdapterCompatibleWallet = WalletAdapterCompatibleStandardWallet;
-
-/**
- * @deprecated Use `isWalletAdapterCompatibleStandardWallet` from `@solana/wallet-adapter-base` instead.
- *
- * @group Deprecated
- */
-export const isWalletAdapterCompatibleWallet = isWalletAdapterCompatibleStandardWallet;
 
 /** TODO: docs */
 export interface StandardWalletAdapterConfig {
