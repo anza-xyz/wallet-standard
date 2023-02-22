@@ -57,7 +57,7 @@ importers:
   packages/core/_:
     specifiers:
       '@solana/wallet-standard-chains': workspace:^
-      '@solana/wallet-standard-features': ^1.0.1
+      '@solana/wallet-standard-features': workspace:^
       '@solana/wallet-standard-util': workspace:^
       shx: ^0.3.4
     dependencies:
@@ -90,7 +90,7 @@ importers:
   packages/core/util:
     specifiers:
       '@solana/wallet-standard-chains': workspace:^
-      '@solana/wallet-standard-features': ^1.0.1
+      '@solana/wallet-standard-features': workspace:^
       shx: ^0.3.4
     dependencies:
       '@solana/wallet-standard-chains': link:../chains
@@ -113,7 +113,7 @@ importers:
     specifiers:
       '@solana/wallet-adapter-base': ^0.9.21
       '@solana/wallet-standard-chains': workspace:^
-      '@solana/wallet-standard-features': ^1.0.1
+      '@solana/wallet-standard-features': workspace:^
       '@solana/wallet-standard-util': workspace:^
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
