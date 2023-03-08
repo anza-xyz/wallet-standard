@@ -200,7 +200,6 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         // If there's no connected account, disconnect the adapter.
         if (!account) {
             this.#disconnected();
-            this.emit('error', new WalletDisconnectedError());
             this.emit('disconnect');
             return;
         }
