@@ -50,6 +50,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
     #account: WalletAccount | null;
     #publicKey: PublicKey | null;
     #connecting: boolean;
+    #disconnecting: boolean;
     #off: (() => void) | undefined;
     readonly #wallet: WalletAdapterCompatibleStandardWallet;
     readonly #supportedTransactionVersions: SupportedTransactionVersions;
@@ -109,6 +110,7 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         this.#account = null;
         this.#publicKey = null;
         this.#connecting = false;
+        this.#disconnecting = false;
     }
 
     async connect(): Promise<void> {
@@ -151,9 +153,12 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
     async disconnect(): Promise<void> {
         if (StandardDisconnect in this.#wallet.features) {
             try {
+                this.#disconnecting = true;
                 await this.#wallet.features[StandardDisconnect].disconnect();
             } catch (error: any) {
                 this.emit('error', new WalletDisconnectionError(error?.message, error));
+            } finally {
+                this.#disconnecting = false;
             }
         }
 
@@ -193,8 +198,8 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
     }
 
     #changed: StandardEventsListeners['change'] = (properties) => {
-        // If the adapter isn't connected or the change doesn't include accounts, do nothing.
-        if (!this.#account || !this.#publicKey || !('accounts' in properties)) return;
+        // If the adapter is disconnecting, or isn't connected, or the change doesn't include accounts, do nothing.
+        if (this.#disconnecting || !this.#account || !this.#publicKey || !('accounts' in properties)) return;
 
         const account = this.#wallet.accounts[0];
         // If there's no connected account, disconnect the adapter.
