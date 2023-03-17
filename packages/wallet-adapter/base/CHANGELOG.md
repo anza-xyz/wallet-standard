@@ -1,5 +1,11 @@
 # @solana/wallet-standard-wallet-adapter-base
 
+## 1.0.2
+
+### Patch Changes
+
+-   95a482e: Add check for endogenous disconnection
+
 ## 1.0.1
 
 ### Patch Changes
