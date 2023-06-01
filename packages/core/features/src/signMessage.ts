@@ -15,8 +15,8 @@ export type SolanaSignMessageFeature = {
     };
 };
 
-/** TODO: docs */
-export type SolanaSignMessageVersion = '1.0.0';
+/** Version of the feature. */
+export type SolanaSignMessageVersion = '1.1.0';
 
 /** TODO: docs */
 export type SolanaSignMessageMethod = (

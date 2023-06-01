@@ -15,8 +15,8 @@ export type SolanaSignInFeature = {
     };
 };
 
-/** TODO: docs */
-export type SolanaSignInVersion = '1.0.0-alpha.0';
+/** Version of the feature. */
+export type SolanaSignInVersion = '1.0.0';
 
 /** TODO: docs */
 export type SolanaSignInMethod = (...inputs: readonly SolanaSignInInput[]) => Promise<readonly SolanaSignInOutput[]>;
