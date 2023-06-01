@@ -24,7 +24,7 @@ export type SolanaSignTransactionFeature = {
     };
 };
 
-/** TODO: docs */
+/** Version of the feature. */
 export type SolanaSignTransactionVersion = '1.0.0';
 
 /** TODO: docs */

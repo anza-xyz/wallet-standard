@@ -10,7 +10,7 @@ export type SolanaSignInFeature = {
         /** Version of the feature API. */
         readonly version: SolanaSignInVersion;
 
-        /** Sign In With Solana (based on https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-122.md). */
+        /** Sign In With Solana (based on https://eips.ethereum.org/EIPS/eip-4361 and https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-122.md). */
         readonly signIn: SolanaSignInMethod;
     };
 };
@@ -43,7 +43,7 @@ export interface SolanaSignInInput {
 
     /**
      * Chain, as defined by the Wallet Standard.
-     * Used to determine EIP-4361 Chain ID.
+     * Used instead of EIP-4361 Chain ID.
      */
     readonly chain: IdentifierString;
 
