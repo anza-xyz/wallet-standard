@@ -27,12 +27,6 @@
         },
         {
             "path": "./packages/wallets/ghost/tsconfig.all.json"
-        },
-        {
-            "path": "./packages/wallets/phantom/tsconfig.all.json"
-        },
-        {
-            "path": "./packages/wallets/solflare/tsconfig.all.json"
         }
     ]
 }
