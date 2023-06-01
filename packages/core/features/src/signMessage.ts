@@ -39,4 +39,7 @@ export interface SolanaSignMessageOutput {
 
     /** TODO: docs */
     readonly signature: Uint8Array;
+
+    /** TODO: docs */
+    readonly signatureType?: string;
 }

@@ -78,5 +78,5 @@ export interface SolanaSignInOutput {
     readonly signature: Uint8Array;
 
     /** TODO: docs */
-    readonly signatureType: 'ed25519' | 'secp256k1' | 'secp256r1';
+    readonly signatureType?: string;
 }
