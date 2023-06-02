@@ -13,6 +13,7 @@
     "@solana/wallet-standard-ghost": "0.0.0"
   },
   "changesets": [
-    "friendly-cycles-switch"
+    "friendly-cycles-switch",
+    "strong-plants-cheat"
   ]
 }
