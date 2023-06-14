@@ -23,35 +23,38 @@ export type SolanaSignInMethod = (...inputs: readonly SolanaSignInInput[]) => Pr
 
 /** Input for signing in. */
 export interface SolanaSignInInput {
-    /** EIP-4361 Domain. */
-    readonly domain: string;
+    /**
+     * Optional EIP-4361 Domain.
+     * If not provided, the wallet must determine the Domain to use.
+     */
+    readonly domain?: string;
 
     /**
-     * Optional account to use. If not provided, the wallet must determine the account to use.
-     * Used to determine EIP-4361 Address.
+     * Optional account to use, used to determine EIP-4361 Address.
+     * If not provided, the wallet must determine the Address to use.
      */
     readonly account?: WalletAccount;
 
     /** Optional EIP-4361 Statement. */
     readonly statement?: string;
 
-    /** EIP-4361 URI. */
-    readonly uri: string;
+    /** Optional EIP-4361 URI. */
+    readonly uri?: string;
 
-    /** EIP-4361 Version. */
-    readonly version: '1';
+    /** Optional EIP-4361 Version. */
+    readonly version?: '1';
 
     /**
-     * Chain, as defined by the Wallet Standard.
+     * Optional Chain, as defined by the Wallet Standard.
      * Used instead of EIP-4361 Chain ID.
      */
-    readonly chain: IdentifierString;
+    readonly chain?: IdentifierString;
 
-    /** EIP-4361 Nonce. */
-    readonly nonce: string;
+    /** Optional EIP-4361 Nonce. */
+    readonly nonce?: string;
 
-    /** EIP-4361 Issued At. */
-    readonly issuedAt: string;
+    /** Optional EIP-4361 Issued At. */
+    readonly issuedAt?: string;
 
     /** Optional EIP-4361 Expiration Time. */
     readonly expirationTime?: string;
