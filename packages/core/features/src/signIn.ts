@@ -98,15 +98,27 @@ export interface SolanaSignInInput {
 
 /** Output of signing in. */
 export interface SolanaSignInOutput {
-    /** TODO: docs */
+    /**
+     * Account that was signed in.
+     * The address of the account may be different from the provided input Address.
+     */
     readonly account: WalletAccount;
 
-    /** TODO: docs */
+    /**
+     * Message bytes that were signed.
+     * The wallet may prefix or otherwise modify the message before signing it.
+     */
     readonly signedMessage: Uint8Array;
 
-    /** TODO: docs */
+    /**
+     * Message signature produced.
+     * If the signature type is provided, the signature must be Ed25519.
+     */
     readonly signature: Uint8Array;
 
-    /** TODO: docs */
-    readonly signatureType?: string;
+    /**
+     * Optional type of the message signature produced.
+     * If not provided, the signature must be Ed25519.
+     */
+    readonly signatureType?: 'ed25519';
 }
