@@ -48,7 +48,7 @@ export interface SolanaSignInInput {
      * Optional Chain, as defined by the Wallet Standard.
      * Used instead of EIP-4361 Chain ID.
      */
-    readonly chain?: IdentifierString;
+    readonly chainId?: string;
 
     /** Optional EIP-4361 Nonce. */
     readonly nonce?: string;
