@@ -42,7 +42,7 @@ export interface SolanaSignInInput {
     readonly uri?: string;
 
     /** Optional EIP-4361 Version. */
-    readonly version?: '1';
+    readonly version?: string;
 
     /**
      * Optional Chain, as defined by the Wallet Standard.
