@@ -25,61 +25,100 @@ export type SolanaSignInMethod = (...inputs: readonly SolanaSignInInput[]) => Pr
 export interface SolanaSignInInput {
     /**
      * Optional EIP-4361 Domain.
-     * If not provided, the wallet must determine the Domain to use.
+     * If not provided, the wallet must determine the Domain to include in the message.
      */
     readonly domain?: string;
 
     /**
-     * Optional account to use, used to determine EIP-4361 Address.
-     * If not provided, the wallet must determine the Address to use.
+     * Optional EIP-4361 Address.
+     * If not provided, the wallet must determine the Address to include in the message.
      */
-    readonly account?: WalletAccount;
-
-    /** Optional EIP-4361 Statement. */
-    readonly statement?: string;
-
-    /** Optional EIP-4361 URI. */
-    readonly uri?: string;
-
-    /** Optional EIP-4361 Version. */
-    readonly version?: '1';
+    readonly address?: string;
 
     /**
-     * Optional Chain, as defined by the Wallet Standard.
-     * Used instead of EIP-4361 Chain ID.
+     * Optional EIP-4361 Statement.
+     * If not provided, the wallet must not include Statement in the message.
      */
-    readonly chain?: IdentifierString;
+    readonly statement?: string;
 
-    /** Optional EIP-4361 Nonce. */
+    /**
+     * Optional EIP-4361 URI.
+     * If not provided, the wallet must not include URI in the message.
+     */
+    readonly uri?: string;
+
+    /**
+     * Optional EIP-4361 Version.
+     * If not provided, the wallet must not include Version in the message.
+     */
+    readonly version?: string;
+
+    /**
+     * Optional EIP-4361 Chain ID.
+     * If not provided, the wallet must not include Chain ID in the message.
+     */
+    readonly chainId?: string;
+
+    /**
+     * Optional EIP-4361 Nonce.
+     * If not provided, the wallet must not include Nonce in the message.
+     */
     readonly nonce?: string;
 
-    /** Optional EIP-4361 Issued At. */
+    /**
+     * Optional EIP-4361 Issued At.
+     * If not provided, the wallet must not include Issued At in the message.
+     */
     readonly issuedAt?: string;
 
-    /** Optional EIP-4361 Expiration Time. */
+    /**
+     * Optional EIP-4361 Expiration Time.
+     * If not provided, the wallet must not include Expiration Time in the message.
+     */
     readonly expirationTime?: string;
 
-    /** Optional EIP-4361 Not Before. */
+    /**
+     * Optional EIP-4361 Not Before.
+     * If not provided, the wallet must not include Not Before in the message.
+     */
     readonly notBefore?: string;
 
-    /** Optional EIP-4361 Request ID. */
+    /**
+     * Optional EIP-4361 Request ID.
+     * If not provided, the wallet must not include Request ID in the message.
+     */
     readonly requestId?: string;
 
-    /** Optional EIP-4361 Resources. */
+    /**
+     * Optional EIP-4361 Resources.
+     * If not provided, the wallet must not include Resources in the message.
+     */
     readonly resources?: readonly string[];
 }
 
 /** Output of signing in. */
 export interface SolanaSignInOutput {
-    /** TODO: docs */
+    /**
+     * Account that was signed in.
+     * The address of the account may be different from the provided input Address.
+     */
     readonly account: WalletAccount;
 
-    /** TODO: docs */
+    /**
+     * Message bytes that were signed.
+     * The wallet may prefix or otherwise modify the message before signing it.
+     */
     readonly signedMessage: Uint8Array;
 
-    /** TODO: docs */
+    /**
+     * Message signature produced.
+     * If the signature type is provided, the signature must be Ed25519.
+     */
     readonly signature: Uint8Array;
 
-    /** TODO: docs */
-    readonly signatureType?: string;
+    /**
+     * Optional type of the message signature produced.
+     * If not provided, the signature must be Ed25519.
+     */
+    readonly signatureType?: 'ed25519';
 }

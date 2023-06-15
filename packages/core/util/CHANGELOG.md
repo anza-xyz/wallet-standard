@@ -1,5 +1,12 @@
 # @solana/wallet-standard-util
 
+## 1.0.1-alpha.3
+
+### Patch Changes
+
+-   Updated dependencies [8160fe9]
+    -   @solana/wallet-standard-features@1.1.0-alpha.3
+
 ## 1.0.1-alpha.2
 
 ### Patch Changes
