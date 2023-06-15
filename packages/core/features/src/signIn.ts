@@ -33,7 +33,7 @@ export interface SolanaSignInInput {
      * Optional account to use, used to determine EIP-4361 Address.
      * If not provided, the wallet must determine the Address to use.
      */
-    readonly account?: WalletAccount;
+    readonly address?: string;
 
     /** Optional EIP-4361 Statement. */
     readonly statement?: string;
