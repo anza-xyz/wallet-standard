@@ -92,8 +92,7 @@ const NOT_BEFORE = '(\\nNot Before: (?<notBefore>[^\\n]+))?';
 const REQUEST_ID = '(\\nRequest ID: (?<requestId>[^\\n]+))?';
 const RESOURCES = '(\\nResources:(?<resources>(\\n- [^\\n]+)*))?';
 const MESSAGE = new RegExp(
-    `^${DOMAIN}${ADDRESS}${STATEMENT}${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}$`,
-    'g'
+    `^${DOMAIN}${ADDRESS}${STATEMENT}${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}$`
 );
 
 export function parseSignInMessageText(text: string): SolanaSignInInputWithRequiredFields | null {
