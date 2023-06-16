@@ -31,7 +31,8 @@
     },
     "dependencies": {
         "@solana/wallet-standard-chains": "workspace:^",
-        "@solana/wallet-standard-features": "workspace:^"
+        "@solana/wallet-standard-features": "workspace:^",
+        "tweetnacl": "^1.0.3"
     },
     "devDependencies": {
         "shx": "^0.3.4"

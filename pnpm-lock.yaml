@@ -92,9 +92,11 @@ importers:
       '@solana/wallet-standard-chains': workspace:^
       '@solana/wallet-standard-features': workspace:^
       shx: ^0.3.4
+      tweetnacl: ^1.0.3
     dependencies:
       '@solana/wallet-standard-chains': link:../chains
       '@solana/wallet-standard-features': link:../features
+      tweetnacl: 1.0.3
     devDependencies:
       shx: 0.3.4
 
@@ -159,7 +161,7 @@ importers:
 
   packages/wallets/ghost:
     specifiers:
-      '@solana/wallet-standard-features': ^1.0.1
+      '@solana/wallet-standard-features': ^1.1.0-alpha.0
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
@@ -3167,6 +3169,10 @@ packages:
       wcwidth: 1.0.1
       yargs: 17.7.1
     dev: true
+
+  /tweetnacl/1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
+    dev: false
 
   /type-check/0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
