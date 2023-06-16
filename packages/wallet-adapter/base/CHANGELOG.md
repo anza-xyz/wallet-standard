@@ -1,5 +1,12 @@
 # @solana/wallet-standard-wallet-adapter-base
 
+## 1.1.0-alpha.7
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @solana/wallet-standard-util@1.1.0-alpha.7
+
 ## 1.1.0-alpha.6
 
 ### Patch Changes
