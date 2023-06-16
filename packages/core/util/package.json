@@ -30,9 +30,9 @@
         "package": "shx mkdir -p lib/cjs && shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
     },
     "dependencies": {
+        "@noble/curves": "^1.1.0",
         "@solana/wallet-standard-chains": "workspace:^",
-        "@solana/wallet-standard-features": "workspace:^",
-        "tweetnacl": "^1.0.3"
+        "@solana/wallet-standard-features": "workspace:^"
     },
     "devDependencies": {
         "shx": "^0.3.4"

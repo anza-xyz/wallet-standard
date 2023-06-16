@@ -4,7 +4,7 @@ import type {
     SolanaSignMessageInput,
     SolanaSignMessageOutput,
 } from '@solana/wallet-standard-features';
-import { sign } from 'tweetnacl';
+import { ed25519 } from '@noble/curves/ed25519';
 
 export function verifyMessageSignature({
     message,
@@ -18,7 +18,7 @@ export function verifyMessageSignature({
     publicKey: Uint8Array;
 }): boolean {
     // TODO: implement https://github.com/solana-labs/solana/blob/master/docs/src/proposals/off-chain-message-signing.md
-    return bytesEqual(message, signedMessage) && sign.detached.verify(signedMessage, signature, publicKey);
+    return bytesEqual(message, signedMessage) && ed25519.verify(signature, signedMessage, publicKey);
 }
 
 export function verifySignMessage(input: SolanaSignMessageInput, output: SolanaSignMessageOutput): boolean {
