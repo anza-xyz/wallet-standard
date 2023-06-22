@@ -1,5 +1,17 @@
 # @solana/wallet-standard-wallet-adapter
 
+## 1.1.0-alpha.8
+
+### Minor Changes
+
+-   Add `solana:signIn` (Sign In With Solana) feature
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @solana/wallet-standard-wallet-adapter-react@1.1.0-alpha.8
+    -   @solana/wallet-standard-wallet-adapter-base@1.1.0-alpha.8
+
 ## 1.1.0-alpha.7
 
 ### Patch Changes

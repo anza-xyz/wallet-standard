@@ -17,12 +17,16 @@ import {
     WalletPublicKeyError,
     WalletReadyState,
     WalletSendTransactionError,
+    WalletSignInError,
     WalletSignMessageError,
     WalletSignTransactionError,
 } from '@solana/wallet-adapter-base';
 import {
     SolanaSignAndSendTransaction,
     type SolanaSignAndSendTransactionFeature,
+    SolanaSignIn,
+    type SolanaSignInInput,
+    type SolanaSignInOutput,
     SolanaSignMessage,
     SolanaSignTransaction,
     type SolanaSignTransactionFeature,
@@ -106,6 +110,10 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         this.#supportedTransactionVersions = arraysEqual(supportedTransactionVersions, ['legacy'])
             ? null
             : new Set(supportedTransactionVersions);
+
+        if (SolanaSignIn in wallet.features) {
+            this.signIn = this.#signIn;
+        }
 
         this.#account = null;
         this.#publicKey = null;
@@ -198,6 +206,15 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
     }
 
     #changed: StandardEventsListeners['change'] = (properties) => {
+        // If the `solana:signIn` feature has been added or removed from the wallet, do the same on the adapter.
+        if ('features' in properties) {
+            if (SolanaSignIn in this.#wallet.features) {
+                this.signIn = this.#signIn;
+            } else {
+                delete this.signIn;
+            }
+        }
+
         // If the adapter is disconnecting, or isn't connected, or the change doesn't include accounts, do nothing.
         if (this.#disconnecting || !this.#account || !this.#publicKey || !('accounts' in properties)) return;
 
@@ -431,6 +448,26 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
             } catch (error: any) {
                 throw new WalletSignMessageError(error?.message, error);
             }
+        } catch (error: any) {
+            this.emit('error', error);
+            throw error;
+        }
+    }
+
+    signIn: ((input?: SolanaSignInInput) => Promise<SolanaSignInOutput>) | undefined;
+    async #signIn(input: SolanaSignInInput = {}): Promise<SolanaSignInOutput> {
+        try {
+            if (!(SolanaSignIn in this.#wallet.features)) throw new WalletConfigError();
+
+            let output: SolanaSignInOutput | undefined;
+            try {
+                [output] = await this.#wallet.features[SolanaSignIn].signIn(input);
+            } catch (error: any) {
+                throw new WalletSignInError(error?.message, error);
+            }
+
+            if (!output) throw new WalletSignInError();
+            return output;
         } catch (error: any) {
             this.emit('error', error);
             throw error;
