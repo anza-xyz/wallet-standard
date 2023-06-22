@@ -5,6 +5,10 @@ import {
     type SolanaSignAndSendTransactionFeature,
     type SolanaSignAndSendTransactionMethod,
     type SolanaSignAndSendTransactionOutput,
+    SolanaSignIn,
+    type SolanaSignInFeature,
+    type SolanaSignInMethod,
+    type SolanaSignInOutput,
     SolanaSignMessage,
     type SolanaSignMessageFeature,
     type SolanaSignMessageMethod,
@@ -52,12 +56,16 @@ export class SolanaWalletAdapterWalletAccount extends ReadonlyWalletAccount {
     }) {
         const features: (keyof (SolanaSignAndSendTransactionFeature &
             SolanaSignTransactionFeature &
-            SolanaSignMessageFeature))[] = [SolanaSignAndSendTransaction];
+            SolanaSignMessageFeature &
+            SolanaSignInFeature))[] = [SolanaSignAndSendTransaction];
         if ('signTransaction' in adapter) {
             features.push(SolanaSignTransaction);
         }
         if ('signMessage' in adapter) {
             features.push(SolanaSignMessage);
+        }
+        if ('signIn' in adapter) {
+            features.push(SolanaSignIn);
         }
 
         super({ address, publicKey, chains, features });
@@ -99,7 +107,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
     get features(): StandardConnectFeature &
         StandardDisconnectFeature &
         SolanaSignAndSendTransactionFeature &
-        Partial<SolanaSignTransactionFeature & SolanaSignMessageFeature> {
+        Partial<SolanaSignTransactionFeature & SolanaSignMessageFeature & SolanaSignInFeature> {
         const features: StandardConnectFeature &
             StandardDisconnectFeature &
             StandardEventsFeature &
@@ -140,6 +148,16 @@ export class SolanaWalletAdapterWallet implements Wallet {
                 [SolanaSignMessage]: {
                     version: '1.0.0',
                     signMessage: this.#signMessage,
+                },
+            };
+        }
+
+        let signInFeature: SolanaSignInFeature | undefined;
+        if ('signIn' in this.#adapter) {
+            signInFeature = {
+                [SolanaSignIn]: {
+                    version: '1.0.0',
+                    signIn: this.#signIn,
                 },
             };
         }
@@ -367,6 +385,21 @@ export class SolanaWalletAdapterWallet implements Wallet {
         }
 
         return outputs;
+    };
+
+    #signIn: SolanaSignInMethod = async (...inputs) => {
+        if (!('signIn' in this.#adapter)) throw new Error('signIn not implemented by adapter');
+
+        if (inputs.length > 1) {
+            // Adapters don't support `signIn` with multiple inputs, so just sign in with each input in serial.
+            const outputs: SolanaSignInOutput[] = [];
+            for (const input of inputs) {
+                outputs.push(await this.#adapter.signIn(input));
+            }
+            return outputs;
+        } else {
+            return [await this.#adapter.signIn(inputs[0])];
+        }
     };
 }
 
