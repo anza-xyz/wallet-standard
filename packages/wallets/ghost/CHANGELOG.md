@@ -1,5 +1,16 @@
 # @solana/wallet-standard-ghost
 
+## 0.1.0-alpha.2
+
+### Minor Changes
+
+-   Add `solana:signIn` (Sign In With Solana) feature
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @solana/wallet-standard-features@1.1.0-alpha.5
+
 ## 0.1.0-alpha.1
 
 ### Minor Changes
