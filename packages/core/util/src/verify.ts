@@ -1,11 +1,14 @@
+import { ed25519 } from '@noble/curves/ed25519';
 import type {
     SolanaSignInInput,
     SolanaSignInOutput,
     SolanaSignMessageInput,
     SolanaSignMessageOutput,
 } from '@solana/wallet-standard-features';
-import { ed25519 } from '@noble/curves/ed25519';
 
+/**
+ * TODO: docs
+ */
 export function verifyMessageSignature({
     message,
     signedMessage,
@@ -21,6 +24,9 @@ export function verifyMessageSignature({
     return bytesEqual(message, signedMessage) && ed25519.verify(signature, signedMessage, publicKey);
 }
 
+/**
+ * TODO: docs
+ */
 export function verifySignMessage(input: SolanaSignMessageInput, output: SolanaSignMessageOutput): boolean {
     const {
         message,
@@ -30,6 +36,9 @@ export function verifySignMessage(input: SolanaSignMessageInput, output: SolanaS
     return verifyMessageSignature({ message, signedMessage, signature, publicKey });
 }
 
+/**
+ * TODO: docs
+ */
 export function verifySignIn(input: SolanaSignInInput, output: SolanaSignInOutput): boolean {
     const {
         signedMessage,
@@ -40,12 +49,18 @@ export function verifySignIn(input: SolanaSignInInput, output: SolanaSignInOutpu
     return !!message && verifyMessageSignature({ message, signedMessage, signature, publicKey });
 }
 
+/**
+ * TODO: docs
+ */
 export function deriveSignInMessage(input: SolanaSignInInput, output: SolanaSignInOutput): Uint8Array | null {
     const text = deriveSignInMessageText(input, output);
     if (!text) return null;
     return new TextEncoder().encode(text);
 }
 
+/**
+ * TODO: docs
+ */
 export function deriveSignInMessageText(input: SolanaSignInInput, output: SolanaSignInOutput): string | null {
     const parsed = parseSignInMessage(output.signedMessage);
     if (!parsed) return null;
@@ -70,9 +85,15 @@ export function deriveSignInMessageText(input: SolanaSignInInput, output: Solana
     return createSignInMessageText(parsed);
 }
 
+/**
+ * TODO: docs
+ */
 export type SolanaSignInInputWithRequiredFields = SolanaSignInInput &
     Required<Pick<SolanaSignInInput, 'domain' | 'address'>>;
 
+/**
+ * TODO: docs
+ */
 export function parseSignInMessage(message: Uint8Array): SolanaSignInInputWithRequiredFields | null {
     const text = new TextDecoder().decode(message);
     return parseSignInMessageText(text);
@@ -95,6 +116,9 @@ const MESSAGE = new RegExp(
     `^${DOMAIN}${ADDRESS}${STATEMENT}${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}$`
 );
 
+/**
+ * TODO: docs
+ */
 export function parseSignInMessageText(text: string): SolanaSignInInputWithRequiredFields | null {
     const match = MESSAGE.exec(text);
     if (!match) return null;
@@ -119,11 +143,17 @@ export function parseSignInMessageText(text: string): SolanaSignInInputWithRequi
     };
 }
 
+/**
+ * TODO: docs
+ */
 export function createSignInMessage(input: SolanaSignInInputWithRequiredFields): Uint8Array {
     const text = createSignInMessageText(input);
     return new TextEncoder().encode(text);
 }
 
+/**
+ * TODO: docs
+ */
 export function createSignInMessageText(input: SolanaSignInInputWithRequiredFields): string {
     // ${domain} wants you to sign in with your Solana account:
     // ${address}
