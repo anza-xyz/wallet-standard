@@ -1,5 +1,12 @@
 # @solana/wallet-standard
 
+## 1.1.0-alpha.9
+
+### Patch Changes
+
+-   @solana/wallet-standard-wallet-adapter@1.1.0-alpha.9
+-   @solana/wallet-standard-core@1.1.0-alpha.9
+
 ## 1.1.0-alpha.8
 
 ### Minor Changes
