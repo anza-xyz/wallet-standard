@@ -101,19 +101,20 @@ export function parseSignInMessage(message: Uint8Array): SolanaSignInInputWithRe
 
 // TODO: implement https://github.com/solana-labs/solana/blob/master/docs/src/proposals/off-chain-message-signing.md
 const DOMAIN = '(?<domain>[^\\n]+?) wants you to sign in with your Solana account:\\n';
-const ADDRESS = '(?<address>[^\\n]+)\\n\\n';
-const STATEMENT = '((?<statement>[^\\n]+)\\n)?';
-const URI = '(\\nURI: (?<uri>[^\\n]+))?';
-const VERSION = '(\\nVersion: (?<version>[^\\n]+))?';
-const CHAIN_ID = '(\\nChain ID: (?<chainId>[^\\n]+))?';
-const NONCE = '(\\nNonce: (?<nonce>[^\\n]+))?';
-const ISSUED_AT = '(\\nIssued At: (?<issuedAt>[^\\n]+))?';
-const EXPIRATION_TIME = '(\\nExpiration Time: (?<expirationTime>[^\\n]+))?';
-const NOT_BEFORE = '(\\nNot Before: (?<notBefore>[^\\n]+))?';
-const REQUEST_ID = '(\\nRequest ID: (?<requestId>[^\\n]+))?';
-const RESOURCES = '(\\nResources:(?<resources>(\\n- [^\\n]+)*))?';
+const ADDRESS = '(?<address>[^\\n]+)(?:\\n|$)';
+const FIELD = '(?:URI|Version|Chain ID|Nonce|Issued At|Expiration Time|Not Before|Request ID|Resources)';
+const STATEMENT = `(?:\\n(?<statement>(?:(?!${FIELD}: [^\\n]+)[^\\n]*?\\n*?)*?)(?:\\n|$))?`;
+const URI = '(?:\\nURI: (?<uri>[^\\n]+))?';
+const VERSION = '(?:\\nVersion: (?<version>[^\\n]+))?';
+const CHAIN_ID = '(?:\\nChain ID: (?<chainId>[^\\n]+))?';
+const NONCE = '(?:\\nNonce: (?<nonce>[^\\n]+))?';
+const ISSUED_AT = '(?:\\nIssued At: (?<issuedAt>[^\\n]+))?';
+const EXPIRATION_TIME = '(?:\\nExpiration Time: (?<expirationTime>[^\\n]+))?';
+const NOT_BEFORE = '(?:\\nNot Before: (?<notBefore>[^\\n]+))?';
+const REQUEST_ID = '(?:\\nRequest ID: (?<requestId>[^\\n]+))?';
+const RESOURCES = '(?:\\nResources:(?<resources>(?:\\n- [^\\n]+)*))?';
 const MESSAGE = new RegExp(
-    `^${DOMAIN}${ADDRESS}${STATEMENT}${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}$`
+    `^${DOMAIN}${ADDRESS}${STATEMENT}${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}\n*$`
 );
 
 /**
