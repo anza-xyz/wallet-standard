@@ -1,5 +1,11 @@
 # @solana/wallet-standard-util
 
+## 1.1.0-alpha.10
+
+### Minor Changes
+
+-   fd1a4ce: Add `solana:signIn` (Sign In With Solana) feature
+
 ## 1.1.0-alpha.9
 
 ### Minor Changes

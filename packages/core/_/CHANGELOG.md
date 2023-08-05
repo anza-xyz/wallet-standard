@@ -1,5 +1,12 @@
 # @solana/wallet-standard-core
 
+## 1.1.0-alpha.10
+
+### Patch Changes
+
+-   Updated dependencies [fd1a4ce]
+    -   @solana/wallet-standard-util@1.1.0-alpha.10
+
 ## 1.1.0-alpha.9
 
 ### Patch Changes
