@@ -1,40 +1,6 @@
-import { ed25519 } from '@noble/curves/ed25519';
-import type {
-    SolanaSignInInput,
-    SolanaSignInOutput,
-    SolanaSignMessageInput,
-    SolanaSignMessageOutput,
-} from '@solana/wallet-standard-features';
-
-/**
- * TODO: docs
- */
-export function verifyMessageSignature({
-    message,
-    signedMessage,
-    signature,
-    publicKey,
-}: {
-    message: Uint8Array;
-    signedMessage: Uint8Array;
-    signature: Uint8Array;
-    publicKey: Uint8Array;
-}): boolean {
-    // TODO: implement https://github.com/solana-labs/solana/blob/master/docs/src/proposals/off-chain-message-signing.md
-    return bytesEqual(message, signedMessage) && ed25519.verify(signature, signedMessage, publicKey);
-}
-
-/**
- * TODO: docs
- */
-export function verifySignMessage(input: SolanaSignMessageInput, output: SolanaSignMessageOutput): boolean {
-    const {
-        message,
-        account: { publicKey },
-    } = input;
-    const { signedMessage, signature } = output;
-    return verifyMessageSignature({ message, signedMessage, signature, publicKey });
-}
+import type { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features';
+import { verifyMessageSignature } from './signMessage.js';
+import { arraysEqual } from './util.js';
 
 /**
  * TODO: docs
@@ -102,8 +68,7 @@ export function parseSignInMessage(message: Uint8Array): SolanaSignInInputWithRe
 // TODO: implement https://github.com/solana-labs/solana/blob/master/docs/src/proposals/off-chain-message-signing.md
 const DOMAIN = '(?<domain>[^\\n]+?) wants you to sign in with your Solana account:\\n';
 const ADDRESS = '(?<address>[^\\n]+)(?:\\n|$)';
-const FIELD = '(?:URI|Version|Chain ID|Nonce|Issued At|Expiration Time|Not Before|Request ID|Resources)';
-const STATEMENT = `(?:\\n(?<statement>(?:(?!${FIELD}: [^\\n]+)[^\\n]*?\\n*?)*?)(?:\\n|$))?`;
+const STATEMENT = '(?:\\n(?<statement>[\\S\\s]*?)(?:\\n|$))??';
 const URI = '(?:\\nURI: (?<uri>[^\\n]+))?';
 const VERSION = '(?:\\nVersion: (?<version>[^\\n]+))?';
 const CHAIN_ID = '(?:\\nChain ID: (?<chainId>[^\\n]+))?';
@@ -113,9 +78,8 @@ const EXPIRATION_TIME = '(?:\\nExpiration Time: (?<expirationTime>[^\\n]+))?';
 const NOT_BEFORE = '(?:\\nNot Before: (?<notBefore>[^\\n]+))?';
 const REQUEST_ID = '(?:\\nRequest ID: (?<requestId>[^\\n]+))?';
 const RESOURCES = '(?:\\nResources:(?<resources>(?:\\n- [^\\n]+)*))?';
-const MESSAGE = new RegExp(
-    `^${DOMAIN}${ADDRESS}${STATEMENT}${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}\n*$`
-);
+const FIELDS = `${URI}${VERSION}${CHAIN_ID}${NONCE}${ISSUED_AT}${EXPIRATION_TIME}${NOT_BEFORE}${REQUEST_ID}${RESOURCES}`;
+const MESSAGE = new RegExp(`^${DOMAIN}${ADDRESS}${STATEMENT}${FIELDS}\\n*$`);
 
 /**
  * TODO: docs
@@ -218,59 +182,4 @@ export function createSignInMessageText(input: SolanaSignInInputWithRequiredFiel
     }
 
     return message;
-}
-
-/**
- * @internal
- *
- * Type with a numeric `length` and numerically indexed elements of a generic type `T`.
- *
- * For example, `Array<T>` and `Uint8Array`.
- *
- * @group Internal
- */
-interface Indexed<T> {
-    length: number;
-    [index: number]: T;
-}
-
-/**
- * @internal
- *
- * Efficiently compare {@link Indexed} arrays (e.g. `Array` and `Uint8Array`).
- *
- * @param a An array.
- * @param b Another array.
- *
- * @return `true` if the arrays have the same length and elements, `false` otherwise.
- *
- * @group Internal
- */
-function arraysEqual<T>(a: Indexed<T>, b: Indexed<T>): boolean {
-    if (a === b) return true;
-
-    const length = a.length;
-    if (length !== b.length) return false;
-
-    for (let i = 0; i < length; i++) {
-        if (a[i] !== b[i]) return false;
-    }
-
-    return true;
-}
-
-/**
- * @internal
- *
- * Efficiently compare byte arrays, using {@link arraysEqual}.
- *
- * @param a A byte array.
- * @param b Another byte array.
- *
- * @return `true` if the byte arrays have the same length and bytes, `false` otherwise.
- *
- * @group Internal
- */
-function bytesEqual(a: Uint8Array, b: Uint8Array): boolean {
-    return arraysEqual(a, b);
 }
