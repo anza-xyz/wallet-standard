@@ -33,7 +33,7 @@ export function deriveSignInMessageText(input: SolanaSignInInput, output: Solana
 
     if (input.domain && input.domain !== parsed.domain) return null;
     if (input.address && input.address !== parsed.address) return null;
-
+    if (input.statement !== parsed.statement) return null;
     if (input.uri !== parsed.uri) return null;
     if (input.version !== parsed.version) return null;
     if (input.chainId !== parsed.chainId) return null;
@@ -42,7 +42,6 @@ export function deriveSignInMessageText(input: SolanaSignInInput, output: Solana
     if (input.expirationTime !== parsed.expirationTime) return null;
     if (input.notBefore !== parsed.notBefore) return null;
     if (input.requestId !== parsed.requestId) return null;
-
     if (input.resources) {
         if (!parsed.resources) return null;
         if (!arraysEqual(input.resources, parsed.resources)) return null;
