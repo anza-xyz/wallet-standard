@@ -26,7 +26,7 @@
         "build": "npm run clean && npm run tsc && npm run package"
     },
     "dependencies": {
-        "@solana/wallet-standard-features": "^1.1.0",
+        "@solana/wallet-standard-features": "^1.0.1",
         "@solana/web3.js": "^1.58.0",
         "@wallet-standard/base": "^1.0.1",
         "@wallet-standard/features": "^1.0.3",

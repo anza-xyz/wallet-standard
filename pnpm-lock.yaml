@@ -121,7 +121,7 @@ importers:
 
   packages/wallet-adapter/base:
     specifiers:
-      '@solana/wallet-adapter-base': ^0.9.23-alpha.1
+      '@solana/wallet-adapter-base': ^0.9.23-alpha.3
       '@solana/wallet-standard-chains': workspace:^
       '@solana/wallet-standard-features': workspace:^
       '@solana/wallet-standard-util': workspace:^
@@ -134,7 +134,7 @@ importers:
       bs58: ^4.0.1
       shx: ^0.3.4
     dependencies:
-      '@solana/wallet-adapter-base': 0.9.23-alpha.1_@solana+web3.js@1.73.2
+      '@solana/wallet-adapter-base': 0.9.23-alpha.3_@solana+web3.js@1.73.2
       '@solana/wallet-standard-chains': link:../../core/chains
       '@solana/wallet-standard-features': link:../../core/features
       '@solana/wallet-standard-util': link:../../core/util
@@ -169,7 +169,7 @@ importers:
 
   packages/wallets/ghost:
     specifiers:
-      '@solana/wallet-standard-features': ^1.1.0-alpha.5
+      '@solana/wallet-standard-features': ^1.0.1
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
@@ -1130,13 +1130,13 @@ packages:
       eventemitter3: 4.0.7
     dev: true
 
-  /@solana/wallet-adapter-base/0.9.23-alpha.1_@solana+web3.js@1.73.2:
-    resolution: {integrity: sha512-YgVyP4DDothcZPpQdulMMAD9O9dBDdQ5gxWrpbwmEXVefrB3gndvMVEdu4mfSwMr9JqSdks6K2qqZ5zcmpMrEw==}
+  /@solana/wallet-adapter-base/0.9.23-alpha.3_@solana+web3.js@1.73.2:
+    resolution: {integrity: sha512-nY4xQsv6vmMNK3DQTXeOhlDyJybNQU9ew2Tx2qyYUId2MkEcxpWEPcYhAb8przrzxJjFimNPNdz71NoB7zRUVA==}
     engines: {node: '>=16'}
     peerDependencies:
       '@solana/web3.js': ^1.77.3
     dependencies:
-      '@solana/wallet-standard-features': 1.1.0-alpha.4
+      '@solana/wallet-standard-features': 1.1.0-alpha.5
       '@solana/web3.js': 1.73.2
       '@wallet-standard/base': 1.0.1
       '@wallet-standard/features': 1.0.3
@@ -1151,8 +1151,8 @@ packages:
       '@wallet-standard/features': 1.0.3
     dev: true
 
-  /@solana/wallet-standard-features/1.1.0-alpha.4:
-    resolution: {integrity: sha512-+jrrcAx9Of6dGlZfN083bubcGr7/IkkJxoZqAYAuXkBXr84aPJQC0CMGAZZJkGU/ZXdhCHue/8U3i/6gKXGPrg==}
+  /@solana/wallet-standard-features/1.1.0-alpha.5:
+    resolution: {integrity: sha512-VJQPK+4tcXyQghv3QgphFdTRAIPEMFcivDzmKRqFr5+9W83ZqVmNzpibCEakEkznE3oSRZcvZiE+t8ctT+WEiQ==}
     engines: {node: '>=16'}
     dependencies:
       '@wallet-standard/base': 1.0.1
