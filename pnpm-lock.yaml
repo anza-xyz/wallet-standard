@@ -169,7 +169,7 @@ importers:
 
   packages/wallets/ghost:
     specifiers:
-      '@solana/wallet-standard-features': ^1.0.1
+      '@solana/wallet-standard-features': ^1.1.0
       '@solana/web3.js': ^1.58.0
       '@types/bs58': ^4.0.1
       '@types/node-fetch': ^2.6.2
