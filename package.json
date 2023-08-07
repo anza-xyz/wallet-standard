@@ -18,7 +18,7 @@
         "build:package": "pnpm --recursive --workspace-concurrency=0 run package",
         "build:other": "pnpm --recursive --workspace-concurrency=0 run build",
         "build:clean": "pnpm run clean && pnpm run build",
-        "release": "pnpm run build:clean && changeset publish && git push --follow-tags && git status",
+        "release": "pnpm run build:clean && pnpm test && changeset publish && git push --follow-tags && git status",
         "watch": "pnpm run watch:ts",
         "watch:ts": "tsc --build --verbose --watch tsconfig.all.json",
         "fmt": "prettier --write '{*,**/*}.{ts,tsx,js,jsx,json}'",
@@ -32,6 +32,7 @@
     "devDependencies": {
         "@changesets/cli": "^2.25.0",
         "@types/chrome": "^0.0.195",
+        "@types/jest": "^28.1.8",
         "@types/node": "^18.11.5",
         "@typescript-eslint/eslint-plugin": "^5.41.0",
         "@typescript-eslint/parser": "^5.41.0",

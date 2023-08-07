@@ -6,11 +6,18 @@ import {
     SOLANA_TESTNET_CHAIN,
 } from '@solana/wallet-standard-chains';
 
+/** TODO: docs */
 export const MAINNET_ENDPOINT = 'https://api.mainnet-beta.solana.com';
+/** TODO: docs */
 export const DEVNET_ENDPOINT = 'https://api.devnet.solana.com';
+/** TODO: docs */
 export const TESTNET_ENDPOINT = 'https://api.testnet.solana.com';
+/** TODO: docs */
 export const LOCALNET_ENDPOINT = 'http://localhost:8899';
 
+/**
+ * TODO: docs
+ */
 export function getChainForEndpoint(endpoint: string): SolanaChain {
     if (endpoint.includes(MAINNET_ENDPOINT)) return SOLANA_MAINNET_CHAIN;
     if (/\bdevnet\b/i.test(endpoint)) return SOLANA_DEVNET_CHAIN;
@@ -19,6 +26,9 @@ export function getChainForEndpoint(endpoint: string): SolanaChain {
     return SOLANA_MAINNET_CHAIN;
 }
 
+/**
+ * TODO: docs
+ */
 export function getEndpointForChain(chain: SolanaChain, endpoint?: string): string {
     if (endpoint) return endpoint;
     if (chain === SOLANA_MAINNET_CHAIN) return MAINNET_ENDPOINT;

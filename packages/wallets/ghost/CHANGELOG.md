@@ -1,6 +1,6 @@
 # @solana/wallet-standard-ghost
 
-## null
+## 0.0.0
 
 ### Patch Changes
 

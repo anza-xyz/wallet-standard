@@ -30,7 +30,7 @@ export type SolanaSignAndSendTransactionFeature = {
     };
 };
 
-/** TODO: docs */
+/** Version of the feature. */
 export type SolanaSignAndSendTransactionVersion = '1.0.0';
 
 /** TODO: docs */

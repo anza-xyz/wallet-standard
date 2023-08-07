@@ -5,9 +5,9 @@ import type { Wallet } from '@wallet-standard/base';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export function useStandardWalletAdapters(adapters: Adapter[]): Adapter[] {
+    const warnings = useConstant(() => new Set<WalletName>());
     const { get, on } = useConstant(() => DEPRECATED_getWallets());
     const [standardAdapters, setStandardAdapters] = useState(() => wrapWalletsWithAdapters(get()));
-    const warnings = useConstant(() => new Set<WalletName>());
 
     useEffect(() => {
         const listeners = [
@@ -22,8 +22,22 @@ export function useStandardWalletAdapters(adapters: Adapter[]): Adapter[] {
                 )
             ),
         ];
-        return () => listeners.forEach((destroy) => destroy());
+        return () => listeners.forEach((off) => off());
     }, [on]);
+
+    const prevStandardAdapters = usePrevious(standardAdapters);
+    useEffect(() => {
+        if (!prevStandardAdapters) return;
+
+        const currentAdapters = new Set(standardAdapters);
+        const removedAdapters = new Set(
+            prevStandardAdapters.filter((previousAdapter) => !currentAdapters.has(previousAdapter))
+        );
+        removedAdapters.forEach((adapter) => adapter.destroy());
+    }, [prevStandardAdapters, standardAdapters]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => () => standardAdapters.forEach((adapter) => adapter.destroy()), []);
 
     return useMemo(
         () => [
@@ -51,6 +65,14 @@ function useConstant<T>(fn: () => T): T {
         ref.current = { value: fn() };
     }
     return ref.current.value;
+}
+
+function usePrevious<T>(state: T): T | undefined {
+    const ref = useRef<T>();
+    useEffect(() => {
+        ref.current = state;
+    });
+    return ref.current;
 }
 
 function wrapWalletsWithAdapters(wallets: readonly Wallet[]): readonly StandardWalletAdapter[] {

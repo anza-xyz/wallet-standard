@@ -3,6 +3,10 @@ import {
     type SolanaSignAndSendTransactionFeature,
     type SolanaSignAndSendTransactionMethod,
     type SolanaSignAndSendTransactionOutput,
+    SolanaSignIn,
+    type SolanaSignInFeature,
+    type SolanaSignInMethod,
+    type SolanaSignInOutput,
     SolanaSignMessage,
     type SolanaSignMessageFeature,
     type SolanaSignMessageMethod,
@@ -73,6 +77,7 @@ export class GhostWallet implements Wallet {
         SolanaSignAndSendTransactionFeature &
         SolanaSignTransactionFeature &
         SolanaSignMessageFeature &
+        SolanaSignInFeature &
         GhostFeature {
         return {
             [StandardConnect]: {
@@ -100,6 +105,10 @@ export class GhostWallet implements Wallet {
             [SolanaSignMessage]: {
                 version: '1.0.0',
                 signMessage: this.#signMessage,
+            },
+            [SolanaSignIn]: {
+                version: '1.0.0',
+                signIn: this.#signIn,
             },
             [GhostNamespace]: {
                 ghost: this.#ghost,
@@ -271,6 +280,20 @@ export class GhostWallet implements Wallet {
             for (const input of inputs) {
                 outputs.push(...(await this.#signMessage(input)));
             }
+        }
+
+        return outputs;
+    };
+
+    #signIn: SolanaSignInMethod = async (...inputs) => {
+        const outputs: SolanaSignInOutput[] = [];
+
+        if (inputs.length > 1) {
+            for (const input of inputs) {
+                outputs.push(await this.#ghost.signIn(input));
+            }
+        } else {
+            return [await this.#ghost.signIn(inputs[0])];
         }
 
         return outputs;

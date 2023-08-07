@@ -15,8 +15,8 @@ export type SolanaSignMessageFeature = {
     };
 };
 
-/** TODO: docs */
-export type SolanaSignMessageVersion = '1.0.0';
+/** Version of the feature. */
+export type SolanaSignMessageVersion = '1.1.0' | '1.0.0';
 
 /** TODO: docs */
 export type SolanaSignMessageMethod = (
@@ -34,9 +34,21 @@ export interface SolanaSignMessageInput {
 
 /** Output of signing a message. */
 export interface SolanaSignMessageOutput {
-    /** TODO: docs */
+    /**
+     * Message bytes that were signed.
+     * The wallet may prefix or otherwise modify the message before signing it.
+     */
     readonly signedMessage: Uint8Array;
 
-    /** TODO: docs */
+    /**
+     * Message signature produced.
+     * If the signature type is provided, the signature must be Ed25519.
+     */
     readonly signature: Uint8Array;
+
+    /**
+     * Optional type of the message signature produced.
+     * If not provided, the signature must be Ed25519.
+     */
+    readonly signatureType?: 'ed25519';
 }
