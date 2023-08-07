@@ -1,5 +1,11 @@
 # @solana/wallet-standard-wallet-adapter-base
 
+## 1.1.1
+
+### Patch Changes
+
+-   8fa4fa3: Use production release of @solana/wallet-adapter-base
+
 ## 1.1.0
 
 ### Minor Changes
