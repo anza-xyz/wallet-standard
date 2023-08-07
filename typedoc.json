@@ -1,5 +1,5 @@
 {
-    "entryPoints": ["packages/core/*", "packages/solana/*"],
+    "entryPoints": ["packages/core/*", "packages/wallet-adapter/*"],
     "entryPointStrategy": "packages",
     "out": "docs",
     "readme": "README.md"
