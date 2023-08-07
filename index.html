@@ -1,0 +1,101 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Documentation</title><meta name="description" content="Documentation for Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Documentation</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>Documentation</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#solana-wallet-standard" id="solana-wallet-standard" style="color: inherit; text-decoration: none;">
+  <h1>Solana Wallet Standard</h1>
+</a>
+<p>This repo contains Solana-specific extensions to the <a href="https://github.com/wallet-standard/wallet-standard">Wallet Standard</a>.</p>
+<p>If you have a wallet and want to implement this, please see the <a href="./WALLET.md">Wallet Standard for Wallets</a> guide.</p>
+
+<a href="#typescript-monorepo" id="typescript-monorepo" style="color: inherit; text-decoration: none;">
+  <h1><a href="https://github.com/jordansexton/typescript-monorepo">typescript-monorepo</a></h1>
+</a>
+<p>This is a simple monorepo template with some specific design goals:</p>
+<ul>
+<li>Latest TypeScript version</li>
+<li>Fast, incremental dependency updates and builds</li>
+<li>No package bundler</li>
+<li>Watch mode works</li>
+<li>ESM and CJS work (with distinct build outputs)</li>
+<li>Vanilla TS and React packages work</li>
+<li>Create React App works* (with hot module reloading of the entire workspace)</li>
+<li>Parcel works (with HMR)</li>
+</ul>
+<p>* Create React App, which uses Webpack 5, can&#39;t resolve ES modules without .mjs file extensions by default, so <a href="https://github.com/timarney/react-app-rewired">react-app-rewired</a> is minimally used to <a href="packages/app/create-react-app/config-overrides.js">configure Webpack</a> to do this.</p>
+
+<a href="#prerequisites" id="prerequisites" style="color: inherit; text-decoration: none;">
+  <h2>Prerequisites</h2>
+</a>
+<ul>
+<li>Node 16+</li>
+<li>PNPM</li>
+</ul>
+<p>If you have Node 16+, you can <a href="https://pnpm.io/installation#using-corepack">activate PNPM with Corepack</a>:</p>
+<pre><code class="language-shell"><span class="hl-0">corepack </span><span class="hl-1">enable</span><br/><span class="hl-0">corepack </span><span class="hl-1">prepare</span><span class="hl-0"> </span><span class="hl-1">pnpm@`npm info pnpm --json </span><span class="hl-0">|</span><span class="hl-1"> jq -r .version`</span><span class="hl-0"> --activate</span>
+</code></pre>
+<p>Corepack requires a version to enable, so if you don&#39;t have <a href="https://stedolan.github.io/jq/">jq</a> installed, you can <a href="https://formulae.brew.sh/formula/jq">install it</a>, or just manually get the current version of pnpm with <code>npm info pnpm</code> and use it like this:</p>
+<pre><code class="language-shell"><span class="hl-0">corepack </span><span class="hl-1">prepare</span><span class="hl-0"> </span><span class="hl-1">pnpm@7.13.4</span><span class="hl-0"> </span><span class="hl-1">--activate</span>
+</code></pre>
+
+<a href="#setup" id="setup" style="color: inherit; text-decoration: none;">
+  <h2>Setup</h2>
+</a>
+<pre><code class="language-shell"><span class="hl-0">git </span><span class="hl-1">clone</span><span class="hl-0"> </span><span class="hl-1">https://github.com/wallet-standard/wallet-standard.git</span><br/><span class="hl-2">cd</span><span class="hl-0"> </span><span class="hl-1">wallet-standard</span><br/><span class="hl-0">pnpm </span><span class="hl-1">install</span>
+</code></pre>
+
+<a href="#build" id="build" style="color: inherit; text-decoration: none;">
+  <h2>Build</h2>
+</a>
+<p>Run this to build all your workspace packages.</p>
+<pre><code class="language-shell"><span class="hl-0">pnpm </span><span class="hl-1">build</span>
+</code></pre>
+<p>This will build workspace packages that use <code>tsc</code> for compilation first, then everything else.</p>
+
+<a href="#watch" id="watch" style="color: inherit; text-decoration: none;">
+  <h2>Watch</h2>
+</a>
+<p>Run this to build and watch workspace packages that use <code>tsc</code> for compilation.</p>
+<pre><code class="language-shell"><span class="hl-0">pnpm </span><span class="hl-1">watch</span>
+</code></pre>
+<p>Other packages can build and run with their own tools (like CRA&#39;s react-scripts commands).</p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">Documentation</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/_solana_wallet_standard_chains.html">@solana/wallet-<wbr/>standard-<wbr/>chains</a></li>
+<li class="tsd-kind-module"><a href="modules/_solana_wallet_standard_core.html">@solana/wallet-<wbr/>standard-<wbr/>core</a></li>
+<li class="tsd-kind-module"><a href="modules/_solana_wallet_standard_features.html">@solana/wallet-<wbr/>standard-<wbr/>features</a></li>
+<li class="tsd-kind-module"><a href="modules/_solana_wallet_standard_util.html">@solana/wallet-<wbr/>standard-<wbr/>util</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>
