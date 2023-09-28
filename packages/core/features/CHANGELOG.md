@@ -1,5 +1,11 @@
 # @solana/wallet-standard-features
 
+## 1.2.0-alpha.0
+
+### Minor Changes
+
+-   Add `waitForCommitmentToSendNextTransaction` to `SolanaSignAndSendTransactionOptions`
+
 ## 1.1.0
 
 ### Minor Changes

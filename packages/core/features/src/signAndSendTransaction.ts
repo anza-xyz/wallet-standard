@@ -63,4 +63,7 @@ export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions &
 
     /** Maximum number of times for the RPC node to retry sending the transaction to the leader. */
     readonly maxRetries?: number;
+
+    /** Wait till specified commitment before sending the next transaction. If commitment not specified, wait till "confirmed" commitment*/
+    readonly waitForCommitmentToSendNextTransaction?: boolean;
 };
