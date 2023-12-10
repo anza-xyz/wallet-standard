@@ -135,7 +135,9 @@ const uniqueNewYork = new UniqueNewYork();
 // Register your wallet using the Wallet Standard, passing the reference.
 initialize(uniqueNewYork);
 
-// Attach the reference to the window, guarding against errors.
+// New wallets no longer need to register wallet globals - and can 
+// ignore the code below. However if you have legacy apps relying on globals, 
+// this is the safest way to attach the reference to the window, guarding against errors.
 try {
     Object.defineProperty(window, 'uniqueNewYork', { value: uniqueNewYork });
 }
