@@ -1,6 +1,7 @@
 // This is copied from @solana/wallet-standard-chains
 
 import type { IdentifierString } from '@wallet-standard/base';
+import type { Transaction, VersionedTransaction } from '@solana/web3.js';
 
 /** Solana Mainnet (beta) cluster, e.g. https://api.mainnet-beta.solana.com */
 export const SOLANA_MAINNET_CHAIN = 'solana:mainnet';
@@ -30,4 +31,10 @@ export type SolanaChain = (typeof SOLANA_CHAINS)[number];
  */
 export function isSolanaChain(chain: IdentifierString): chain is SolanaChain {
     return SOLANA_CHAINS.includes(chain as SolanaChain);
+}
+
+export function isVersionedTransaction(
+  transaction: Transaction | VersionedTransaction
+): transaction is VersionedTransaction {
+    return 'version' in transaction;
 }
