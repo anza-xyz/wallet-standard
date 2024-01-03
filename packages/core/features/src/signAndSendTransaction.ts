@@ -55,6 +55,9 @@ export interface SolanaSignAndSendTransactionOutput {
 
 /** Options for signing and sending a transaction. */
 export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions & {
+    /** Mode for signing and sending transactions. */
+    readonly mode?: SolanaSignAndSendTransactionMode;
+
     /** Desired commitment level. If provided, confirm the transaction after sending. */
     readonly commitment?: SolanaTransactionCommitment;
 
@@ -64,3 +67,6 @@ export type SolanaSignAndSendTransactionOptions = SolanaSignTransactionOptions &
     /** Maximum number of times for the RPC node to retry sending the transaction to the leader. */
     readonly maxRetries?: number;
 };
+
+/** Mode for signing and sending transactions. */
+export type SolanaSignAndSendTransactionMode = 'parallel' | 'serial';
