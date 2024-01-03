@@ -1,5 +1,11 @@
 # @solana/wallet-standard-features
 
+## 1.2.0
+
+### Minor Changes
+
+-   f8618d5: Add `mode` option to `signAndSendTransaction` input
+
 ## 1.1.0
 
 ### Minor Changes
