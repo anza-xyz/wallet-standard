@@ -74,7 +74,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
                     return Promise.all(inputs.map(async (input) => {
                         const transaction = VersionedTransaction.deserialize(input.transaction);
                         const connection = new Connection(input.chain, input.options?.commitment ?? 'confirmed');
-                        const signature = walletAdapter.sendTransaction(transactions[index]!, connections[index]!, input.options);
+                        const signature = walletAdapter.sendTransaction(transaction, connection, input.options);
                         return { signature: base58.decode(signature) };
                     }));
                 },
