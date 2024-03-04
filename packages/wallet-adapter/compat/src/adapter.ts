@@ -40,7 +40,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
         // In Adapter, icon is a string and not constraint to static base64 image.
         // If icon is not a base64 image, return a 1px x 1px transparent gif.
         if (!this.#adapter.icon.startsWith('data:image')) {
-            return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+            return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAIBAAA=';
         }
         return this.#adapter.icon as WalletIcon;
     }
@@ -71,19 +71,11 @@ export class SolanaWalletAdapterWallet implements Wallet {
                 version: '1.0.0',
                 supportedTransactionVersions: [0, 'legacy'],
                 signAndSendTransaction: async (...inputs: readonly SolanaSignAndSendTransactionInput[]) => {
-                    const transactions = inputs.map((input) => {
-                        try {
-                            return VersionedTransaction.deserialize(input.transaction);
-                        } catch {
-                            return Transaction.from(input.transaction);
-                        }
-                    });
-                    const connections = inputs.map((input) => new Connection(input.chain, input.options?.commitment ?? 'confirmed'));
-                    const signatures = await Promise.all(inputs.map(async (input, index) =>
-                        walletAdapter.sendTransaction(transactions[index]!, connections[index]!, input.options)
-                    ));
-                    return signatures.map((signature) => ({
-                        signature: base58.decode(signature),
+                    return Promise.all(inputs.map(async (input) => {
+                        const transaction = VersionedTransaction.deserialize(input.transaction);
+                        const connection = new Connection(input.chain, input.options?.commitment ?? 'confirmed');
+                        const signature = walletAdapter.sendTransaction(transactions[index]!, connections[index]!, input.options);
+                        return { signature: base58.decode(signature) };
                     }));
                 },
             } : undefined,
@@ -96,24 +88,20 @@ export class SolanaWalletAdapterWallet implements Wallet {
             [SolanaSignMessage]: 'signMessage' in walletAdapter ? {
                 version: '1.0.0',
                 signMessage: async (...inputs: readonly SolanaSignMessageInput[]) => {
-                    const signatures = await Promise.all(inputs.map(async (input) => walletAdapter.signMessage(input.message)));
-                    return signatures.map((signature, index) => ({
-                        signature,
-                        signedMessage: inputs[index]!.message,
-                    }));
+                    return Promise.all(inputs.map(async (input) => {
+                        const signature = walletAdapter.signMessage(input.message));
+                        return {
+                            signature,
+                            signedMessage: input.message,
+                        }
+                    });
                 },
             } : undefined,
             [SolanaSignTransaction]: 'signAllTransactions' in walletAdapter ? {
                 version: '1.0.0',
                 supportedTransactionVersions: [0, 'legacy'],
                 signTransaction: async (...inputs: readonly SolanaSignTransactionInput[]) => {
-                    const transactions = inputs.map((input) => {
-                        try {
-                            return VersionedTransaction.deserialize(input.transaction);
-                        } catch {
-                            return Transaction.from(input.transaction);
-                        }
-                    });
+                    const transactions = inputs.map((input) => VersionedTransaction.deserialize(input.transaction));
                     const signedTransactions = await walletAdapter.signAllTransactions(transactions);
                     return signedTransactions.map(signedTransactions => ({
                         signedTransaction: signedTransactions.serialize({
