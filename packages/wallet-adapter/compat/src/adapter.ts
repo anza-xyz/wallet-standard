@@ -173,9 +173,11 @@ export class SolanaWalletAdapterWallet implements Wallet {
 
     get icon(): WalletIcon {
         // In Adapter, icon is a string and not constraint to static base64 image.
-        // If icon is not a base64 image, return a 1px x 1px transparent gif.
+        // If icon is not a base64 image, throw an error.
         if (!this.#adapter.icon.startsWith('data:image')) {
-            return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAIBAAA=';
+            throw new Error(
+                'Wallet icon must be a static base64 image. Please contact the author of the wallet adapter or subclass the adapter and override the icon.'
+            );
         }
         return this.#adapter.icon as WalletIcon;
     }
