@@ -36,7 +36,7 @@ import {
     type StandardEventsNames,
     type StandardEventsOnMethod,
 } from '@wallet-standard/features';
-import { arraysEqual, bytesEqual, ReadonlyWalletAccount } from '@wallet-standard/wallet';
+import { arraysEqual, bytesEqual, ReadonlyWalletAccount, walletAccountsEqual } from '@wallet-standard/wallet';
 import bs58 from 'bs58';
 
 /** TODO: docs */
@@ -277,7 +277,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const input = inputs[0]!;
-            if (input.account !== this.#account) throw new Error('invalid account');
+            if (!walletAccountsEqual(input.account, this.#account)) throw new Error('invalid account');
             if (!isSolanaChain(input.chain)) throw new Error('invalid chain');
             const transaction = this.#deserializeTransaction(input.transaction);
             const { commitment, preflightCommitment, skipPreflight, maxRetries, minContextSlot } = input.options || {};
@@ -326,7 +326,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const input = inputs[0]!;
-            if (input.account !== this.#account) throw new Error('invalid account');
+            if (!walletAccountsEqual(input.account, this.#account)) throw new Error('invalid account');
             if (input.chain && !isSolanaChain(input.chain)) throw new Error('invalid chain');
             const transaction = this.#deserializeTransaction(input.transaction);
 
@@ -344,7 +344,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
             outputs.push({ signedTransaction: serializedTransaction });
         } else if (inputs.length > 1) {
             for (const input of inputs) {
-                if (input.account !== this.#account) throw new Error('invalid account');
+                if (!walletAccountsEqual(input.account, this.#account)) throw new Error('invalid account');
                 if (input.chain && !isSolanaChain(input.chain)) throw new Error('invalid chain');
             }
             const transactions = inputs.map(({ transaction }) => this.#deserializeTransaction(transaction));
@@ -377,7 +377,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
         if (inputs.length === 1) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const input = inputs[0]!;
-            if (input.account !== this.#account) throw new Error('invalid account');
+            if (!walletAccountsEqual(input.account, this.#account)) throw new Error('invalid account');
 
             const signature = await this.#adapter.signMessage(input.message);
 
