@@ -162,7 +162,12 @@ export class SolanaWalletAdapterWallet implements Wallet {
             };
         }
 
-        return { ...features, ...signTransactionFeature, ...signMessageFeature };
+        return {
+            ...features,
+            ...signTransactionFeature,
+            ...signMessageFeature,
+            ...signInFeature,
+        };
     }
 
     get accounts() {
