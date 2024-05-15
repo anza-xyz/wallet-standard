@@ -1,7 +1,7 @@
 import { GlowWalletAdapter } from '@solana/wallet-adapter-glow';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { registerWalletAdapter, SOLANA_MAINNET_CHAIN } from '@solana/wallet-standard';
-import { useWallets, WalletProvider } from '@wallet-standard/react';
+import { useWallets_INTERNAL_ONLY_NOT_FOR_EXPORT, WalletProvider } from '@wallet-standard/react';
 import type { FC, ReactNode } from 'react';
 import React, { useEffect } from 'react';
 
@@ -24,7 +24,7 @@ const Context: FC<{ children: NonNullable<ReactNode> }> = ({ children }) => {
 };
 
 const Content: FC = () => {
-    const wallets = useWallets();
+    const wallets = useWallets_INTERNAL_ONLY_NOT_FOR_EXPORT();
     return (
         <ul>
             {wallets.map((wallet, index) => (
