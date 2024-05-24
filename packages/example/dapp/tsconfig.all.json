@@ -1,0 +1,14 @@
+{
+    "extends": "../../../tsconfig.root.json",
+    "references": [
+        {
+            "path": "../../core/_/tsconfig.all.json"
+        },
+        {
+            "path": "../../react/_/tsconfig.all.json"
+        },
+        {
+            "path": "./tsconfig.base.json"
+        }
+    ]
+}
