@@ -152,7 +152,7 @@ Even if another wallet uses "your" namespace (e.g. `window.solana`), the Standar
 
 ## 10. Test your wallet
 
-Open the Wallet Adapter demo https://solana-labs.github.io/wallet-adapter/example/ to test your wallet.
+Open the Wallet Adapter demo https://anza-xyz.github.io/wallet-adapter/example/ to test your wallet.
 
 If your wallet implements the Wallet Standard, it will be detected by this example dapp.
 
