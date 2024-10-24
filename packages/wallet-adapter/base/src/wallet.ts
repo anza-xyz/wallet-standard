@@ -106,6 +106,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
 
     get features(): StandardConnectFeature &
         StandardDisconnectFeature &
+        StandardEventsFeature &
         SolanaSignAndSendTransactionFeature &
         Partial<SolanaSignTransactionFeature & SolanaSignMessageFeature & SolanaSignInFeature> {
         const features: StandardConnectFeature &
