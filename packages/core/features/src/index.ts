@@ -3,13 +3,15 @@ import type { SolanaSignAndSendTransactionFeature } from './signAndSendTransacti
 import type { SolanaSignInFeature } from './signIn.js';
 import type { SolanaSignMessageFeature } from './signMessage.js';
 import type { SolanaSignTransactionFeature } from './signTransaction.js';
+import type { SolanaSignAndSendAllTransactionsFeature } from './signAndSendAllTransactions.js';
 
 /** TODO: docs */
 export type SolanaFeatures =
     | SolanaSignAndSendTransactionFeature
     | SolanaSignInFeature
     | SolanaSignMessageFeature
-    | SolanaSignTransactionFeature;
+    | SolanaSignTransactionFeature
+    | SolanaSignAndSendAllTransactionsFeature;
 
 /** TODO: docs */
 export type WalletWithSolanaFeatures = WalletWithFeatures<SolanaFeatures>;
@@ -18,3 +20,4 @@ export * from './signAndSendTransaction.js';
 export * from './signIn.js';
 export * from './signMessage.js';
 export * from './signTransaction.js';
+export * from './signAndSendAllTransactions.js';
