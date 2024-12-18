@@ -1,7 +1,6 @@
 import type { SolanaTransactionVersion } from './signTransaction.js';
 import type {
     SolanaSignAndSendTransactionInput,
-    SolanaSignAndSendTransactionMode,
     SolanaSignAndSendTransactionOutput,
 } from './signAndSendTransaction.js';
 
@@ -42,5 +41,8 @@ export type SolanaSignAndSendAllTransactionsMethod = (
 /** Options for signing and sending multiple transactions. */
 export type SolanaSignAndSendAllTransactionsOptions = {
     /** Mode for signing and sending transactions. */
-    readonly mode?: SolanaSignAndSendTransactionMode;
+    readonly mode?: SolanaSignAndSendAllTransactionsMode;
 };
+
+/** Mode for signing and sending transactions. */
+export type SolanaSignAndSendAllTransactionsMode = 'parallel' | 'serial';
