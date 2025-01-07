@@ -1,5 +1,11 @@
 # @solana/wallet-standard-features
 
+## 1.3.0
+
+### Minor Changes
+
+-   ee5e94a: Add solana:signAndSendAllTransactions feature
+
 ## 1.2.0
 
 ### Minor Changes
