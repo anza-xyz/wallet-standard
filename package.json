@@ -6,7 +6,7 @@
     "license": "Apache-2.0",
     "engines": {
         "node": ">=16",
-        "pnpm": ">=7"
+        "pnpm": ">=9"
     },
     "scripts": {
         "nuke": "shx rm -rf packages/*/*/node_modules node_modules pnpm-lock.yaml || true",
@@ -43,7 +43,7 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-require-extensions": "^0.1.1",
         "gh-pages": "^4.0.0",
-        "pnpm": "^7.14.0",
+        "pnpm": "^9.12.3",
         "prettier": "^2.7.1",
         "shx": "^0.3.4",
         "typedoc": "^0.23.18",
