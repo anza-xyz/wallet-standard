@@ -26,17 +26,16 @@
         "build": "npm run clean && npm run tsc && npm run package"
     },
     "dependencies": {
-        "@solana/wallet-standard-features": "^1.1.0",
-        "@solana/web3.js": "^1.58.0",
-        "@wallet-standard/base": "^1.0.1",
-        "@wallet-standard/features": "^1.0.3",
-        "bs58": "^4.0.1"
+        "@solana/wallet-standard-features": "^1.2.0",
+        "@solana/web3.js": "^1.98.0",
+        "@wallet-standard/base": "^1.1.0",
+        "@wallet-standard/features": "^1.1.0",
+        "bs58": "^6.0.0"
     },
     "devDependencies": {
-        "@types/bs58": "^4.0.1",
-        "@types/node-fetch": "^2.6.2",
-        "prettier": "^2.7.1",
+        "@types/node-fetch": "^2.6.12",
+        "prettier": "^3.4.2",
         "shx": "^0.3.4",
-        "typescript": "^4.8.4"
+        "typescript": "^5.7.3"
     }
 }
