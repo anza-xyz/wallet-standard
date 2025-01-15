@@ -1,5 +1,11 @@
 # @solana/wallet-standard-wallet-adapter-base
 
+## 1.1.4
+
+### Patch Changes
+
+- 2f4cb36: Fix type of features property
+
 ## 1.1.3
 
 ### Patch Changes
