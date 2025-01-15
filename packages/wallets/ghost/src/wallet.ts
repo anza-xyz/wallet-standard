@@ -16,7 +16,8 @@ import {
     type SolanaSignTransactionMethod,
     type SolanaSignTransactionOutput,
 } from '@solana/wallet-standard-features';
-import { Transaction, VersionedTransaction } from '@solana/web3.js';
+import type { Transaction } from '@solana/web3.js';
+import { VersionedTransaction } from '@solana/web3.js';
 import type { Wallet } from '@wallet-standard/base';
 import {
     StandardConnect,
@@ -151,7 +152,6 @@ export class GhostWallet implements Wallet {
     #connected = () => {
         const address = this.#ghost.publicKey?.toBase58();
         if (address) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const publicKey = this.#ghost.publicKey!.toBytes();
 
             const account = this.#account;
@@ -197,7 +197,6 @@ export class GhostWallet implements Wallet {
         const outputs: SolanaSignAndSendTransactionOutput[] = [];
 
         if (inputs.length === 1) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const { transaction, account, chain, options } = inputs[0]!;
             const { minContextSlot, preflightCommitment, skipPreflight, maxRetries } = options || {};
             if (account !== this.#account) throw new Error('invalid account');
@@ -229,7 +228,6 @@ export class GhostWallet implements Wallet {
         const outputs: SolanaSignTransactionOutput[] = [];
 
         if (inputs.length === 1) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const { transaction, account, chain } = inputs[0]!;
             if (account !== this.#account) throw new Error('invalid account');
             if (chain && !isSolanaChain(chain)) throw new Error('invalid chain');
@@ -289,7 +287,6 @@ export class GhostWallet implements Wallet {
         const outputs: SolanaSignMessageOutput[] = [];
 
         if (inputs.length === 1) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const { message, account } = inputs[0]!;
             if (account !== this.#account) throw new Error('invalid account');
 
