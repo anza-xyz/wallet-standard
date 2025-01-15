@@ -35,13 +35,13 @@
     },
     "dependencies": {
         "@solana/wallet-standard-wallet-adapter-base": "workspace:^",
-        "@wallet-standard/app": "^1.0.1",
-        "@wallet-standard/base": "^1.0.1"
+        "@wallet-standard/app": "^1.1.0",
+        "@wallet-standard/base": "^1.1.0"
     },
     "devDependencies": {
-        "@solana/wallet-adapter-base": "^0.9.21",
-        "@types/react": "^18.0.23",
-        "react": "^18.2.0",
+        "@solana/wallet-adapter-base": "^0.9.23",
+        "@types/react": "^19.0.7",
+        "react": "^19.0.0",
         "shx": "^0.3.4"
     }
 }
