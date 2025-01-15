@@ -31,6 +31,7 @@
     },
     "devDependencies": {
         "@changesets/cli": "^2.27.11",
+        "@eslint/compat": "^1.2.5",
         "@types/chrome": "^0.0.294",
         "@types/jest": "^29.5.14",
         "@types/node": "^22.10.6",
