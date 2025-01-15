@@ -12,7 +12,9 @@ export function verifySignIn(input: SolanaSignInInput, output: SolanaSignInOutpu
         account: { publicKey },
     } = output;
     const message = deriveSignInMessage(input, output);
-    return !!message && verifyMessageSignature({ message, signedMessage, signature, publicKey: publicKey as Uint8Array });
+    return (
+        !!message && verifyMessageSignature({ message, signedMessage, signature, publicKey: publicKey as Uint8Array })
+    );
 }
 
 /**
@@ -90,9 +92,8 @@ export function parseSignInMessageText(text: string): SolanaSignInInputWithRequi
     if (!groups) return null;
 
     return {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         domain: groups.domain!,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
         address: groups.address!,
         statement: groups.statement,
         uri: groups.uri,

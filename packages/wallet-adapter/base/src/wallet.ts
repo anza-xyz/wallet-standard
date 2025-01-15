@@ -41,6 +41,7 @@ import bs58 from 'bs58';
 
 /** TODO: docs */
 export class SolanaWalletAdapterWalletAccount extends ReadonlyWalletAccount {
+    // eslint-disable-next-line no-unused-private-class-members
     readonly #adapter: Adapter;
 
     constructor({
@@ -202,7 +203,6 @@ export class SolanaWalletAdapterWallet implements Wallet {
     #connected(): void {
         const publicKey = this.#adapter.publicKey?.toBytes();
         if (publicKey) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const address = this.#adapter.publicKey!.toBase58();
             const account = this.#account;
             if (
@@ -270,7 +270,6 @@ export class SolanaWalletAdapterWallet implements Wallet {
         const outputs: SolanaSignAndSendTransactionOutput[] = [];
 
         if (inputs.length === 1) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const input = inputs[0]!;
             if (input.account !== this.#account) throw new Error('invalid account');
             if (!isSolanaChain(input.chain)) throw new Error('invalid chain');
@@ -319,7 +318,6 @@ export class SolanaWalletAdapterWallet implements Wallet {
         const outputs: SolanaSignTransactionOutput[] = [];
 
         if (inputs.length === 1) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const input = inputs[0]!;
             if (input.account !== this.#account) throw new Error('invalid account');
             if (input.chain && !isSolanaChain(input.chain)) throw new Error('invalid chain');
@@ -370,7 +368,6 @@ export class SolanaWalletAdapterWallet implements Wallet {
         const outputs: SolanaSignMessageOutput[] = [];
 
         if (inputs.length === 1) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const input = inputs[0]!;
             if (input.account !== this.#account) throw new Error('invalid account');
 

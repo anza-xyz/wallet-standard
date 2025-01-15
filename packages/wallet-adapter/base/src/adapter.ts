@@ -319,7 +319,6 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                         },
                     });
 
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     return bs58.encode(output!.signature);
                 } else {
                     const [output] = await (this.#wallet.features as SolanaSignTransactionFeature)[
@@ -336,7 +335,6 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                         },
                     });
 
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     return await connection.sendRawTransaction(output!.signedTransaction, {
                         ...sendOptions,
                         preflightCommitment: getCommitment(sendOptions.preflightCommitment || connection.commitment),
@@ -374,7 +372,6 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                           ),
                 });
 
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const serializedTransaction = signedTransactions[0]!.signedTransaction;
 
                 return (
@@ -417,7 +414,6 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                 );
 
                 return transactions.map((transaction, index) => {
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     const signedTransaction = signedTransactions[index]!.signedTransaction;
 
                     return (
@@ -450,7 +446,6 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
                     message,
                 });
 
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 return signedMessages[0]!.signature;
             } catch (error: any) {
                 throw new WalletSignMessageError(error?.message, error);
