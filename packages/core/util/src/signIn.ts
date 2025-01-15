@@ -12,7 +12,7 @@ export function verifySignIn(input: SolanaSignInInput, output: SolanaSignInOutpu
         account: { publicKey },
     } = output;
     const message = deriveSignInMessage(input, output);
-    return !!message && verifyMessageSignature({ message, signedMessage, signature, publicKey });
+    return !!message && verifyMessageSignature({ message, signedMessage, signature, publicKey: publicKey as Uint8Array });
 }
 
 /**

@@ -60,15 +60,15 @@ export function useStandardWalletAdapters(adapters: Adapter[]): Adapter[] {
 }
 
 function useConstant<T>(fn: () => T): T {
-    const ref = useRef<{ value: T }>();
-    if (!ref.current) {
+    const ref = useRef<{ value: T }>(undefined);
+    if (ref.current === undefined) {
         ref.current = { value: fn() };
     }
     return ref.current.value;
 }
 
 function usePrevious<T>(state: T): T | undefined {
-    const ref = useRef<T>();
+    const ref = useRef<T>(undefined);
     useEffect(() => {
         ref.current = state;
     });

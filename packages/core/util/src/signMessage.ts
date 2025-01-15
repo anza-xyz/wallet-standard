@@ -29,5 +29,5 @@ export function verifySignMessage(input: SolanaSignMessageInput, output: SolanaS
         account: { publicKey },
     } = input;
     const { signedMessage, signature } = output;
-    return verifyMessageSignature({ message, signedMessage, signature, publicKey });
+    return verifyMessageSignature({ message, signedMessage, signature, publicKey: publicKey as Uint8Array });
 }
