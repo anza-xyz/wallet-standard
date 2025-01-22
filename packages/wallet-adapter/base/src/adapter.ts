@@ -130,8 +130,8 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
         return this.#connect({ silent: true });
     }
 
-    async connect(): Promise<void> {
-        return this.#connect();
+    async connect(input?: StandardConnectInput): Promise<void> {
+        return this.#connect(input);
     }
 
     async #connect(input?: StandardConnectInput): Promise<void> {
@@ -143,7 +143,9 @@ export class StandardWalletAdapter extends BaseWalletAdapter implements Standard
 
             if (!this.#wallet.accounts.length) {
                 try {
-                    await this.#wallet.features[StandardConnect].connect(input);
+                    // `onlyIfTrusted` plays the same role as `silent`, some wallets like Phantom use `onlyIfTrusted` instead of `silent`.
+                    const connectInput = input?.silent ? { ...input, onlyIfTrusted: true } : input;
+                    await this.#wallet.features[StandardConnect].connect(connectInput);
                 } catch (error: any) {
                     throw new WalletConnectionError(error?.message, error);
                 }
