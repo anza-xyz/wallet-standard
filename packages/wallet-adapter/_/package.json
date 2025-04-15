@@ -34,6 +34,6 @@
         "@solana/wallet-standard-wallet-adapter-react": "workspace:^"
     },
     "devDependencies": {
-        "shx": "^0.3.4"
+        "shx": "^0.4.0"
     }
 }

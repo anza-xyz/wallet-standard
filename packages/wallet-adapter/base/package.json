@@ -34,7 +34,7 @@
         "bs58": "^6.0.0"
     },
     "dependencies": {
-        "@solana/wallet-adapter-base": "^0.9.23",
+        "@solana/wallet-adapter-base": "^0.9.24",
         "@solana/wallet-standard-chains": "workspace:^",
         "@solana/wallet-standard-features": "workspace:^",
         "@solana/wallet-standard-util": "workspace:^",

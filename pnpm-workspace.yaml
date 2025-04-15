@@ -1,2 +1,7 @@
 packages:
-  - 'packages/*/*'
+  - packages/*/*
+
+onlyBuiltDependencies:
+  - bigint-buffer
+  - bufferutil
+  - utf-8-validate
