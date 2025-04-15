@@ -5,8 +5,8 @@
     "repository": "https://github.com/solana-labs/wallet-standard",
     "license": "Apache-2.0",
     "engines": {
-        "node": ">=16",
-        "pnpm": ">=9"
+        "node": ">=22",
+        "pnpm": "10.8.1"
     },
     "scripts": {
         "nuke": "shx rm -rf packages/*/*/node_modules node_modules pnpm-lock.yaml || true",
