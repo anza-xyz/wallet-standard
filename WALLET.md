@@ -69,41 +69,41 @@ git add .
 git commit -m "Add package-lock.json"
 ```
 
-## 6. Customize your icon
+## 6. Tùy chỉnh biểu tượng của bạn
 
-Open the `src/icon.ts` file. This contains a base64 encoded data URI of an SVG, PNG, WebP, or GIF image. This will be the icon dapps display for your wallet.
+Mở tệp ` src/icon.ts` . Tệp này chứa URI dữ liệu được mã hóa base64 của hình ảnh SVG, PNG, WebP hoặc GIF. Đây sẽ là biểu tượng mà ứng dụng phi tập trung (dapp) hiển thị cho ví của bạn.
 
-```ts
+``` ts
 import { WalletIcon } from '@wallet-standard/base';
 
 export const icon: WalletIcon =
     'data:image/svg+xml;base64,PHN2Zy......ZnPg==' as const;
 ```
 
-You can use a tool like https://base64.guru/converter/encode/image to encode an image using the "Data URI" setting. It's a good idea to compress your image losslessly with a tool like https://imageoptim.com first.
+Bạn có thể sử dụng một công cụ như https://base64.guru/converter/encode/image để mã hóa hình ảnh bằng cách sử dụng cài đặt "Data URI". Tốt hơn hết là bạn nên nén hình ảnh của mình không mất dữ liệu bằng một công cụ như https://imageoptim.com trước.
 
-Customize your icon mime type and data, and make sure to keep the typescript `as const` statement at the end.
+Tùy chỉnh kiểu MIME và dữ liệu biểu tượng của bạn, và đảm bảo giữ lại câu lệnh ` as const` của TypeScript ở cuối.
 
-```shell
+``` vỏ
 git add .
-git commit -m "Customize icon"
+git commit -m "Tùy chỉnh biểu tượng"
 ```
 
-## 7. Build the package
+## 7. Xây dựng gói
 
-```shell
+``` vỏ
 npm run build
 ```
 
-This outputs .js files to the `lib` directory.
+Thao tác này sẽ xuất các tệp .js vào thư mục ` lib` .
 
-## 8. Customize your wallet
+## 8. Tùy chỉnh ví của bạn
 
-This step depends on your wallet. Some or all of these changes may not apply to you, or may need to be done differently.
+Bước này phụ thuộc vào khả năng tài chính của bạn. Một số hoặc tất cả các thay đổi này có thể không áp dụng cho bạn, hoặc có thể cần được thực hiện theo cách khác.
 
-If your wallet has a different API or events, open the `src/window.ts` file and customize them. If you do this, you'll need to change corresponding things in `src/wallet.ts`.
+Nếu ví của bạn có API hoặc sự kiện khác, hãy mở tệp ` src/window.ts` và tùy chỉnh chúng. Nếu bạn làm vậy, bạn sẽ cần thay đổi những thứ tương ứng trong tệp ` src/ wallet.ts` .
 
-If your wallet doesn't support versioned transactions, you should add support for them to your wallet rather than change the API in `src/wallet.ts`.
+Nếu ví của bạn không hỗ trợ giao dịch có phiên bản, bạn nên thêm hỗ trợ cho chúng vào ví của mình thay vì thay đổi API trong ` src/ wallet.ts` .
 
 Ideally, you should support all Solana clusters. If your wallet doesn't, open the `src/solana.ts` file. You can remove any you don't support, and remove them from the `SOLANA_CHAINS` constant.
 
