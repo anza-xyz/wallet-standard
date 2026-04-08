@@ -6,6 +6,11 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   release:
     name: Release
@@ -13,20 +18,20 @@ jobs:
     steps:
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install pnpm
         id: install-pnpm
         uses: pnpm/action-setup@v4
         with:
-            version: 10.8.1
+            version: 10.24.0
             run_install: false
 
       - name: Install Node.js
         id: install-node
         uses: actions/setup-node@v4
         with:
-            node-version: 22
+            node-version: lts/*
             cache: 'pnpm'
 
       - name: Get pnpm store directory
@@ -37,7 +42,7 @@ jobs:
 
       - name: Setup pnpm cache
         id: pnpm-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
             path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
             key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -55,4 +60,4 @@ jobs:
           publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
