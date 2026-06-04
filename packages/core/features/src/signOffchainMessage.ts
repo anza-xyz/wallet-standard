@@ -37,7 +37,7 @@ export type SolanaSignOffchainMessageFeature = {
 export type SolanaSignOffchainMessageVersion = '1.0.0';
 
 /** Offchain message specification version. */
-export type SolanaOffchainMessageVersion = 0 | 1;
+export type SolanaOffchainMessageVersion = 1;
 
 /**
  * Signs one or more offchain messages, returning for each the full bytes the wallet constructed and signed
@@ -55,45 +55,7 @@ export type SolanaSignOffchainMessageMethod = (
  * Input for signing an offchain message.
  * Discriminated on `messageVersion` to enforce version-specific fields at the type level.
  */
-export type SolanaSignOffchainMessageInput = SolanaSignOffchainMessageInputV0 | SolanaSignOffchainMessageInputV1;
-
-/** Input for signing a version 0 offchain message. */
-export interface SolanaSignOffchainMessageInputV0 {
-    /** Offchain message specification version. */
-    readonly messageVersion: 0;
-
-    /**
-     * Account to use.
-     * Its public key must appear in `requiredSigners`.
-     */
-    readonly account: WalletAccount;
-
-    /**
-     * 32-byte application identifier.
-     * Wallets should render this to the user as a base58 string.
-     */
-    readonly applicationDomain: Uint8Array;
-
-    /**
-     * Body encoding and length variant:
-     * - `0` — restricted ASCII (`0x20..=0x7e`), at most 1232 bytes of preamble and body combined.
-     * - `1` — UTF-8, at most 1232 bytes combined.
-     * - `2` — UTF-8, at most 65535 bytes combined.
-     *
-     * The wallet must validate `message` against the chosen format and reject it otherwise.
-     */
-    readonly messageFormat: 0 | 1 | 2;
-
-    /** Message body, as raw bytes. */
-    readonly message: Uint8Array;
-
-    /**
-     * Required signer public keys, 32 bytes each.
-     * Order is preserved in the preamble.
-     * Must be non-empty and must contain the public key of `account`.
-     */
-    readonly requiredSigners: readonly [Uint8Array, ...(readonly Uint8Array[])];
-}
+export type SolanaSignOffchainMessageInput = SolanaSignOffchainMessageInputV1;
 
 /** Input for signing a version 1 offchain message. */
 export interface SolanaSignOffchainMessageInputV1 {
