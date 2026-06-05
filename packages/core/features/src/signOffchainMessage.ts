@@ -80,7 +80,7 @@ export interface SolanaSignOffchainMessageInputV1 {
      * canonical preamble required by the specification.
      * Must be non-empty and must contain the public key of `account`.
      */
-    readonly requiredSigners: readonly [Uint8Array, ...(readonly Uint8Array[])];
+    readonly requiredSigners: readonly WalletAccount['publicKey'][];
 }
 
 /** Output of signing an offchain message. */
