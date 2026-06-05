@@ -1,4 +1,4 @@
-import type { WalletAccount } from '@wallet-standard/base';
+import type { ReadonlyUint8Array, WalletAccount } from '@wallet-standard/base';
 
 /** Name of the feature. */
 export const SolanaSignOffchainMessage = 'solana:signOffchainMessage';
@@ -72,7 +72,7 @@ export interface SolanaSignOffchainMessageInputV1 {
      * UTF-8 message body, as raw bytes.
      * The wallet must reject byte sequences that are not valid UTF-8.
      */
-    readonly message: Uint8Array;
+    readonly message: ReadonlyUint8Array;
 
     /**
      * Required signer public keys, 32 bytes each.
@@ -89,13 +89,13 @@ export interface SolanaSignOffchainMessageOutput {
      * Full preamble and body bytes that the wallet constructed and signed.
      * Returned verbatim so the verifier can validate the signature without rebuilding the preamble.
      */
-    readonly signedOffchainMessage: Uint8Array;
+    readonly signedOffchainMessage: ReadonlyUint8Array;
 
     /**
      * Message signature produced.
      * If the signature type is provided, the signature must be Ed25519.
      */
-    readonly signature: Uint8Array;
+    readonly signature: ReadonlyUint8Array;
 
     /**
      * Optional type of the message signature produced.

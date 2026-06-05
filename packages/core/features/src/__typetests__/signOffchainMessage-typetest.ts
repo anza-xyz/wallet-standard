@@ -38,6 +38,9 @@ const account = null as unknown as WalletAccount;
         // @ts-expect-error Version 0 is not a supported message version.
         0 satisfies SolanaSignOffchainMessageInputV1['messageVersion'];
     }
+
+    // The `message` can be readonly
+    null as unknown as ReadonlyUint8Array satisfies SolanaSignOffchainMessageInputV1['message'];
 }
 
 // [DESCRIBE] `requiredSigners` ergonomics with `WalletAccount`
@@ -100,6 +103,16 @@ const account = null as unknown as WalletAccount;
             signatureType: 'secp256k1',
             signedOffchainMessage: new Uint8Array(),
         }) satisfies SolanaSignOffchainMessageOutput;
+    }
+
+    // The `signature` can be readonly.
+    {
+        null as unknown as ReadonlyUint8Array satisfies SolanaSignOffchainMessageOutput['signature'];
+    }
+
+    // The `signedOffchainMessage` can be readonly.
+    {
+        null as unknown as ReadonlyUint8Array satisfies SolanaSignOffchainMessageOutput['signedOffchainMessage'];
     }
 }
 
