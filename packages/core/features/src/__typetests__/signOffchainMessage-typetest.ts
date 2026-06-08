@@ -27,7 +27,7 @@ const account = null as unknown as WalletAccount;
     {
         ({
             account,
-            message: new Uint8Array(),
+            message: "",
             messageVersion: 1,
             requiredSigners: [new Uint8Array()],
         }) satisfies SolanaSignOffchainMessageInputV1;
@@ -38,9 +38,6 @@ const account = null as unknown as WalletAccount;
         // @ts-expect-error Version 0 is not a supported message version.
         0 satisfies SolanaSignOffchainMessageInputV1['messageVersion'];
     }
-
-    // The `message` can be readonly
-    null as unknown as ReadonlyUint8Array satisfies SolanaSignOffchainMessageInputV1['message'];
 }
 
 // [DESCRIBE] `requiredSigners` ergonomics with `WalletAccount`
@@ -51,7 +48,7 @@ const account = null as unknown as WalletAccount;
     {
         ({
             account,
-            message: new Uint8Array(),
+            message: "",
             messageVersion: 1,
             requiredSigners: [account.publicKey],
         }) satisfies SolanaSignOffchainMessageInputV1;

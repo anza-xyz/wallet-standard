@@ -69,10 +69,10 @@ export interface SolanaSignOffchainMessageInputV1 {
     readonly account: WalletAccount;
 
     /**
-     * UTF-8 message body, as raw bytes.
-     * The wallet must reject byte sequences that are not valid UTF-8.
+     * UTF-8 message body, as string.
+     * The wallet must encode this as UTF-8 using the [WHATWG TextEncoder Standard](https://encoding.spec.whatwg.org/#interface-textencoder)
      */
-    readonly message: ReadonlyUint8Array;
+    readonly message: string;
 
     /**
      * Required signer public keys, 32 bytes each.
