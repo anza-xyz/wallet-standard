@@ -16,7 +16,9 @@ export type SolanaSignInFeature = {
 };
 
 /** Version of the feature. */
-export type SolanaSignInVersion = '1.0.0';
+// Note: version 1.1.0 adds support for offchain messages, so wallets supporting that version must support the
+// `useOffchainMessage` option in the input of the `signIn` method.
+export type SolanaSignInVersion = '1.0.0' | '1.1.0';
 
 /** TODO: docs */
 export type SolanaSignInMethod = (...inputs: readonly SolanaSignInInput[]) => Promise<readonly SolanaSignInOutput[]>;
@@ -94,6 +96,13 @@ export interface SolanaSignInInput {
      * If not provided, the wallet must not include Resources in the message.
      */
     readonly resources?: readonly string[];
+
+    /**
+     * Optional configuration for using offchain messages.
+     * If provided, the wallet must use an offchain message for signing in instead of an onchain message.
+     * Note that only wallets advertising version: 1.1.0 or later of the feature support this option.
+     */
+    readonly useOffchainMessage?: OffchainMessageConfig;
 }
 
 /** Output of signing in. */
@@ -122,3 +131,7 @@ export interface SolanaSignInOutput {
      */
     readonly signatureType?: 'ed25519';
 }
+
+type OffchainMessageConfig = {
+    messageVersion: 1;
+};
