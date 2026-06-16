@@ -130,8 +130,19 @@ export interface SolanaSignInOutput {
      * If not provided, the signature must be Ed25519.
      */
     readonly signatureType?: 'ed25519';
+
+    /**
+     * Optional format of the message that was signed.
+     * If not provided, the message format is not specified.
+     */
+    readonly signedMessageFormat?: SignedMessageFormat;
 }
 
 type OffchainMessageConfig = {
+    messageVersion: 1;
+};
+
+type SignedMessageFormat = {
+    kind: 'offchainMessage';
     messageVersion: 1;
 };
