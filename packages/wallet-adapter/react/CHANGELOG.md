@@ -1,5 +1,13 @@
 # @solana/wallet-standard-wallet-adapter-react
 
+## 1.1.5
+
+### Patch Changes
+
+- 8c6fc57: Loosen the `node` and `pnpm` engine constraints (`node` to `>=22`, `pnpm` to `^10`) so the packages can be installed in a wider range of environments.
+- Updated dependencies [8c6fc57]
+    - @solana/wallet-standard-wallet-adapter-base@1.1.5
+
 ## 1.1.4
 
 ### Patch Changes

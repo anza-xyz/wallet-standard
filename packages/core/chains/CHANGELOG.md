@@ -1,5 +1,11 @@
 # @solana/wallet-standard-chains
 
+## 1.1.2
+
+### Patch Changes
+
+- 8c6fc57: Loosen the `node` and `pnpm` engine constraints (`node` to `>=22`, `pnpm` to `^10`) so the packages can be installed in a wider range of environments.
+
 ## 1.1.1
 
 ### Patch Changes
