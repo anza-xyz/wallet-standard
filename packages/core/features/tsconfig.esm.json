@@ -1,6 +1,7 @@
 {
     "extends": "../../../tsconfig.esm.json",
     "include": ["src"],
+    "exclude": ["src/**/__typetests__"],
     "compilerOptions": {
         "outDir": "lib/esm",
         "declarationDir": "lib/types"
