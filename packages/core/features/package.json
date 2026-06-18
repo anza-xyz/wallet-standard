@@ -2,7 +2,7 @@
     "name": "@solana/wallet-standard-features",
     "version": "1.4.0",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
-    "repository": "https://github.com/solana-labs/wallet-standard",
+    "repository": "https://github.com/anza-xyz/wallet-standard",
     "license": "Apache-2.0",
     "publishConfig": {
         "access": "public"

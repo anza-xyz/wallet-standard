@@ -2,7 +2,7 @@
     "private": true,
     "version": "0.0.0",
     "author": "Solana Maintainers <maintainers@solana.foundation>",
-    "repository": "https://github.com/solana-labs/wallet-standard",
+    "repository": "https://github.com/anza-xyz/wallet-standard",
     "license": "Apache-2.0",
     "engines": {
         "node": ">=22",
