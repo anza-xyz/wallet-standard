@@ -1,5 +1,15 @@
 # @solana/wallet-standard-features
 
+## 1.4.0
+
+### Minor Changes
+
+- 38d855c: Add the `solana:signOffchainMessage` feature, allowing dapps to request that a wallet sign offchain messages conforming to the Solana offchain message signing specification.
+
+### Patch Changes
+
+- 8c6fc57: Loosen the `node` and `pnpm` engine constraints (`node` to `>=22`, `pnpm` to `^10`) so the packages can be installed in a wider range of environments.
+
 ## 1.3.0
 
 ### Minor Changes
