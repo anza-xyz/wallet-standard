@@ -1,5 +1,11 @@
 # @solana/wallet-standard-wallet-adapter-react
 
+## 1.1.6
+
+### Patch Changes
+
+- 571d38e: Remove unregistered Wallet Standard adapters.
+
 ## 1.1.5
 
 ### Patch Changes
