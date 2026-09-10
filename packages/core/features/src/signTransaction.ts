@@ -28,7 +28,7 @@ export type SolanaSignTransactionFeature = {
 export type SolanaSignTransactionVersion = '1.0.0';
 
 /** TODO: docs */
-export type SolanaTransactionVersion = 'legacy' | 0;
+export type SolanaTransactionVersion = 'legacy' | 0 | 1;
 
 /** TODO: docs */
 export type SolanaSignTransactionMethod = (
