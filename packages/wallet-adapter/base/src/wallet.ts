@@ -209,7 +209,7 @@ export class SolanaWalletAdapterWallet implements Wallet {
             if (
                 !account ||
                 account.address !== address ||
-                account.chains.includes(this.#chain) ||
+                !account.chains.includes(this.#chain) ||
                 !bytesEqual(account.publicKey, publicKey)
             ) {
                 this.#account = new SolanaWalletAdapterWalletAccount({
