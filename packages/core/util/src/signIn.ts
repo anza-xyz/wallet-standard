@@ -1,20 +1,30 @@
 import type { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features';
 import { verifyMessageSignature } from './signMessage.js';
-import { arraysEqual } from './util.js';
+import { addressMatchesPublicKey, arraysEqual, copyBytes } from './util.js';
 
 /**
  * TODO: docs
  */
 export function verifySignIn(input: SolanaSignInInput, output: SolanaSignInOutput): boolean {
+    // Read each value from the wallet once, and copy the bytes, so the values that are checked are the values that are
+    // verified.
     const {
         signedMessage,
         signature,
-        account: { publicKey },
+        account: { address, publicKey },
     } = output;
-    const message = deriveSignInMessage(input, output);
-    return (
-        !!message && verifyMessageSignature({ message, signedMessage, signature, publicKey: publicKey as Uint8Array })
-    );
+    const publicKeyBytes = copyBytes(publicKey);
+    const signedMessageBytes = copyBytes(signedMessage);
+    if (!publicKeyBytes || !signedMessageBytes) return false;
+    if (!addressMatchesPublicKey(address, publicKeyBytes)) return false;
+    const text = deriveSignInMessageTextForAccount(input, address, signedMessageBytes);
+    if (!text) return false;
+    return verifyMessageSignature({
+        message: new TextEncoder().encode(text),
+        signedMessage: signedMessageBytes,
+        signature,
+        publicKey: publicKeyBytes,
+    });
 }
 
 /**
@@ -30,11 +40,20 @@ export function deriveSignInMessage(input: SolanaSignInInput, output: SolanaSign
  * TODO: docs
  */
 export function deriveSignInMessageText(input: SolanaSignInInput, output: SolanaSignInOutput): string | null {
-    const parsed = parseSignInMessage(output.signedMessage);
+    return deriveSignInMessageTextForAccount(input, output.account.address, output.signedMessage);
+}
+
+function deriveSignInMessageTextForAccount(
+    input: SolanaSignInInput,
+    accountAddress: string,
+    signedMessage: Uint8Array
+): string | null {
+    const parsed = parseSignInMessage(signedMessage);
     if (!parsed) return null;
 
     if (input.domain && input.domain !== parsed.domain) return null;
     if (input.address && input.address !== parsed.address) return null;
+    if (accountAddress !== parsed.address) return null;
     if (input.statement !== parsed.statement) return null;
     if (input.uri !== parsed.uri) return null;
     if (input.version !== parsed.version) return null;
