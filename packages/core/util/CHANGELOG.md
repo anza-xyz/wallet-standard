@@ -1,5 +1,11 @@
 # @solana/wallet-standard-util
 
+## 1.2.0
+
+### Minor Changes
+
+- e26aec3: Updates to signIn/signMessage
+
 ## 1.1.4
 
 ### Patch Changes
