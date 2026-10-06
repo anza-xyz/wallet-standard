@@ -23,6 +23,9 @@
             "path": "./packages/wallet-adapter/base/tsconfig.all.json"
         },
         {
+            "path": "./packages/wallet-adapter/compat/tsconfig.all.json"
+        },
+        {
             "path": "./packages/wallet-adapter/react/tsconfig.all.json"
         },
         {
